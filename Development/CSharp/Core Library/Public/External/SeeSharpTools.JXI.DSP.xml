@@ -1,0 +1,2809 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeeSharpTools.JXI.DSP</name>
+    </assembly>
+    <members>
+        <member name="T:SeeSharpTools.JXI.DSP.Conditioning.Conditioning">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Conditioning.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Conditioning.UnwrapPhase(System.Double[]@,System.Int32)">
+            <summary>
+            <para>UnwrapPhase，phase is the input phase to unwrap, in radians.</para>
+            </summary>
+            <param name="phase">phase is the input phase to unwrap, in radians. </param>
+            <param name="N">unwrapping length</param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Conditioning.FIRFilter">
+             <summary>
+            <para> FIR Filter Class </para>
+            <para> Simplified Chinese: FIR滤波器类</para>
+             </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.FIRFilter.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Conditioning.FIRFilter.FilteredPointns">
+            <summary>
+            <para>filtered Pointns</para>
+            <para>Simplified Chinese:通过滤波的点数</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.FIRFilter.Reset">
+            <summary>
+            <para>Clear status registor</para>
+            <para>Simplified Chinese:清空状态寄存器</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Conditioning.FIRFilter.Coefficients">
+            <summary>
+            <para>Filter coefficient </para>
+            <para>Simplified Chinese:滤波器系数</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.FIRFilter.Filter(System.Double[],System.Double[]@)">
+            <summary>
+            <para>This method is FIR filter direct form structure; </para>
+            <para>where _numerator=numerators, </para>
+            <para>they are sharing the same status registor _status;</para>
+            <para>Simplified Chinese:使用直接型FIR滤波器</para>
+            <para>所有输入信号共享一个状态寄存器</para>
+            </summary>
+            <param name="x">input signal Simplified Chinese:输入信号 </param>
+            <param name="y">output signal same length as _inputWaveform Simplified Chinese:输入信号，长度与输入信号一致</param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Conditioning.AveragedIIRFilter">
+            <summary>
+            internal used AveragedIIRFilter
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Conditioning.AveragedIIRFilter.FilteredPointns">
+             <summary>
+            Filtered Points
+             Simplified Chinese：已经滤波的点数
+             </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Conditioning.AveragedIIRFilter.SampleRate">
+            <summary>
+            Sample rate
+            Simplified Chinese：采样率
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Conditioning.AveragedIIRFilter.AvgMode">
+            <summary>
+            Averaging mode
+            Simplified Chinese：平均方式
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Conditioning.AveragedIIRFilter.DebugLevel">
+            <summary>
+            Debug level
+            Simplified Chinese：修正
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.AveragedIIRFilter.Init">
+            <summary>
+            
+            Simplified Chinese：初始化
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.AveragedIIRFilter.SetCoefficients(System.Double[],System.Double[])">
+            <summary>
+            Set the filter coefficients
+            Simplified Chinese：设置滤波器系数
+            </summary>
+            <param name="numerator">numerator Simplified Chinese：分子</param>
+            <param name="demoniator">demoniator Simplified Chinese：分母</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.AveragedIIRFilter.Filter(System.Double[],System.Int32)">
+            <summary>
+            This method is IIR filter direct form II structure;
+            where _numerator=numerators and _demoniator=denominators, 
+            they are sharing the same status registor _status;
+            Simplified Chinese:使用直接II型IIR滤波器
+            所有输入信号共享一个状态寄存器
+            </summary>
+            <param name="x">input signal</param>
+            <param name="length">length of inputsignal</param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter">
+            <summary>
+            <para>IIR Filter Class</para>
+            <para>Simplified Chinese:IIR滤波器类</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter._statusSOS">
+            <summary>
+            SOS status
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter._g">
+            <summary>
+            G
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter._SOS">
+            <summary>
+            SOS
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter.FilteredPointns">
+            <summary>
+            <para>Filtered Points</para>
+            <para>Simplified Chinese：已经滤波的点数</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter.IsSOS">
+            <summary>
+            是否使用二阶级联方式，默认否
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter.Reset">
+            <summary>
+            <para>Clear status registor</para>
+            <para>Simplified Chinese:清空状态寄存器</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter.SetCoefficients(System.Double[],System.Double[])">
+            <summary>
+            <para> Set the filter coefficients</para>
+            <para>Simplified Chinese：设置滤波器系数</para>
+            </summary>
+            <param name="numerator">numerator Simplified Chinese：分子</param>
+            <param name="demoniator">demoniator Simplified Chinese：分母</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter.SetCoefficients(System.Double[0:,0:],System.Double[])">
+            <summary>
+            <para> Set the filter coefficients</para>
+            <para>Simplified Chinese：设置滤波器系数</para>
+            </summary>
+            <param name="SOS">numerator Simplified Chinese：二阶矩阵</param>
+            <param name="G">demoniator Simplified Chinese：增益</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.IIRFilter.Filter(System.Double[],System.Double[]@)">
+            <summary>
+            <para>This method is IIR filter direct form II structure;</para>
+            <para>where _numerator=numerators and _demoniator=denominators, </para>
+            <para>they are sharing the same status registor _status;</para>
+            <para>Simplified Chinese：直接II型IIR滤波器，共享一个状态寄存器</para>
+            </summary>
+            <param name="x">input signal  Simplified Chinese：输入信号</param>
+            <param name="y">output signal same length as input signal  Simplified Chinese：输出信号，长度与输入信号一致 </param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Conditioning.WeightingType">
+            <summary>
+            Weighting Type
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Conditioning.TimeAveragingMode">
+            <summary>
+            Time Averaging Mode
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.TimeAveragingMode.Impulsive">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.TimeAveragingMode.Fast">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.TimeAveragingMode.Slow">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Conditioning.Resample">
+            <summary>
+            Resample class
+            <para>Simplified Chinese:重采样</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Resample.#cctor">
+            <summary>
+            constructor, execute when first call any method
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.Resample.interpFactor">
+            <summary>
+            time of interpolation
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.Resample.settlePoints">
+            <summary>
+            number of settle points
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.Resample.coef">
+            <summary>
+            coef
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Resample.ResampleWaveform(System.Double[],System.Double,System.Double)">
+            <summary>
+            <para>Resample</para>
+            <para>Simplified Chinese:重采样</para>
+            </summary>
+            <param name="data">data contains the input signal for resampling. The sampling interval of data is 1. </param>
+            <param name="delay">delay in Sample points</param>
+            <param name="dt"> specifies the sampling interval for outputWave</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Resample.ResampleWaveform(System.Double[],System.Double)">
+            <summary>
+            <para>Resample</para>
+            <para>Simplified Chinese:重采样</para>
+            </summary>
+            <param name="data"> 
+            <para>input data</para>
+            <para>Simplified Chinese:输入信号</para>
+            </param>
+            <param name="delay">
+            <para>delay in Sample points</para>
+            <para>Simplified Chinese:延迟抽样点数</para>
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Resample.ResampleWaveform(System.Numerics.Complex[],System.Double,System.Double)">
+            <summary>
+            <para>Resample</para>
+            <para>Simplified Chinese:重采样</para>
+            </summary>
+            <param name="data">data contains the input signal for resampling. The sampling interval of data is 1. </param>
+            <param name="delay">delay in Sample points</param>
+            <param name="dt"> specifies the sampling interval for outputWave</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Resample.InterpolateX(System.Double,System.Double[])">
+            <summary>
+            插点
+            </summary>
+            <param name="t">时间</param>
+            <param name="X">带插入的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Resample.InterpolateX(System.Double,System.Numerics.Complex[])">
+            <summary>
+            插点
+            </summary>
+            <param name="t">时间</param>
+            <param name="X">带插入的数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Conditioning.Synchronization">
+            <summary>
+            Synchronizer class
+            Simplified Chinese:同步类
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Synchronization.#cctor">
+            <summary>
+            constructor, execute when first call any method
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.Synchronization.interpFactor">
+            <summary>
+            time of interpolation
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.Synchronization.settlePoints">
+            <summary>
+            number of settle points
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Conditioning.Synchronization.coef">
+            <summary>
+            coef
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Synchronization.SyncWaveform(System.Double[0:,0:])">
+            <summary>
+            <para>Synchronize method that makes all the input channels simultaneous.</para>
+            <para>This method only applies to bandlimited signal such as sinusoidal waveform.</para>
+            <para>Note: </para>
+            <para>1 Array size should be numberOfChannels * SamplesPerChannel.</para>
+            <para>2 Size of return array will be smaller than input array because of settlepoints truncation.</para>
+            <para>Simplified Chinese:同步输入信号(仅限带限信号，比如正弦信号)</para>
+            <para> 注意：1数组的大小必须是通道数*每通道抽样点数</para>
+            <para>       2由于使用了滤波器使得返回数组的大小小于输入信号</para>
+            </summary>
+            <param name="data">
+            <para>input data  </para>
+            <para>Simplified Chinese:输入信号</para>
+            </param>
+            <returns>
+            <para>syncdata after resample and filtering  </para>
+            <para>Simplified Chinese:同步后的信号</para>
+            </returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Conditioning.Synchronization.SyncWaveform(System.Double[0:,0:],System.Double)">
+            <summary>
+            <para>Synchronize method that makes all the input channels simultaneous.</para>
+            <para>This method only applies to bandlimited signal such as sinusoidal waveform.</para>
+            <para>Note: </para>
+            <para>1 Array size should be numberOfChannels * SamplesPerChannel.</para>
+            <para>2 Size of return array will be smaller than input array because of settlepoints truncation.</para>
+            <para>Simplified Chinese:同步输入信号(仅限带限信号，比如正弦信号)</para>
+            <para> 注意：1数组的大小必须是通道数*每通道抽样点数</para>
+            <para>       2由于使用了滤波器使得返回数组的大小小于输入信号</para>
+            </summary>
+            <param name="data">
+            <para>input data  </para>
+            <para>Simplified Chinese:输入信号</para>
+            </param>
+            <param name="ChannelShiftSamples">
+            <para>Channel to Channel delay in Sample points  </para>
+            <para>Simplified Chinese:通道之间延迟的抽样点数</para>
+            </param>
+            <returns>
+            <para>syncdata after resample and filtering  </para>
+            <para>Simplified Chinese:同步后的信号</para>
+            </returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Generation.Generation">
+            <summary>
+            <para>Generation  Gaussian white noise.</para>
+            <para>提供高斯白噪声生成。</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Generation.Generation.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Generation.Generation.Ramp(System.Double[]@,System.Double,System.Double)">
+            <summary>
+            <para>Generates a sequence containing a ramp pattern specified by the first value and delta.</para>
+            <para>Chinese Simplified: 产生一个等差数列，数列的项数由数组x的长度给出，首项由start给出，公差由delta给出。</para>
+            </summary>
+            <param name="x">
+            <para>contains the ramp pattern sequence. </para>
+            <para>Chinese Simplified: 返回的等差数列</para>
+            </param>
+            <param name="start">
+            <para>the first value of ramp pattern. </para>
+            <para>Chinese Simplified: 等差数列的首项</para>
+            </param>
+            <param name="delta">
+            <para>the interval between two adjacent values in ramp pattern. </para>
+            <para>Chinese Simplified: 等差数列的公差</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Generation.Generation.SineWave(System.Double[]@,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            <para>Generates a sequence containing a sine wave with specified frequency and sampling rate.</para>
+            <para>Chinese Simplified: 生成一个正弦波形，可设定正弦波的幅度、初始相位、频率和采样率。</para>
+            </summary>
+            <param name="x">
+            <para>contains the sine wave sequence. </para>
+            <para>Chinese Simplified: 返回的正弦波形。</para>
+            </param>
+            <param name="amplitude">
+            <para>the amplitude of sine wave. </para>
+            <para>Chinese Simplified: 幅度。</para>
+            </param>
+            <param name="phase">
+            <para>the initial phase of the sine wave in degrees.</para>
+            <para>Chinese Simplified: 初始相位，以角度(Degree)为单位。</para>
+            </param>
+            <param name="frequency">
+            <para>the frequency of sine wave in Hz.  </para>
+            <para>Chinese Simplified: 正弦波的频率，以Hz为单位。</para>
+            </param>
+            <param name="samplingRate">
+            <para>the sampling rate of sine wave in samples/second. </para>
+            <para>Chinese Simplified: 采样率，以S/s为单位。</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Generation.Generation.SineWave(System.Double[]@,System.Double,System.Double,System.Int32)">
+            <summary>
+            <para>Generates a sequence containing a sine wave with complete periods.</para>
+            <para>Chinese Simplified: 生成一个包含整数个周期的正弦波形，可设定正弦波的幅度、初始相位和周期数。</para>
+            </summary>
+            <param name="x">
+            <para>contains the sine wave sequence. </para>
+            <para>Chinese Simplified: 返回的正弦波形。</para>
+            </param>
+            <param name="amplitude">
+            <para>the amplitude of sine wave. </para>
+            <para>Chinese Simplified: 幅度。</para>
+            </param>
+            <param name="phase">
+            <para>the initial phase of the sine wave in degrees.</para>
+            <para>Chinese Simplified: 初始相位，以角度(Degree)为单位。</para>
+            </param>
+            <param name="numberOfCycles">
+            <para>the number of complete periods of the sine wave. </para>
+            <para>Chinese Simplified: 正弦波周期数。</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Generation.Generation.SquareWave(System.Double[]@,System.Double,System.Double,System.Int32)">
+            <summary>
+            <para>Generates a sequence containing a square wave with complete periods.</para>
+            <para>Chinese Simplified: 生成一个包含整数个周期的方波波形，可设定方波的幅度、占空比和周期数。</para>
+            </summary>
+            <param name="x">
+            <para>contains the square wave sequence.</para>
+            <para>Chinese Simplified: 返回的方波波形。</para>
+            </param>
+            <param name="amplitude">
+            <para>the amplitude of square wave.</para>
+            <para>Chinese Simplified: 幅度。</para>
+            </param>
+            <param name="dutyCycle">
+            <para>the percentage of time the square wave remains high in one period.</para>
+            <para>Chinese Simplified: 占空百分比，为0~100之间的数值。</para>
+            </param>
+            <param name="numberOfCycles">
+            <para>the number of complete periods of the square wave.</para>
+            <para>Chinese Simplified:方波周期数。</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Generation.Generation.SquareWave(System.Double[]@,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            <para>Generates a sequence containing a square wave with specified frequency and sampling rate.</para>
+            <para>Chinese Simplified: 生成一个方波波形，可设定方波的幅度、占空比、频率和采样率。</para>
+            </summary>
+            <param name="x">
+            <para>contains the square wave sequence.</para>
+            <para>Chinese Simplified: 返回的方波波形。</para>
+            </param>
+            <param name="amplitude">
+            <para>the amplitude of square wave.</para>
+            <para>Chinese Simplified: 幅度。</para>
+            </param>
+            <param name="dutyCycle">
+            <para>the percentage of time the square wave remains high in one period.</para>
+            <para>Chinese Simplified: 占空百分比，为0~100之间的数值。</para>
+            </param>
+            <param name="frequency">
+            <para>the frequency of square wave in Hz. </para>
+            <para>Chinese Simplified: 方波的频率，以Hz为单位。</para>
+            </param>
+            <param name="samplingRate">
+            <para>the sampling rate of square wave in samples/second.</para>
+            <para>Chinese Simplified: 采样率，以S/s为单位。</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Generation.Generation.UniformWhiteNoise(System.Double[]@,System.Double)">
+             <summary>
+             <para>Generates a uniformly distributed pseudorandom sequence in the range [–amplitude, amplitude].</para>
+             <para>Chinese Simplified: 生成一个幅度在[–amplitude, amplitude]之间的随机白噪声波形。</para>
+             </summary>
+             <param name="x">
+             <para>contains the uniformly distributed, pseudorandom sequence.</para>
+             <para>Chinese Simplified: 返回的白噪声波形。</para>
+             </param>
+             <param name="amplitude">
+            <para> the amplitude of uniform white noise.</para>
+             <para>Chinese Simplified: 噪声幅度。</para>
+             </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Generation.Generation.GaussianWhiteNoise(System.Double[]@,System.Double)">
+            <summary>
+            <para>Generate gaussian white noise </para>
+            <para>生成高斯白噪声</para>
+            </summary>
+            <param name="x">
+            <para>output signal：gaussian white noise </para>
+            <para>Chinese Simplified：输出高斯白噪声</para>
+            </param>
+            <param name="stdev">
+            <para>Standard deviation</para>
+            <para>Chinese Simplified：标准差</para>
+            </param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.JTFA.JTFATask">
+            <summary>
+            <para>Joint Time-Frequency Analysis</para>
+            <para>The step size of the sliding window is 1/4*FrequencyBins</para>
+            <para>Chinese Simplified: 时频联合分析。</para>
+            <para>窗类型默认汉明窗，窗滑动的步径为1/4*FrequencyBins</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.FrequencyBins">
+            <summary>
+            <para>Frequency bins，default 512</para>
+            <para>Chinese Simplified：FFT谱线数，默认512，推荐使用2的整数幂</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTable">
+            <summary>
+            <para>The type of ColorTable</para>
+            <para>Chinese Simplified：强度图颜色类型</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.WindowType">
+            <summary>
+            <para>The type of FFTWindow</para>
+            <para>Chinese Simplified：窗类型</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.SampleRate">
+            <summary>
+            <para>Sample rate</para>
+            <para>Chinese Simplified：采样率</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.JTFAInfomation">
+            <summary>
+            <para>The information of spectrum （read only）</para>
+            <para>Chinese Simplified: 频谱输出信息(只读)。</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.colorTableR">
+            <summary>
+            definition of rainbow color table 定义色表
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask._subWaveform">
+            <summary>
+            实数JTFA，遗留数据
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask._subWaveformComplex">
+            <summary>
+            复数JTFA，遗留数据
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.Reset">
+            <summary>
+            <para>Reset</para>
+            <para>Chinese Simplified：清空保留的波形</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.GetJTFA(System.Double[],System.Double[0:,0:]@)">
+            <summary>
+            <para>Joint Time-Frequency Analysis</para>
+            <para>Chinese Simplified：获取时频信号</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入数据</para>
+            </param>
+            <param name="spectrum">
+            <para>The output spectrum</para>
+            <para> row represents frequency, column represents time</para>
+            <para>Chinese Simplified：输出频谱</para>
+            <para>行代表频率，列代表时间</para>
+            </param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.GetJTFA(System.Numerics.Complex[],System.Double[0:,0:]@)" -->
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.GetImage(System.Double[0:,0:],System.Drawing.Bitmap@)">
+            <summary>
+            <para>Get image</para>
+            <para>Chinese Simplified：获取强度图</para>
+            </summary>
+            <param name="spectrum">
+            <para>The input spectrum</para>
+            <para>Chinese Simplified：时频信号</para>
+            </param>
+            <param name="BitMap">
+            <para>The output Bitmap</para>
+            <para>Chinese Simplified：强度图</para>
+            </param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.GetImage(System.Double[0:,0:],System.Double,System.Double,System.Drawing.Bitmap@)" -->
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ReplaceArraySubset(System.Double[],System.Double[0:,0:]@,System.Int32)">
+            <summary>
+            将源数组放到目标数组的指定行中
+            </summary>
+            <param name="subData">源数组</param>
+            <param name="data">目标数组</param>
+            <param name="index">目标数组的列</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.SpectrumScale(System.Double[0:,0:],System.UInt16[0:,0:]@)">
+            <summary>
+            FFT之后的数值调整到0~255
+            </summary>
+            <param name="spectrumData"></param>
+            <param name="colorData"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.SpectrumScale(System.Double[0:,0:],System.UInt16[0:,0:]@,System.Double,System.Double)">
+            <summary>
+            FFT之后的数值调整到0~255
+            </summary>
+            <param name="spectrumData"></param>
+            <param name="colorData"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.colorDataToBitmap(System.UInt16[0:,0:],System.Drawing.Bitmap@)">
+            <summary>
+            将频谱值转变为Bitmap
+            </summary>
+            <param name="colorData"></param>
+            <param name="BitMap"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.FindMaxAndMin(System.Double[0:,0:],System.Double@,System.Double@)">
+            <summary>
+            查找最大值和最小值
+            </summary>
+            <param name="spectrumData"></param>
+            <param name="max"></param>
+            <param name="min"></param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType">
+            <summary>
+            <para>The type of ColorTable，support Rainbow only</para>
+            <para>Chinese Simplified：ColorTable的类型 ，暂不支持柔和的彩虹色</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType.BlackWrite">
+            <summary>
+            <para>BlackWrite</para>
+            <para>Chinese Simplified：黑白色</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType.BlueGreenRed">
+            <summary>
+            <para>BlueGreenRed </para>
+            <para>Chinese Simplified：BlueGreenRed</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType.Rainbow">
+            <summary>
+            <para>Rainbow </para>
+            <para>Chinese Simplified：彩虹色</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType.BalancedRainbow">
+            <summary>
+            <para> BalancedRainbow</para>
+            <para>Chinese Simplified：BalancedRainbow</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType.Fire">
+            <summary>
+            <para>Fire </para>
+            <para>Chinese Simplified：Fire</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType.BlueSpirit">
+            <summary>
+            <para>BlueSpirit </para>
+            <para>Chinese Simplified：BlueSpirit</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType.BlueFairy">
+            <summary>
+            <para> BlueFairy</para>
+            <para>Chinese Simplified：BlueFairy</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.JTFA.JTFATask.ColorTableType.BlueOrange_30Hue">
+            <summary>
+            <para> BlueOrange_30Hue</para>
+            <para>Chinese Simplified：BlueOrange_30Hue</para>
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.JTFA.JTFATask.JTFAInformation">
+            <summary>
+            <para>Chinese Simplified：频谱计算相关信息</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.JTFA.JTFATask.JTFAInformation.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.JTFAInformation.f0">
+            <summary>
+            频谱起始频率f0
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.JTFAInformation.df">
+            <summary>
+            频谱谱线的频率间隔df
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.JTFAInformation.FFTSize">
+            <summary>
+            每次计算FFT时的长度，即每次应输入的时域波形长度。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.JTFA.JTFATask.JTFAInformation.dt">
+            <summary>
+            JTFA时间间隔
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.LicenseBase.LicenseBase">
+            <summary>
+            License Manager Base Class
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.LicenseBase.LicenseBase.#cctor">
+            <summary>
+            构造函数 
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.LicenseBase.LicenseBase.Validate(System.String,System.String,System.String)">
+            <summary>
+            Validate
+            </summary>
+            <param name="computerID">computerID</param>
+            <param name="activeCode">activeCode</param>
+            <param name="activeTime">active Time,uint is second</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction">
+            <summary>
+            <para>Frequency Response Function</para>
+            <para>Chinese Simplified：频响函数</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.#ctor">
+            <summary>
+            Construct
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.Average">
+            <summary>
+            平均
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.ResetAveraging">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.AveragingDone">
+            <summary>
+            平均是否完成
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.Reset">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.GetMagenitude(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="inDB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.GetPhase(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="inDegree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.GetCoherente">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.FrequencyResponseFunction.Analyze(System.Double[],System.Double[])">
+            <summary>
+            
+            </summary>
+            <param name="inputWaveform">
+            <para>The input signal of the system</para>
+            <para>Chinese Simplified：待测系统的输入信号</para>
+            </param>
+            <param name="outputWaveform">
+            <para>The output signal of the system</para>
+            <para>Chinese Simplified：经过待测系统的信号</para>
+            </param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.AverageMode">
+            <summary>
+            Average Mode
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Measurement.AverageMode.None">
+            <summary>
+            No Average
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Measurement.AverageMode.RMS">
+            <summary>
+            RMS Average
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.AverageParam">
+            <summary>
+            平均参数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.AverageParam.Mode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.AverageParam.Number">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.AverageParam.#ctor(SeeSharpTools.JXI.DSP.Measurement.AverageMode,System.Int32)">
+            <summary>
+            Construct
+            </summary>
+            <param name="mode"></param>
+            <param name="num"></param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.HarmonicAnalysis">
+            <summary>
+            <para>HarmonicAnalysis Class</para>
+            <para>Chinese Simplified：谐波分析类</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.HarmonicAnalysis.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.HarmonicAnalysis.THDAnalysis(System.Double[],System.Double,System.Double@,System.Double@,System.Double[]@,System.Int32)">
+            <summary>
+            <para>Calculates the THD and level of all components of the input signal.</para>
+            <para>THD in value, not %</para>
+            <para>component levels in voltage peak which is 1.414*rms</para>
+            <para>component[0]=DC level; [1]=fundamental frequency level; ...</para>
+            <para>if the specified highest harmonic is higher than nyquest freq, </para>
+            <para>the exceeded frequency components will be 0; </para>
+            <para>Chinese Simplified：计算输入信号总谐波失真以及谐波分量</para>
+            <para>THD是值，而不是百分比</para>
+            <para>component levels为有效值的1.414倍（单位V2）</para>
+            <para>component[0]为直流分量的功率; [1]为基波的功率; ...</para>
+            <para>如果指定的最高谐波高于奈奎斯特频率，则超过频率分量将为0;</para>
+            </summary>
+            <param name="timewaveform">
+            <para>the waveform of input signal assuming in voltage</para>
+            <para>Chinese Simplified：输入信号（单位为V）</para>
+            </param>
+            <param name="dt">
+            <para>sampling interval of timewaveform (_status)</para>
+            <para>Chinese Simplified：时域波形的抽样间隔</para>
+            </param>
+            <param name="detectedFundamentalFreq">
+            <para>the _calculated peak tone frequency in the range of search</para>
+            <para>Chinese Simplified：基波频率</para>
+            </param>
+            <param name="THD">
+            <para>total harmonic distortion in scale = sqrt(sum(harmonics power) / fundamental power)</para>
+            <para>Chinese Simplified：总谐波失真</para>
+            </param>
+            <param name="componentsLevel">
+            <para>in voltage peak which is 1.414*rms, [0]for DC [1] for fundamental</para>
+            <para>Chinese Simplified：谐波分量</para>
+            </param>
+            <param name="highestHarmonic">
+            <para>the highest order to analysis, if too high, the exceeded harmonics level will be 0</para>
+            <para>Chinese Simplified：最高谐波</para>
+            </param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SeeSharpTools.JXI.DSP.Measurement.HarmonicAnalysis.ToneAnalysis(System.Double[],System.Double,System.Double@,System.Double@,System.Double@)" -->
+        <!-- Badly formed XML comment ignored for member "M:SeeSharpTools.JXI.DSP.Measurement.HarmonicAnalysis.SINADAnalysis(System.Double[],System.Double,System.Double@,System.Double@,System.Double[]@,System.Int32)" -->
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.HarmonicAnalysis.Sum(System.Double[])">
+            <summary>
+            计算数组所有元素之和
+            </summary>
+            <param name="data">输入数据</param>
+            <returns>数组所有元素之和</returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.PhaseMeasurements">
+            <summary>
+            <para>PhaseMeasurements Class</para>
+            <para>Chinese Simplified：相位测量类</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.PhaseMeasurements.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.PhaseMeasurements.CalPhaseShift(System.Double[],System.Double[])">
+            <summary>
+            <para>Calculate the phase shift between two input waveform arrays, return value will be between -180° and 180°.</para>
+            <para>Chinese Simplified：计算输入信号之间的相位差，返回值在-180°到180之间</para>
+            </summary>
+            <param name="inputWaveform1">
+            <para>waveform array1 </para>
+            <para> Chinese Simplified：输入信号1</para>
+            </param>
+            <param name="inputWaveform2">
+            <para>waveform array1 </para>
+            <para> Chinese Simplified：输入信号2</para>
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.PhaseMeasurements.CalPhaseShift(System.Single[],System.Single[])">
+            <summary>
+            <para>Calculate the phase shift between two input waveform arrays, return value will be between -180° and 180°.</para>
+            <para>Chinese Simplified：计算输入信号之间的相位差，返回值在-180°到180之间</para>
+            </summary>
+            <param name="inputWaveform1">
+            <para>waveform array1 </para>
+            <para> Chinese Simplified：输入信号1</para>
+            </param>
+            <param name="inputWaveform2">
+            <para>waveform array1 </para>
+            <para> Chinese Simplified：输入信号2</para>
+            </param>
+            <returns>phase shift in unit of degree</returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.PhaseMeasurements.MathDotNetHilbert(System.Double[])">
+            <summary>
+            Hilbert transform by Math.Net
+            </summary>
+            <param name="xreal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.PhaseMeasurements.MathDotNetHilbert(System.Single[])">
+            <summary>
+            Hilbert transform by Math.Net
+            </summary>
+            <param name="xreal"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements">
+            <summary>
+            <para>SquarewaveMeasurements Class</para>
+            <para>Chinese Simplified：方波测量类</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.GetLevelHistogram(System.Double[],System.Double[]@,System.Double[]@,SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.Histogram)">
+            <summary>
+            <para>Get Level Histogram</para>
+            <para>Chinese Simplified：获取方波幅值直方图</para>
+            </summary>
+            <param name="inputWaveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="histogramX">
+            <para>The X coordinate of the histogram</para>
+            <para>Chinese Simplified：直方图X坐标</para>
+            </param>
+            <param name="histogramY">
+            <para>The Y coordinate of the histogram</para>
+            <para>Chinese Simplified：直方图Y坐标</para>
+            </param>
+            <param name="histogramConfig">
+            <para>Config of histogram </para>
+            <para>Chinese Simplified：直方图配置</para>
+            </param>
+            <returns>
+            <para>return true if this method is called, else false</para>
+            <para>Chinese Simplified：如果调用这个方法之前已经设置过波形返回值为true，否则为false</para>
+            </returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.GetDutyCycleHistogram(System.Double[],System.Double[]@,System.Double[]@,SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.Histogram)">
+            <summary>
+            <para></para>
+            <para>Chinese Simplified：获取方波占空比直方图</para>
+            </summary>
+            <param name="inputWaveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="histogramX">
+            <para>The X coordinate of the histogram</para>
+            <para>Chinese Simplified：直方图X坐标</para>
+            </param>
+            <param name="histogramY">
+            <para>The Y coordinate of the histogram</para>
+            <para>Chinese Simplified：直方图Y坐标</para>
+            </param>
+            <param name="histogramConfig">
+            <para>Config of histogram </para>
+            <para>Chinese Simplified：直方图配置</para>
+            </param>
+            <returns>
+            <para>return true if this method is called, else false</para>
+            <para>Chinese Simplified：如果调用这个方法之前已经设置过波形返回值为true，否则为false</para>
+            </returns>
+            <returns>如果调用这个方法之前已经设置过波形返回值为true，否则为false</returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.AmplitudeAnalysis(System.Double[],System.Double@,System.Double@)">
+            <summary>
+            Amplitude Analysis
+            <para>Chinese Simplified：幅度分析</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="highLevel">
+            <para>High level</para>
+            <para>Chinese Simplified：高电平</para>
+            </param>
+            <param name="lowLevel">
+            <para>Low level</para>
+            <para>Chinese Simplified：低电平
+            </para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.PeriodAnalysis(System.Double[],System.Double@,System.Double@,System.Double@,System.Double@,System.Double@)">
+            <summary>
+            Period Analysis
+            <para>Chinese Simplified：周期分析</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="period">
+            <para>period</para>
+            <para>Chinese Simplified：周期</para>
+            </param>
+            <param name="dutyCycleAvg">
+            <para>Averaged dutycycle</para>
+            <para>Chinese Simplified：平均后的占空比</para>
+            </param>
+            <param name="pulseCount">
+            <para>Count of pulse</para>
+            <para>Chinese Simplified：脉冲个数</para>
+            </param>
+            <param name="pulseMaxWidth">
+            <para>Max Width of pulse</para>
+            <para>Chinese Simplified：脉冲宽度最大值</para>
+            </param>
+            <param name="pulseMinWidth">
+            <para>Min Width of pulse</para>
+            <para>Chinese Simplified：脉冲宽度最小值</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.PhaseAnalysis(System.Double[],System.Double[],System.Double@)">
+            <summary>
+            <para>Phase Analysis</para>
+            <para>Chinese Simplified：相位分析</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="waveformRef">
+            <para>The reference waveform</para>
+            <para>Chinese Simplified：参考波形</para>
+            </param>
+            <param name="phase">
+            <para>phase</para>
+            <para>Chinese Simplified：输入波形相对于参考波形的相位</para> 
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.TimeAnalysis(System.Double[],System.Double@,System.Double@)">
+            <summary>
+            <para>Time Analysis</para>
+            <para>Chinese Simplified：计算电平归一化后0.1~0.9的上升下降的抽样点数,risingSamples为上升的抽样点数，fallingSamples为下降的抽样点数</para>
+            </summary>
+            <param name="waveform"></param>
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            <param name="risingSamples"></param>
+            <para>Rising Time</para>
+            <para>Chinese Simplified：上升时间</para>
+            <param name="fallingSamples"></param>
+            <para>FallingTime</para>
+            <para>Chinese Simplified：下降时间</para>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.Histogram">
+            <summary>
+            <para>Config of histogram</para>
+            <para>Chinese Simplified：统计的参数设置</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.Histogram.LowerLimit">
+            <summary>
+            <para>LowerLimit</para>
+            <para>Chinese Simplified：统计范围的下限</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.Histogram.Interval">
+            <summary>
+            <para>Interval</para>
+            <para>Chinese Simplified：组距</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.Histogram.UpperLimit">
+            <summary>
+            <para>UpperLimit</para>
+            <para>Chinese Simplified：统计范围的上限</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.SquarewaveMeasurements.Histogram.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            <para></para>
+            <para>Chinese Simplified：构造函数</para>
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis">
+            <summary>
+            1/3 Octave Analyzer Class
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.NumOfBands">
+            <summary>
+            <para>Num of bands</para>
+            <para>Chinese Simplified：频段数(31)</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.ThirdOctaveLevels">
+            <summary>
+            <para>1/3 Octave Levels</para>
+            <para>Chinese Simplified：三分之一倍频程分析后的能量</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.NominalFrequencies">
+            <summary>
+            <para>The center frequency of each frequency band</para>
+            <para>Chinese Simplified：每个频段对应的中心频率</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.AverageMode">
+            <summary>
+            <para>Num of bands</para>
+            <para>Chinese Simplified：平均方式</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.Debug">
+            <summary>
+            <para>Num of bands</para>
+            <para>Chinese Simplified：修正</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.WeightingFilterType">
+            <summary>
+            <para>Type of WeightingFilter </para>
+            <para>Chinese Simplified：加权滤波器的类型</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.ResetAveraging">
+            <summary>
+            预留备用
+            </summary>  
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.ThirdOctaveAnalysis.Analyze(System.Double[],System.Double)">
+            <summary>
+            <para>Third Octave Analyze</para>
+            <para>Chinese Simplified：三分之一倍频程分析</para>
+            </summary>
+            <param name="x">
+            <para>The input signal</para>
+            <para>Chinese Simplified：输入信号</para> 
+            </param>
+            <param name="sampleRate">
+            <para>Sample rate</para>
+            <para>Chinese Simplified：采样率</para>
+            </param>
+            <returns>
+            <para>Energy of each band</para>
+            <para>Chinese Simplified：三分之一倍频程分析后每个频段对应的能量</para>
+            </returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.WeightingType">
+            <summary>
+            <para>The type of weighting</para>
+            <para>Chinese Simplified：加权方式</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Measurement.WeightingType.None">
+            <summary>
+            不加权
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Measurement.WeightingType.AWeighting">
+            <summary>
+            加权
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Measurement.ThirdThirdOctaveResult">
+            <summary>
+            分析（Analyze)之后得到的结果类型
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.ThirdThirdOctaveResult.ThirdOctaveLevels">
+            <summary>
+            <para>1/3 Octave Levels</para>
+            <para>Chinese Simplified：三分之一倍频程分析后的能量</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Measurement.ThirdThirdOctaveResult.NominalFrequencies">
+            <summary>
+            <para>The center frequency of each frequency band</para>
+            <para>Chinese Simplified：每个频段对应的中心频率</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Measurement.ThirdThirdOctaveResult.#ctor(System.Double[],System.Double[])">
+            <summary>
+            <para>Chinese Simplified：构造函数</para>
+            </summary>
+            <param name="thirdOctaveLevels"></param>
+            <param name="nominalFrequencies"></param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Properties.Resources.Coefficient">
+            <summary>
+              查找 System.Byte[] 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.JXIDSPInnerException">
+            <summary>
+            JXI DSP Inner Exception
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.JXIDSPUserBufferException">
+            <summary>
+            JXI DSP User Buffer Exception
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.JXIDSPParamException">
+            <summary>
+            JXI DSP Param Exception
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.CBLASNative">
+            CBLAS native declarations 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.CBLASNative.cblas_dcopy(System.Int32,System.Double[],System.Int32,System.Double[],System.Int32)">
+            CBLAS native LAPACKE_zgesv declaration 
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.DftiConfigValue">
+            <summary>
+            Values of the descriptor configuration parameters
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_COMMITTED">
+            <summary>
+            DFTI_COMMIT_STATUS
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_UNCOMMITTED">
+            <summary>
+            DFTI_COMMIT_STATUS
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_COMPLEX">
+            <summary>
+            DFTI_FORWARD_DOMAIN
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_REAL">
+            <summary>
+            DFTI_FORWARD_DOMAIN
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_SINGLE">
+            <summary>
+            DFTI_PRECISION
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_DOUBLE">
+            <summary>
+            DFTI_PRECISION
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_COMPLEX_COMPLEX">
+            <summary>
+            DFTI_COMPLEX_STORAGE and DFTI_CONJUGATE_EVEN_STORAGE
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_COMPLEX_REAL">
+            <summary>
+            DFTI_COMPLEX_STORAGE and DFTI_CONJUGATE_EVEN_STORAGE
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_REAL_COMPLEX">
+            <summary>
+            DFTI_REAL_STORAGE
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_REAL_REAL">
+            <summary>
+            DFTI_REAL_STORAGE
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_INPLACE">
+            <summary>
+            DFTI_PLACEMENT
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_NOT_INPLACE">
+            <summary>
+            DFTI_PLACEMENT
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_ORDERED">
+            <summary>
+            DFTI_ORDERING
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_BACKWARD_SCRAMBLED">
+            <summary>
+            DFTI_ORDERING
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_ALLOW">
+            <summary>
+            Allow/avoid certain usages
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_AVOID">
+            <summary>
+            Allow/avoid certain usages
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_NONE">
+            <summary>
+            Allow/avoid certain usages
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigValue.DFTI_CCS_FORMAT">
+            <summary>
+            DFTI_PACKED_FORMAT (for storing congugate-even finite sequence in real array)
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_FORWARD_DOMAIN">
+            <summary>
+            Domain for forward transform. No default value
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_DIMENSION">
+            <summary>
+            Dimensionality, or rank. No default value
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_LENGTHS">
+            <summary>
+            Length(_status) of transform. No default value
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_FORWARD_SCALE">
+            <summary>
+            Length(_status) of transform. No default value
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_BACKWARD_SCALE">
+            <summary>
+            Scale factor for backward transform [1.0]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_NUMBER_OF_TRANSFORMS">
+            <summary>
+            Number of data sets to be transformed [1]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_COMPLEX_STORAGE">
+            <summary>
+            Storage of finite complex-valued sequences in complex domain [DFTI_COMPLEX_COMPLEX]        
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_REAL_STORAGE">
+            <summary>
+            Storage of finite real-valued sequences in real domain [DFTI_REAL_REAL]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_CONJUGATE_EVEN_STORAGE">
+            <summary>
+             Storage of finite complex-valued sequences in conjugate-even domain [DFTI_COMPLEX_REAL]        
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_PLACEMENT">
+            <summary>
+            Placement of result [DFTI_INPLACE]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_INPUT_STRIDES">
+            <summary>
+             Generalized strides for input data layout [tigth, row-major for C]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_OUTPUT_STRIDES">
+            <summary>
+            Generalized strides for output data layout [tight, row-major for C]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_INPUT_DISTANCE">
+            <summary>
+            Distance between first input elements for multiple transforms [0]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_OUTPUT_DISTANCE">
+            <summary>
+             Distance between first output elements for multiple transforms [0]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_WORKSPACE">
+            <summary>
+            Use of workspace during computation [DFTI_ALLOW]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_ORDERING">
+            <summary>
+            Ordering of the result [DFTI_ORDERED]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_TRANSPOSE">
+            <summary>
+            Possible transposition of result [DFTI_NONE] 
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_DESCRIPTOR_NAME">
+            <summary>
+            User-settable descriptor name [""] 
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_PACKED_FORMAT">
+            <summary>
+            Packing format for DFTI_COMPLEX_REAL storage of finite conjugate-even sequences [DFTI_CCS_FORMAT]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_COMMIT_STATUS">
+            <summary>
+            Commit status of the descriptor - R/O parameter
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_VERSION">
+            <summary>
+            Version string for this DFTI implementation - R/O parameter
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_NUMBER_OF_USER_THREADS">
+            <summary>
+            Number of user threads that share the descriptor [1]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_THREAD_LIMIT">
+            <summary>
+            Limit the number of threads used by this descriptor [0 = don't care]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DftiConfigPARAM.DFTI_DESTROY_INPUT">
+            <summary>
+            Possible input data destruction [DFTI_AVOID = prevent input data]
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DFTI.PRECISION">
+            Constants for DFTI, file "mkl_dfti.h" 
+            DFTI configuration parameters 
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DFTI.SINGLE">
+            DFTI configuration values 
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.DFTI.NO_ERROR">
+            DFTI predefined error classes 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiCreateDescriptor(System.IntPtr@,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            DFTI DftiCreateDescriptor wrapper
+            </summary>
+            <param name="desc">return desc handle</param>
+            <param name="precision">precision</param>
+            <param name="domain">domain</param>
+            <param name="dimention">dimention</param>
+            <param name="length">length</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiFreeDescriptor(System.IntPtr@)">
+            <summary>
+            DFTI DftiFreeDescriptor wrapper
+            </summary>
+            <param name="desc">desc handle</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiSetValue(System.IntPtr,System.Int32,System.Int32)">
+            <summary>
+            DFTI DftiSetValue wrapper
+            </summary>
+            <param name="desc">desc handle</param>
+            <param name="configParam">config_param</param>
+            <param name="configVal">config_val</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiSetValue(System.IntPtr,System.Int32,System.Double)">
+            <summary>
+            DFTI DftiSetValue wrapper
+            </summary>
+            <param name="desc">desc handle</param>
+            <param name="configParam">config_param</param>
+            <param name="configVal">config_val</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiGetValue(System.IntPtr,System.Int32,System.Double@)">
+            <summary>
+            DFTI DftiGetValue wrapper 
+            </summary>
+            <param name="desc">desc handle</param>
+            <param name="configParam">config_param</param>
+            <param name="configVal">config_val</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiCommitDescriptor(System.IntPtr)">
+            <summary>
+            DFTI DftiCommitDescriptor wrapper
+            </summary>
+            <param name="desc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiComputeForward(System.IntPtr,System.Double[],System.Double[])">
+            <summary>
+            DFTI DftiComputeForward wrapper
+            </summary>
+            <param name="desc"></param>
+            <param name="x_in"></param>
+            <param name="x_out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiComputeForward(System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            DFTI DftiComputeForward wrapper
+            </summary>
+            <param name="desc"></param>
+            <param name="x_in"></param>
+            <param name="x_out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiComputeForward(System.IntPtr,System.Double[],System.IntPtr)">
+            <summary>
+            DFTI DftiComputeForward wrapper
+            </summary>
+            <param name="desc"></param>
+            <param name="x_in"></param>
+            <param name="x_out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiComputeForward(System.IntPtr,System.IntPtr,System.Double[])">
+            <summary>
+            DFTI DftiComputeForward wrapper
+            </summary>
+            <param name="desc"></param>
+            <param name="x_in"></param>
+            <param name="x_out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiComputeBackward(System.IntPtr,System.Double[],System.Double[])">
+            <summary>
+            DFTI DftiComputeBackward wrapper
+            </summary>
+            <param name="desc"></param>
+            <param name="x_in"></param>
+            <param name="x_out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiComputeBackward(System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            DFTI DftiComputeBackward wrapper
+            </summary>
+            <param name="desc"></param>
+            <param name="x_in"></param>
+            <param name="x_out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiComputeBackward(System.IntPtr,System.Double[],System.IntPtr)">
+            <summary>
+            DFTI DftiComputeBackward wrapper
+            </summary>
+            <param name="desc"></param>
+            <param name="x_in"></param>
+            <param name="x_out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTI.DftiComputeBackward(System.IntPtr,System.IntPtr,System.Double[])">
+            <summary>
+            DFTI DftiComputeBackward wrapper
+            </summary>
+            <param name="desc"></param>
+            <param name="x_in"></param>
+            <param name="x_out"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.DFTINative">
+            <summary>
+            DFTI native declarations
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiCreateDescriptor(System.IntPtr@,System.Int32,System.Int32,System.Int32,System.Int32)">
+            DFTI native DftiCreateDescriptor declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiCommitDescriptor(System.IntPtr)">
+            DFTI native DftiCommitDescriptor declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiFreeDescriptor(System.IntPtr@)">
+            DFTI native DftiFreeDescriptor declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiSetValue(System.IntPtr,System.Int32,System.Int32)">
+            DFTI native DftiSetValue declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiSetValue(System.IntPtr,System.Int32,System.Double)">
+            DFTI native DftiSetValue declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiGetValue(System.IntPtr,System.Int32,System.Double@)">
+            DFTI native DftiGetValue declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiComputeForward(System.IntPtr,System.Double[],System.Double[])">
+            DFTI native DftiComputeForward declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiComputeForward(System.IntPtr,System.IntPtr,System.IntPtr)">
+            DFTI native DftiComputeForward declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiComputeForward(System.IntPtr,System.Double[],System.IntPtr)">
+            DFTI native DftiComputeForward declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiComputeForward(System.IntPtr,System.IntPtr,System.Double[])">
+            DFTI native DftiComputeForward declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiComputeBackward(System.IntPtr,System.Double[],System.Double[])">
+            DFTI native DftiComputeBackward declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiComputeBackward(System.IntPtr,System.IntPtr,System.IntPtr)">
+            DFTI native DftiComputeBackward declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiComputeBackward(System.IntPtr,System.Double[],System.IntPtr)">
+            DFTI native DftiComputeBackward declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.DFTINative.DftiComputeBackward(System.IntPtr,System.IntPtr,System.Double[])">
+            DFTI native DftiComputeBackward declaration 
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.VMLNative.vdMul(System.Int32,System.Double[],System.Double[],System.Double[])">
+            CBLAS native LAPACKE_zgesv declaration 
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.DftiDescMgr">
+            <summary>
+            DFT的描述符管理器
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.RealFFT(System.Double[],System.Numerics.Complex[]@)">
+            <summary>
+            Real FFT
+            </summary>
+            <param name="xIn">time domain datas</param>
+            <param name="xOut">complex frequency datas as array of Complex64</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.RealFFT(System.Double[],System.Double[]@)">
+            <summary>
+            Real FFT
+            </summary>
+            <param name="xIn">time domain datas</param>
+            <param name="xOut">complex frequency datas as array of double, re0 im0 re1 im1...</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.RealIFFT(System.Double[],System.Double[]@)">
+            <summary>
+            Real FFT
+            </summary>
+            <param name="xIn">complex frequency domain datas as array of double, re0 im0 re1 im1...</param>
+            <param name="xOut">time domain datas</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.RealIFFT(System.Numerics.Complex[],System.Double[]@)">
+            <summary>
+            Real FFT
+            </summary>
+            <param name="xIn">complex frequency domain datas as array of double, re0 im0 re1 im1...</param>
+            <param name="xOut">time domain datas</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.ComplexFFT(System.Double[],System.Numerics.Complex[]@)">
+            <summary>
+            Complex FFT
+            </summary>
+            <param name="xIn">time domain complex datas, x0.re x0.im x1.re x1.im...</param>
+            <param name="xOut">complex frequency datas as array of Complex64</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.ComplexFFT(System.Double[],System.Double[]@)">
+            <summary>
+            Complex FFT
+            </summary>
+            <param name="xIn">time domain complex datas, x0.re x0.im x1.re x1.im...</param>
+            <param name="xOut">complex frequency datas, _outputWaveform[0].re _outputWaveform[0].im _outputWaveform[1].re _outputWaveform[1].im...</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.ComplexFFT(System.Numerics.Complex[],System.Numerics.Complex[]@)">
+            <summary>
+            Complex FFT
+            </summary>
+            <param name="xIn">time domain complex datas, x0.re x0.im x1.re x1.im...</param>
+            <param name="xOut">complex frequency datas, _outputWaveform[0].re _outputWaveform[0].im _outputWaveform[1].re _outputWaveform[1].im...</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.ComplexIFFT(System.Numerics.Complex[],System.Numerics.Complex[]@)">
+            <summary>
+            Complex IFFT
+            </summary>
+            <param name="xIn">frequency domain complex datas</param>
+            <param name="xOut">complex time domain datas</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.ComplexIFFT(System.Double[],System.Double[]@)">
+            <summary>
+            Complex IFFT
+            </summary>
+            <param name="xIn">frequency domain complex datas, x0.re x0.im x1.re x1.im...</param>
+            <param name="xOut">complex time domain datas, y0.re y0.im y1.re y1.im.../</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.BasicFFT.ComplexIFFT(System.Numerics.Complex[],System.Double[]@)">
+            <summary>
+            Complex IFFT
+            </summary>
+            <param name="xIn">frequency domain complex datas...</param>
+            <param name="xOut">complex time domain datas, y0.re y0.im y1.re y1.im.../</param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType">
+            <summary>
+            <para>window type</para>
+            <para>Chinese Simplified: 窗类型</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.None">
+            <summary>
+            <para>Rectangle</para>
+            <para>Chinese Simplified: 矩形窗</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Hanning">
+            <summary>
+            <para>Hanning (2-Term)</para>
+            <para>Chinese Simplified: 汉宁窗</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Hamming">
+            <summary>
+            <para>Hamming (2-Term)</para>
+            <para>Chinese Simplified: 海明窗</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Blackman_Harris">
+            <summary>
+            <para>Blackman Harris (3-Term)</para>
+            <para>Chinese Simplified: 布莱克曼-哈里斯窗</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Exact_Blackman">
+            <summary>
+            <para>Exact Blackman  (3-Term)</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Blackman">
+            <summary>
+            <para>Blackman  (3-Term)</para>
+            <para>Chinese Simplified: 布莱克曼窗</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Three_Term_Nuttal">
+            <summary>
+            3_Term_Nuttal(3-Term with Continous First Derivative /Nuttal3a)
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Three_Term_Blackman_Nuttal">
+            <summary>
+            3_Term_Blackman_Nuttal(3-Term Minimum)
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Four_Term_B_Harris">
+            <summary>
+            <para>4 Term B-Harris</para>
+            </summary>																																						
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Four_Term_Nuttal">
+            <summary>
+            4_Term_Nuttal(4-Term with Continous First Derivative /Nuttal4b)
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Four_Term_Blackman_Nuttal">
+            <summary>
+            4_Term_Blackman_Nuttal(4-Term Minimum)
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Flat_Top_95">
+            <summary>
+            <para>5-Term Flat Top(HFT95), the highest sidelobe is −95.0dB, located at f = ±7.49 bins. </para>
+            <para>Chinese Simplified: 平顶窗</para>	
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Flat_Top_90D">
+            <summary>
+            <para>5-Term Flat Top(HFT90D),the highest sidelobe is −90.2dB, located at f = ±5.58 bins</para>
+            <para>Chinese Simplified: 平顶窗</para>	
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Five_Term_Least_Sidelobe">
+            <summary>
+            5_Term_Least_Sidelobe(Low Sidelobe)
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Six_Term_Flat_Top">
+            <summary>
+            6_Term_Flat_Top(HFT116D),the highest sidelobe is −116.8dB, located at f = ±7.52 bins
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Six_Term_Least_Sidelobe">
+            <summary>
+            6_Term_Least_Sidelobe
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Seven_Term_Flat_Top">
+            <summary>
+            7_Term_Flat_Top(HFT144D),the highest sidelobe is −144.1dB, located at f = ±7.07 bins.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType.Seven_Term_Least_Sidelobe">
+            <summary>
+            7_Term_Least_Sidelobe(7-Term B-Harris)
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit">
+            <summary>
+            <para>unit of power spectrum</para>
+            <para>Chinese Simplified: 频谱的单位</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit.V">
+            <summary>
+            Voltage
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit.V2">
+            <summary>
+            V^2
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit.W">
+            <summary>
+            Watt
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit.dBm">
+            <summary>
+            dBm
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit.dBW">
+            <summary>
+            dBW
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit.dBV">
+            <summary>
+            dBV
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit.dBmV">
+            <summary>
+            dBmV
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit.dBuV">
+            <summary>
+            dBuV
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumType">
+            <summary>
+            <para>spectrum type</para>
+            <para>Chinese Simplified: 频谱类型</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumType.Amplitude">
+            <summary>
+            <para>amplitude spectrum</para>
+            <para>Chinese Simplified: 幅度谱</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumType.Power">
+            <summary>
+            <para>power spectrum</para>
+            <para>Chinese Simplified: 功率谱</para>
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.PeakScaling">
+            <summary>
+            Spectrum peak scaling
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.PeakScaling.Rms">
+            <summary>
+            Rms
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.PeakScaling.Peak">
+            <summary>
+            Peak
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.UnitConvSetting">
+            <summary>
+            <para>spectrum unit convertion settings</para>
+            <para>Chinese Simplified: 单位转换定义结构体</para>
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectralInfo">
+            <summary>
+            <para>spectral information.</para>
+            <para>Chinese Simplified: 谱信息结构</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.Peak.PeakValue">
+            <summary>
+            峰值
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.Peak.PeakFrequency">
+            <summary>
+            频谱中峰值对应的加权频率，也就是实际频率
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.Peak.PeakIndexFreq">
+            <summary>
+            频谱中峰值对应的检索频率
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.InputDataType">
+            <summary>
+            <para>Data type of input signal.</para>
+            <para>Chinese Simplified: 输入信号的类型。</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.InputDataType.Real">
+            <summary>
+            实信号
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.InputDataType.Complex">
+            <summary>
+            复信号
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputType">
+            <summary>
+            定义如何确定频谱线数，默认为ByNumberOfLines
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputType.ByNumberOfLines">
+            <summary>
+            用户通过NumberOfLines属性来设置所需的频谱线数，Commit()后可以获取实际频谱分辨率。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputType.ByRBW">
+            <summary>
+            用户通过RBW属性来设置所需的频谱分辨率，Commit()之后可以获取实际的频谱线数。
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageMode">
+            <summary>
+            频谱平均方式定义
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageMode.NoAveraging">
+            <summary>
+            无平均
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageMode.RMSAveraging">
+            <summary>
+            RMS平均
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageMode.PeakHold">
+            <summary>
+            峰值保持
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageMode.VectorAveraging">
+            <summary>
+            矢量平均
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumWeightingType">
+            <summary>
+            当平均方式为RMSAverage时，设定平均的加权方式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumWeightingType.LinearMoving">
+            <summary>
+            线性滑动
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumWeightingType.LinearContinuous">
+            <summary>
+            线性连续
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumWeightingType.Exponential">
+            <summary>
+            指数平均
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumUnitInfo">
+            <summary>
+            频谱单位信息
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumUnitInfo.Type">
+            <summary>
+            单位类型
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumUnitInfo.Impedance">
+            <summary>
+            阻抗,默认值为50
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumUnitInfo.IsPSD">
+            <summary>
+            幅度或功率谱是否归一化为密度谱(Power Spectral Density)，默认为false。
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutput">
+            <summary>
+            输出参数
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutput.#ctor(SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask)" -->
+        <!-- Badly formed XML comment ignored for member "M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutput.#ctor" -->
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutput.Type">
+            <summary>
+            确定频谱线数的方式
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutput.NumberOfLines">
+            <summary>
+            谱线数
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutput.RBW" -->
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutput.CenterFrequency">
+            <summary>
+            频谱的中心频率，默认为-1，暂不可用
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutput.Bandwidth" -->
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverage">
+            <summary>
+            频谱平均配置
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverage.#ctor(SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask)">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverage.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverage.Mode">
+            <summary>
+            平均方式
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverage.WeightingType">
+            <summary>
+            平均加权方式
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverage.Size">
+            <summary>
+            当平均方式为RMSAverage时，对于LinearMoving加权设定平均次数，对于Exponential加权设定指数衰减系数
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectralInformation">
+            <summary>
+            频谱计算相关信息
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectralInformation.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectralInformation.FreqStart">
+            <summary>
+            频谱起始频率f0
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectralInformation.FreqDelta">
+            <summary>
+            频谱谱线的频率间隔df
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectralInformation.FFTSize">
+            <summary>
+            每次计算FFT时的长度，即每次应输入的时域波形长度。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectralInformation.FFTCount">
+            <summary>
+            当前已计算FFT的次数，该值会被Reset()方法清零。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.DFTIDescMgr.GetInstance">
+            <summary>
+            获取DFTIDescMgr的实体
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.DFTIDescMgr._dftDescDict">
+            <summary>
+            DFT desc Dictionary
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.DFTIDescMgr.GetDFTDesc(System.Int32,SeeSharpTools.JXI.DSP.Spectrum.DFTType)">
+            <summary>
+            Get DFTKey 完成创建描述符 配置参数 提交描述符这三个步骤
+            </summary>
+            <param name="fftSampleCount">fft运算的点数</param>
+            <param name="type">fft类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.DFTIDescMgr.Contains(System.UInt32,SeeSharpTools.JXI.DSP.Spectrum.DFTType,System.UInt64@)">
+            <summary>
+            Contains DFTKey
+            </summary>
+            <param name="fftSampleCount">fft运算的点数</param>
+            <param name="type">fft类型</param>
+            <param name="keyId">返回的keyId</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.DFTIDescMgr.Contains(System.UInt32,SeeSharpTools.JXI.DSP.Spectrum.DFTType)">
+            <summary>
+            Contains DFTKey
+            </summary>
+            <param name="fftSampleCount">fft运算的点数</param>
+            <param name="type">fft类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.DFTIDescMgr.AddDFTDesc(System.UInt32,SeeSharpTools.JXI.DSP.Spectrum.DFTType,System.IntPtr)">
+            <summary>
+            添加DFT Desc
+            </summary>
+            <param name="fftSampleCount"></param>
+            <param name="type"></param>
+            <param name="desc"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.DFTIDescMgr.AddDFTDesc(System.UInt64,System.IntPtr)">
+            <summary>
+            添加DFT Desc
+            </summary>
+            <param name="keyId">keyId, 由Contains返回</param>
+            <param name="desc">描述符</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.DFTIDescMgr.Dispose">
+            <summary>
+            释放为描述符分配的内存
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.DFTKey">
+            <summary>
+            DFT Desc'_status Key
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.DFTKey.FFTSampleCount">
+            <summary>
+            FFT点数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.DFTKey.Type">
+            <summary>
+            FFT类型
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.DFTKey.GetKeyNum">
+            <summary>
+            获取Key的值
+            [7][6][5][4]  [3][2][1][0]
+            fftThreadID(4bytes) FFT SampleCount(28bit) FFT Type 4bit
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.DFTType">
+            <summary>
+            DFT Type
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.DFTType.Double1DRealInComplexOut">
+            <summary>
+            双精度类型的实数输入复数输出的FFT,或IFFT
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.DFTType.Double1DComplexInComplexOut">
+            <summary>
+            //双精度类型的复数输入复数输出的FFT,或IFFT
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.DFTType.Single1DRealInComplexOut">
+            <summary>
+            双精度类型的实数输入复数输出的FFT,或IFFT
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.DFTType.Single1DComplexInComplexOut">
+            <summary>
+            //双精度类型的复数输入复数输出的FFT,或IFFT
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.Spectrum">
+            <summary>
+            <para>Computes spectrum of _demoniator time-domain signal.</para>
+            <para>Chinese Simplified: 计算信号的频谱。</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.MaxSpectralLine">
+            <summary>
+            Maximiun Spectral Line Count
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.Sqrt2">
+            <summary>
+            Sqrt 2
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.PowerSpectrum(System.Double[],System.Double,System.Double[]@,System.Double@,SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit,SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType,System.Double,System.Boolean)">
+            <summary>
+            <para>Computes the power spectrum of input time-domain signal.</para>
+            <para>Chinese Simplified: 计算输入信号的功率频谱。</para>
+            </summary>
+            <param name="x">
+            <para>input time-domain signal.</para>
+            <para>Chinese Simplified: 输入的时域波形。</para>
+            </param>
+            <param name="samplingRate">
+            <para>sampling rate of the input time-domain signal, in samples per second.</para>
+            <para>Chinese Simplified: 输入信号的采样率，以S/s为单位。</para>
+            </param>
+            <param name="spectrum">
+            <para>output sequence containing the power spectrum.</para>
+            <para>Chinese Simplified: 输出功率谱。</para>
+            </param>
+            <param name="df">
+            <para>the frequency resolution of the spectrum,  in hertz.</para>
+            <para>Chinese Simplified: 功率谱的频谱间隔，以Hz为单位。</para>
+            </param>
+            <param name="unit">
+            <para>unit of the output power spectrum</para>
+            <para>Chinese Simplified: 设置功率谱的单位。</para>
+            </param>
+            <param name="windowType">
+            <para>the time-domain window to apply to the time signal.</para>
+            <para>Chinese Simplified: 窗类型。</para>
+            </param>
+            <param name="windowPara">
+            <para>parameter for _demoniator Kaiser/Gaussian/Dolph-Chebyshev window, If window is any other window, this parameter is ignored</para>
+            <para>Chinese Simplified: 窗调整系数，仅用于Kaiser/Gaussian/Dolph-Chebyshev窗。</para>
+            </param>
+            <param name="PSD">
+            <para>specifies whether the output power spectrum is converted to power spectral density.</para>
+            <para>Chinese Simplified: 输出的频谱是否为功率谱密度。</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.PowerSpectrum(System.Double[],System.Double,System.Double[]@,System.Double@,SeeSharpTools.JXI.DSP.Spectrum.UnitConvSetting,SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType,System.Double)">
+            <summary>
+            <para>Computes the power spectrum of input time-domain signal.</para>
+            <para>Chinese Simplified: 计算输入信号的功率频谱。</para>
+            </summary>
+            <param name="x">
+            <para>input time-domain signal.</para>
+            <para>Chinese Simplified: 输入的时域波形。</para>
+            </param>
+            <param name="samplingRate">
+            <para>sampling rate of the input time-domain signal, in samples per second.</para>
+            <para>Chinese Simplified: 输入信号的采样率，以S/s为单位。</para>
+            </param>
+            <param name="spectrum">
+            <para>output sequence containing the power spectrum.</para>
+            <para>Chinese Simplified: 输出功率谱。</para>
+            </param>
+            <param name="df">
+            <para>the frequency resolution of the spectrum,  in hertz.</para>
+            <para>Chinese Simplified: 功率谱的频谱间隔，以Hz为单位。</para>
+            </param>
+            <param name="unitSettings">
+            <para>unit settings of the output power spectrum</para>
+            <para>Chinese Simplified: 设置功率谱的单位。</para>
+            </param>
+            <param name="windowType">
+            <para>the time-domain window to apply to the time signal.</para>
+            <para>Chinese Simplified: 窗类型。</para>
+            </param>
+            <param name="windowPara">
+            <para>parameter for _demoniator Kaiser/Gaussian/Dolph-Chebyshev window, If window is any other window, this parameter is ignored</para>
+            <para>Chinese Simplified: 窗调整系数，仅用于Kaiser/Gaussian/Dolph-Chebyshev窗。</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.PeakSpectrumAnalysis(System.Double[],System.Double,System.Double@,System.Double@)">
+            <summary>
+            Get the fundamental frequency and array of harmonic power.
+            </summary>
+            <param name="timewaveform">the waveform of input signal assuming in voltage</param>
+            <param name="dt">sampling interval of timewaveform (_status)</param>
+            <param name="peakFreq">the _calculated peak tone frequency</param>
+            <param name="peakAmp">the _calculated peak tone voltage peak amplitude, which is 1.414*RMS</param>
+            i.e. peakSignal=peakAmp*sin(2*pi*peakFreq*t)
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.UnitConversion(System.Double[],System.Double,SeeSharpTools.JXI.DSP.Spectrum.SpectrumType,SeeSharpTools.JXI.DSP.Spectrum.UnitConvSetting,System.Double)">
+            <summary>
+            频谱单位转换函数
+            </summary>
+            <param name="spectrum">输入频谱，单位转换后返回的序列也保存在里面</param>
+            <param name="spectrumType">输入频谱类型，功率谱或者幅度谱</param>
+            <param name="df">频谱间隔</param>
+            <param name="unitSetting">单位转换设置</param>
+            <param name="equivalentNoiseBw">计算频谱时，加窗所用窗函数的等效噪声带宽</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.UnitConversion(System.Double[]@,SeeSharpTools.JXI.DSP.Spectrum.SpectrumOutputUnit)">
+            <summary>
+            将非线性单位转变成线性单位
+            </summary>
+            <param name="spectrum"></param>
+            <param name="unit"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.UnitConversionToV2(System.Double[]@,SeeSharpTools.JXI.DSP.Spectrum.SpectrumUnitInfo)">
+            <summary>
+            将单位转变为V2
+            </summary>
+            <param name="spectrum"></param>
+            <param name="unit"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.UnitConversionV2ToOther(System.Double,SeeSharpTools.JXI.DSP.Spectrum.SpectrumUnitInfo)">
+            <summary>
+            将单位V2转变为其他单位
+            </summary>
+            <param name="data"></param>
+            <param name="unit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Spectrum.AdvanceRealFFT(System.Double[],System.Int32,SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType,System.Double[],SeeSharpTools.JXI.DSP.Spectrum.SpectralInfo@)">
+            <summary>
+            Advance Real FFT
+            </summary>
+            <param name="xIn">time domain data</param>
+            <param name="spectralLines">spectralLines</param>
+            <param name="windowType">window type</param>
+            <param name="xOut">spectral out data</param>
+            <param name="spectralInfo">spectral info</param>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux._averagedSpectrum">
+            <summary>
+            用于缓存平均后的频谱
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux._averageCount">
+            <summary>
+            已平均的次数
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux._spectrumList">
+            <summary>
+            频谱链表，用于存储平均的多个频谱
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux._averagingMode">
+            <summary>
+            平均模式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux._averagingSize">
+            <summary>
+            平均的最大次数
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux._weightingType">
+            <summary>
+            平均的加权方式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux._linearAveragingMode">
+            <summary>
+            线性平均的方式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux._dataUnit">
+            <summary>
+            数据的单位
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux.Mode">
+            <summary>
+            频谱平均模式，无平均/矢量/RMS/PeakHold
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux.Size">
+            <summary>
+            平均次数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux.WeightingType">
+            <summary>
+            加权类型
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux.DataUnit">
+            <summary>
+            the spectral data is linear or logarithm.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux.Reset">
+            <summary>
+            Reset the spectrum averaging, set the average count to zero.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux.AverageSpectrum(System.Double[],System.Int32@)">
+            <summary>
+            频谱平均
+            </summary>
+            <param name="averagedSpectrum">平均后的频谱</param>
+            <param name="averageCount">已平均的次数</param>
+            <param name="newSpectrum">新输入的频谱</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumAverageAux.AverageSpectrum(System.Double[])">
+            <summary>
+            频谱平均
+            </summary>
+            <param name="newSpectrum"></param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.Window">
+            <summary>
+            窗函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Window.GetWindow(SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType,System.Double[]@,System.Double@,System.Double@,SeeSharpTools.JXI.DSP.Spectrum.Window.WindowProperty)">
+            <summary>
+            获取窗数据
+            </summary>
+            <param name="FFTWindowType">窗类型</param>
+            <param name="windowdata">窗数据</param>
+            <param name="CG">相干增益</param>
+            <param name="ENBW">等效噪声带宽</param>
+            <param name="windowType">对称窗还是周期窗 </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Window.GeneralizedCosineWindow(System.Double[],System.Double[]@,System.Double@,System.Double@,SeeSharpTools.JXI.DSP.Spectrum.Window.WindowProperty)">
+            <summary>
+            窗函数
+            </summary>
+            <param name="windowCoe">窗函数的系数</param>
+            <param name="windowdata">窗数据</param>
+            <param name="CG">相干增益</param>
+            <param name="ENBW">等效噪声带宽</param>
+            <param name="windowType">窗类型，默认周期窗</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Window.GeneralizedWindowCoef(SeeSharpTools.JXI.DSP.Spectrum.FFTWindowType)">
+            <summary>
+            生成窗的参数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Window.ZeroOrderModifiedBesselFunction(System.Double,System.Double)">
+            <summary>
+            变形零阶贝塞尔函数
+            </summary>
+            <param name="x"></param>
+            <param name="k"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.Window.factorial(System.Int32)">
+            <summary>
+            求阶乘
+            </summary>
+            <param name="num"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.Window.WindowProperty">
+            <summary>
+            窗类型：对称/周期
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.Window.WindowProperty.SymmetricWindow">
+            <summary>
+            对称窗：常用于设计滤波器
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.Window.WindowProperty.PeriodicWindow">
+            <summary>
+            周期窗：常用于频谱计算
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask">
+            <summary>
+            <para>Computes spectrum of _demoniator time-domain signal.</para>
+            <para>Chinese Simplified: 计算信号的频谱。</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.#ctor(SeeSharpTools.JXI.DSP.Spectrum.InputDataType,System.Double)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dataType">输入数据类型</param>
+            <param name="sampleRate">采样率</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.#cctor">
+            <summary>
+            构造函数 调License Manager
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask._amplitudeAverageAux">
+            <summary>
+            任务是否已经提交
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.Sqrt2">
+            <summary>
+            Sqrt 2
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.InputDataType">
+            <summary>
+            <para>The Type of input data，default Real</para>
+            <para>Chinese Simplified:  输入数据类型，默认为实数。</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.SampleRate">
+            <summary>
+            <para>Sample rate</para>
+            <para>Chinese Simplified: 采样率。</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.WindowType">
+            <summary>
+            <para>The Type of FFT window</para>
+            <para>Chinese Simplified: 频谱加窗的类型。</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.WindowPara">
+            <summary>
+            <para>The parameter of FFT window</para>
+            <para>Chinese Simplified: 对于特定的窗类型(如Kaiser、Gaussian等)，可设定窗系数，暂不可用。</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.Output">
+            <summary>
+            <para>The parameter of spectrum</para>
+            <para>Chinese Simplified: 频谱输出参数。</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.Unit">
+            <summary>
+            <para>The parameter of spectrum unit</para>
+            <para>Chinese Simplified: 频谱单位参数。</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.Average">
+            <summary>
+            <para>The parameter of spectrum average</para>
+            <para>Chinese Simplified: 频谱平均参数。</para>
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.SpectralInfomation">
+            <summary>
+            <para>The information of spectrum （read only）</para>
+            <para>Chinese Simplified: 频谱输出信息(只读)。</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.Reset">
+            <summary>
+            <para>Reset the FFTCount</para>
+            <para>Chinese Simplified: 重置FFTCount属性值，若配置了频谱平均，则频谱平均历史也会被清空，即重新开始平均。</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.GetSpectrum(System.Double[],System.Double[]@)">
+            <summary>
+            <para>Get spectrum</para>
+            <para>Chinese Simplified: 输入时域波形并获取频谱</para>
+            </summary>
+            <param name="data">
+            <para>Waveform of input</para>
+            <para>Chinese Simplified:时域数据（实信号）</para>
+            </param>
+            <param name="spectrum">
+            <para>Spectrum of output</para>
+            <para>Chinese Simplified:输出的频谱存放数组</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.GetSpectrum(System.Numerics.Complex[],System.Double[]@)">
+            <summary>
+            <para>Get spectrum</para>
+            <para>Chinese Simplified: 输入时域波形并获取频谱</para>
+            </summary>
+            <param name="data">
+            <para>Waveform of input</para>
+            <para>Chinese Simplified:时域数据（复信号）</para>
+            </param>
+            <param name="spectrum">
+            <para>Spectrum of output</para>
+            <para>Chinese Simplified:输出的频谱存放数组</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.GetSpectrum(System.Double[],System.Double[]@,System.Double[]@)">
+            <summary>
+            <para>Get spectrum</para>
+            <para>Chinese Simplified: 输入时域波形并获取频谱</para>
+            </summary>
+            <param name="data">
+            <para>Waveform of input</para>
+            <para>Chinese Simplified:时域数据（实信号）</para>
+            </param>
+            <param name="amplitude">
+            <para>amplitudet</para>
+            <para>Chinese Simplified:输出的幅度谱存放数组</para>
+            </param>
+            <param name="phase">
+            <para>phase</para>
+            <para>Chinese Simplified:输出的相位谱存放数组</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.GetSpectrum(System.Numerics.Complex[],System.Double[]@,System.Double[]@)">
+            <summary>
+            <para>Get spectrum</para>
+            <para>Chinese Simplified: 输入时域波形并获取频谱</para>
+            </summary>
+            <param name="data">
+            <para>Waveform of input</para>
+            <para>Chinese Simplified:时域数据（复信号）</para>
+            </param>
+            <param name="amplitude">
+            <para>amplitudet</para>
+            <para>Chinese Simplified:输出的幅度谱存放数组</para>
+            </param>
+            <param name="phase">
+            <para>phase</para>
+            <para>Chinese Simplified:输出的相位谱存放数组</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.FindPeak(System.Double[])">
+            <summary>
+            <para>Find peak</para>
+            <para>Chinese Simplified:查找最大的峰值</para>
+            </summary>
+            <param name="spectrum">
+            <para>Spectrum of input</para>
+            <para>Chinese Simplified:输入频谱</para>
+            </param>
+            <returns>
+            <para>Peak</para>
+            <para>Chinese Simplified:输入频谱的最大值所对应的幅值、检索频率、加权频率</para>
+            </returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.FindPeak(System.Double[],System.Double,System.Double)">
+            <summary>
+            <para>Find peak in range of [freqStart，freqStop]</para>
+            <para>Chinese Simplified:查找[freqStart，freqStop]频段内的最大峰值</para>
+            </summary>
+            <param name="spectrum">
+            <para>Spectrum of input</para>
+            <para>Chinese Simplified:输入频谱</para>
+            </param>
+            <param name="freqStart">
+            <para>Frequency of start</para>
+            <para>Chinese Simplified:检索的开始频率</para>
+            </param>
+            <param name="freqStop">
+            <para>Frequency of stopt</para>
+            <para>Chinese Simplified:检索的结束频率</para>
+            </param>
+            <returns>
+            <para>Peak</para>
+            <para>Chinese Simplified:输入频谱的最大值所对应的幅值、检索频率、加权频率</para>
+            </returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.FindPeak(System.Double[],System.Double)">
+            <summary>
+            <para>Find peaks which above the threshold</para>
+            <para>Chinese Simplified:检索频谱大于阈值的所有峰值</para>
+            </summary>
+            <param name="spectrum">
+            <para>Spectrum of input</para>
+            <para>Chinese Simplified:输入频谱</para>
+            </param>
+            <param name="threshold">
+            <para>threshold</para>
+            <para>Chinese Simplified:阈值</para>
+            </param>
+            <returns>
+            <para>Peaks</para>
+            <para>Chinese Simplified:大于阈值的所有峰值所对应的幅值、检索频率、加权频率</para>
+            </returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.FindPeak(System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            <para>Find peaks which above the threshold in range of [freqStart，freqStop]</para>
+            <para>Chinese Simplified:检索[freqStart，freqStop]频段内大于阈值的所有峰值</para>
+            </summary>
+            <param name="spectrum">
+            <para>Spectrum of input</para>
+            <para>Chinese Simplified:输入频谱</para>
+            </param>
+            <param name="threshold">
+            <para>threshold</para>
+            <para>Chinese Simplified:阈值</para>
+            </param>
+            <param name="freqStart">
+            <para>Frequency of start</para>
+            <para>Chinese Simplified:检索的开始频率</para>
+            </param>
+            <param name="freqStop">
+            <para>Frequency of stopt</para>
+            <para>Chinese Simplified:检索的结束频率</para>
+            </param>
+            <returns>
+            <para>Peaks</para>
+            <para>Chinese Simplified:[freqStart，freqStop]频段内大于阈值的所有峰值所对应的幅值、检索频率、加权频率</para>
+            </returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.DSP.Spectrum.SpectrumTask.MeasurePowerInBand(System.Double[],System.Double,System.Double)">
+            <summary>
+            <para>Measure power in band</para>
+            <para>Chinese Simplified:测量带内功率</para>
+            </summary>
+            <param name="spectrum">
+            <para>spectrum</para>
+            <para>Chinese Simplified:频谱</para>
+            </param>
+            <param name="centerFreq">
+            <para>Center frequency</para>
+            <para>Chinese Simplified:中心频率</para>
+            </param>
+            <param name="bandwidth">
+            <para>Bandwidth</para>
+            <para>Chinese Simplified:带宽</para>
+            </param>
+            <returns>
+            <para>Power in band</para>
+            <para>Chinese Simplified:带内功率</para>
+            </returns>
+        </member>
+    </members>
+</doc>

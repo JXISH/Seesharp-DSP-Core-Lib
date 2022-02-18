@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="JXI.BMS4.Audio.MP3.MP3EncoderLegacy">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <Members>
+      <Field Name="_decodedBlockSize" Hidden="true" />
+      <Field Name="_decoderConfig" Hidden="true" />
+      <Field Name="_dwBitrate" Hidden="true" />
+      <Field Name="_dwSampleRate" Hidden="true" />
+      <Field Name="_encodeTaskStaus" Hidden="true" />
+      <Field Name="_inputDataBuffer" Hidden="true" />
+      <Field Name="_nMode" Hidden="true" />
+      <Field Name="_outPutBufferDataList" Hidden="true" />
+      <Field Name="_processBlockSize" Hidden="true" />
+      <Field Name="_readDataBuffer" Hidden="true" />
+      <Field Name="_resourceLock" Hidden="true" />
+      <Field Name="_streamHandle" Hidden="true" />
+      <Field Name="bCopyright" Hidden="true" />
+      <Field Name="bCRC" Hidden="true" />
+      <Field Name="bEnableVBR" Hidden="true" />
+      <Field Name="bNoRes" Hidden="true" />
+      <Field Name="bOriginal" Hidden="true" />
+      <Field Name="bPrivate" Hidden="true" />
+      <Field Name="bStrictlso" Hidden="true" />
+      <Field Name="bWritVBRHeader" Hidden="true" />
+      <Field Name="dwConfigID" Hidden="true" />
+      <Field Name="dwEmphasis" Hidden="true" />
+      <Field Name="dwMaxBitrate" Hidden="true" />
+      <Field Name="dwMpegVersion" Hidden="true" />
+      <Field Name="dwPsyModel" Hidden="true" />
+      <Field Name="dwReSampleRate" Hidden="true" />
+      <Field Name="dwStructSize" Hidden="true" />
+      <Field Name="dwStrutVersion" Hidden="true" />
+      <Field Name="dwVbrAbr_bps" Hidden="true" />
+      <Field Name="nPreset" Hidden="true" />
+      <Field Name="nQuality" Hidden="true" />
+      <Field Name="nVbrMethod" Hidden="true" />
+      <Field Name="nVBRQuality" Hidden="true" />
+      <Field Name="reserver" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gAIAmAQBADEBIIRAIEQCAIEowDAAAAIkAAAICBiCCKM=</HashCode>
+      <FileName>MP3 Encoder Library.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JXI.BMS4.Audio.MP3.MP3Encoder">
+    <Position X="3.75" Y="0.5" Width="2.5" />
+    <Members>
+      <Field Name="_ctsForProcessEngine" Hidden="true" />
+      <Field Name="_inputBuffer" Hidden="true" />
+      <Field Name="_isDisposed" Hidden="true" />
+      <Field Name="_isRunning" Hidden="true" />
+      <Field Name="_isStreamEnd" Hidden="true" />
+      <Field Name="_outputBuffer" Hidden="true" />
+      <Field Name="_processEngine" Hidden="true" />
+      <Field Name="_streamEndEvent" Hidden="true" />
+      <Method Name="~MP3Encoder" Hidden="true" />
+      <Method Name="DisposeManaged" Hidden="true" />
+      <Method Name="DisposeUnmanaged" Hidden="true" />
+      <Method Name="ProcessEngine" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gQIAmAQAADmBpJBAIIwCQBGowDAAAAImKAAIABiACKk=</HashCode>
+      <FileName>MP3 Encoder Library.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="JXI.BMS4.Audio.MP3.EasyMp3Encoder">
+    <Position X="7" Y="0.5" Width="2.25" />
+    <Members>
+      <Field Name="_inputBuffer" Hidden="true" />
+      <Field Name="_isDisposed" Hidden="true" />
+      <Field Name="_mp3Encoder" Hidden="true" />
+      <Field Name="_outputBuffer" Hidden="true" />
+      <Field Name="_outputReader" Hidden="true" />
+      <Method Name="~EasyMp3Encoder" Hidden="true" />
+      <Field Name="BufferSizeInSec" Hidden="true" />
+      <Method Name="DisposeManaged" Hidden="true" />
+      <Method Name="DisposeUnmanaged" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAACgABBAAAEAAADCQAIAABAAAAAAAAAAAAAg=</HashCode>
+      <FileName>MP3 Encoder Library.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

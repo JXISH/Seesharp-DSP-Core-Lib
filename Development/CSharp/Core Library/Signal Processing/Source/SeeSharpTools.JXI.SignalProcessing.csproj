@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E7208270-5885-4739-9582-A40B3F2A4256}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SeeSharpTools.JXI.SignalProcessing</RootNamespace>
+    <AssemblyName>SeeSharpTools.JXI.SignalProcessing</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Public\Common\Exception\JXIException.cs">
+      <Link>Common\Exception\JXIException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Public\Common\MKLImport\CBLASNative.cs">
+      <Link>Common\MKLImport\CBLASNative.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Public\Common\MKLImport\Constants.cs">
+      <Link>Common\MKLImport\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Public\Common\MKLImport\Dfti.cs">
+      <Link>Common\MKLImport\Dfti.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Public\Common\MKLImport\DFTINative.cs">
+      <Link>Common\MKLImport\DFTINative.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Public\Common\MKLImport\LAPACK.cs">
+      <Link>Common\MKLImport\LAPACK.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Public\Common\MKLImport\VMLNative.cs">
+      <Link>Common\MKLImport\VMLNative.cs</Link>
+    </Compile>
+    <Compile Include="Conditioning\AdvancedFilters\Adv FIR Filter.cs" />
+    <Compile Include="Conditioning\EasyFilters\FIRFilter.cs" />
+    <Compile Include="Conditioning\EasyFilters\IIRFilter.cs" />
+    <Compile Include="Conditioning\EasyResample\EasyResample.cs" />
+    <Compile Include="Generation\Basic Function Generators.cs" />
+    <Compile Include="Generation\Generation.cs" />
+    <Compile Include="Generation\NoiseGenerator.cs" />
+    <Compile Include="JTFA\GeneralJTFA.cs" />
+    <Compile Include="JTFA\Spectrogram.cs" />
+    <Compile Include="Measurements\FrequencyResponseFunction.cs" />
+    <Compile Include="Measurements\HarmonicAnalysis.cs" />
+    <Compile Include="Measurements\PhaseMeasurements.cs" />
+    <Compile Include="Measurements\SquarewaveMeasurements.cs" />
+    <Compile Include="Measurements\ThirdOctaveAnalysis.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Spectrum Analysis\GeneralSpectrum\GeneralSpectrum.cs" />
+    <Compile Include="Spectrum Analysis\GeneralSpectrum\SpectrumAux\BasicFFT.cs" />
+    <Compile Include="Spectrum Analysis\GeneralSpectrum\SpectrumAux\Definitions.cs" />
+    <Compile Include="Spectrum Analysis\GeneralSpectrum\SpectrumAux\DFTIDescMgr.cs" />
+    <Compile Include="Spectrum Analysis\GeneralSpectrum\SpectrumAux\Spectrum.cs" />
+    <Compile Include="Spectrum Analysis\GeneralSpectrum\SpectrumAux\SpectrumAverageAux.cs" />
+    <Compile Include="Spectrum Analysis\RFSASpectrum\Spectrum Average.cs" />
+    <Compile Include="Spectrum Analysis\RFSASpectrum\Spectrum Config.cs" />
+    <Compile Include="Spectrum Analysis\RFSASpectrum\Spectrum FFT.cs" />
+    <Compile Include="Spectrum Analysis\RFSASpectrum\Spectrum Occupied Bandwidth.cs" />
+    <Compile Include="Spectrum Analysis\RFSASpectrum\Spectrum Peak Search.cs" />
+    <Compile Include="Spectrum Analysis\RFSASpectrum\Spectrum Power in Band.cs" />
+    <Compile Include="Spectrum Analysis\RFSASpectrum\Spectrum Unit Convert.cs" />
+    <Compile Include="Spectrum Analysis\RFSASpectrum\Spectrum Window.cs" />
+    <Compile Include="Conditioning\Synchronization\Synchronization.cs" />
+    <Compile Include="Transform\DFT.cs" />
+    <Compile Include="Window\Window.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="JTFA\RFSAJTFA\" />
+    <Folder Include="Spectrum Analysis\SpectrumMeasurements\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SynchronizerCoefficient.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Mathematics\Source\SeeSharpTools.JXI.Mathematics\SeeSharpTools.JXI.Mathematics.csproj">
+      <Project>{cdd8c7e9-d5f0-443b-b0f5-8ca6b74f758a}</Project>
+      <Name>SeeSharpTools.JXI.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Numerics\Numerics Library\Numerics Library.csproj">
+      <Project>{8883e73e-50d5-48a4-a994-a5e708db4b2d}</Project>
+      <Name>Numerics Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

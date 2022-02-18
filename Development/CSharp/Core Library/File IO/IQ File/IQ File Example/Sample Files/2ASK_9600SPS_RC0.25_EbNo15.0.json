@@ -1,0 +1,13 @@
+{
+   "Signal": {
+      "Format": "I16LittleEndianIQ",
+      "CenterFrequency": 1.0E9,
+      "IFCenterFrequency": 1.53E8,
+      "RFGain": 1.0E-5,
+      "SampleRate": 38400.00,
+      "PulseShaping": "RC",
+      "BT": 0.250,
+      "EbNo": 15.0,
+      "FreqShift": 10
+   }
+}

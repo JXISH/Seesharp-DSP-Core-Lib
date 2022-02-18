@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeeSharpTools.JX.DataViewer</name>
+    </assembly>
+    <members>
+        <member name="T:SeeSharpTools.JX.DataViewer.COPYDATASTRUCT">
+            <summary>
+            窗口消息结构
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.SCCommFun.StructToBytes(System.Object)">
+            <summary>
+            结构体转byte数组
+            </summary>
+            <param name="structObj">要转换的结构体</param>
+            <returns>转换后的byte数组</returns>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.SCCommFun.BytesToStuct(System.Byte[],System.Type)">
+            <summary>
+            byte数组转结构体
+            </summary>
+            <param name="bytes">byte数组</param>
+            <param name="type">结构体类型</param>
+            <returns>转换后的结构体</returns>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.CShareMem.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.CShareMem.Finalize">
+            <summary>
+            析构函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.CShareMem.Init(System.String,System.Int64)">
+            <summary>
+            初始化共享内存
+            </summary>
+            <param name="strName">共享内存名称</param>
+            <param name="lngSize">共享内存大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.CShareMem.Close">
+            <summary>
+            关闭共享内存
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.CShareMem.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读数据
+            </summary>
+            <param name="byteData">数据</param>
+            <param name="lngAddr">起始地址</param>
+            <param name="lngSize">个数</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.CShareMem.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            写数据
+            </summary>
+            <param name="bytData">数据</param>
+            <param name="lngAddr">起始地址</param>
+            <param name="lngSize">个数</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JX.DataViewer.AnalogWaveformChart">
+            <summary>
+            Analog Waveform Chart 静态类
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double[])">
+            <summary>
+            在指定窗口上绘制曲线，不传入t0和dt,默认rowCnt=1
+            </summary>
+            <param name="windowName">窗口名</param>
+            <param name="data">要画的数据，单行</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double[],System.Int32)">
+            <summary>
+            在指定窗口上绘制曲线，默认的t0=0,dt=1，默认是按行Interleave
+            </summary>
+            <param name="windowName">窗口名</param>
+            <param name="data">要画的数据，Interleaved</param>
+            <param name="numberOfChannels">行数</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double[],System.Int32,System.Boolean)">
+            <summary>
+            在指定窗口上绘制曲线，不传入t0,dt，默认按行Interleaved
+            </summary>
+            <param name="windowName">窗口名</param>
+            <param name="data">要画的数据，单行</param>
+            <param name="numberOfChannels">行数</param>
+            <param name="isChannelConcatenated">数据是按行，还是按列， true：按行，false：按列</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double[][])">
+            <summary>
+            在指定窗口上绘制曲线，不传入t0,dt，默认一行一条曲线
+            </summary>
+            <param name="windowName">窗口名</param>
+            <param name="data">要画的数据，默认是每行一组数据</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double[][],System.Boolean)">
+            <summary>
+            在指定窗口上绘制曲线，不传入t0,dt
+            </summary>
+            <param name="windowName">窗口名</param>
+            <param name="data">要画的数据，单行</param>
+            <param name="isByRow">数据是按行，还是按列， true：按行，false：按列</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double[0:,0:])">
+            <summary>
+            在指定窗口上绘制曲线，不传入t0,dt，默认是一行一组数据
+            </summary>
+            <param name="windowName">窗口名</param>
+            <param name="data">要画的数据，默认是一行一组数据</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double[0:,0:],System.Boolean)">
+            <summary>
+            在指定窗口上绘制曲线，不传入t0,dt
+            </summary>
+            <param name="windowName">窗口名</param>
+            <param name="data">要画的数据，单行</param>
+            <param name="isByRow">数据是按行，还是按列， true：按行，false：按列</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double,System.Double,System.Double[],System.Int32)">
+            <summary>
+            在指定窗口上绘制曲线，默认是按行Interleaved
+            </summary>
+            <param name="windowName">画曲线的窗口名</param>
+            <param name="t0">初始时刻</param>
+            <param name="dt">时间间隔</param>
+            <param name="data">要画的数据，Interleaved</param>
+            <param name="numberOfChannels">数据的行数，即要画曲线的条数</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double,System.Double,System.Double[])">
+            <summary>
+            在指定窗口上绘制曲线
+            </summary>
+            <param name="windowName">画曲线的窗口名</param>
+            <param name="t0">初始时刻</param>
+            <param name="dt">时间间隔</param>
+            <param name="data">要画的数据（只有一组数据）</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double,System.Double,System.Double[0:,0:])">
+            <summary>
+            绘制曲线，一行一条曲线,默认是一行一组数据
+            </summary>
+            <param name="windowName">画曲线的窗口名</param>
+            <param name="t0">初始时刻</param>
+            <param name="dt">时间间隔</param>
+            <param name="data">要画的数据，Interleaved</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double,System.Double,System.Double[][])">
+            <summary>
+            绘制曲线，一行一条曲线。
+            </summary>
+            <param name="windowName">画曲线的窗口名</param>
+            <param name="t0">初始时刻</param>
+            <param name="dt">时间间隔</param>
+            <param name="data">要画的数据，Interleaved</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度，或每行的元素个数不相等</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Plot(System.String,System.Double,System.Double,System.Double[],System.Int32,System.Boolean)">
+            <summary>
+            在指定窗口上绘制曲线
+            </summary>
+            <param name="windowName">画曲线的窗口名</param>
+            <param name="t0">初始时刻</param>
+            <param name="dt">时间间隔</param>
+            <param name="data">要画的数据，Interleaved</param>
+            <param name="numberOfChannels">数据的行数，即要画曲线的条数</param>
+            <param name="isChannelConcatenated">数据是按行，还是按列， true：按行，false：按列</param>
+            <exception cref="T:System.FormatException">单组数据超过最大支持显示的长度</exception>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.CloseChart">
+            <summary>
+            关闭所有Plot，会关闭Viewer进程
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Release(System.Boolean)">
+            <summary>
+            释放共享内存，Viewer进程相关资源，用于APP退出时的清理工作，可以不用关闭Viewer进程
+            </summary>
+            <param name="ClosePlotFlag">是否关闭Plot进程</param>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.CheckPlotProcess">
+            <summary>
+            //检查Viewer进程是否启动，如果未启动，则启动
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.SendData2Plot(System.String,System.Double[],SeeSharpTools.JX.DataViewer.STDataInfo)">
+            <summary>
+            将需要plot的数据发送给VISN Waveform Viewer进程
+            </summary>
+            <param name="plotWndName">窗口名称</param>
+            <param name="plotData">数据</param>
+            <param name="dataInfo">数据信息</param>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.ColInterleaved2Row(System.Double[]@,System.Int32,System.Int32)">
+            <summary>
+            将按列Interleave的数据转换为按行的
+            </summary>
+            <param name="data">待转换的数据</param>
+            <param name="RowCnt">行数</param>
+            <param name="ColCnt">列数</param>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Matrix2InterleavedArray(System.Double[][],System.Boolean)">
+            <summary>
+            将二维数组转换成按行Interleave的数据
+            </summary>
+            <param name="data">待转换的数据</param>
+            <param name="RowColFlag">数据是按行，还是按列， true：按行，false：按列</param>
+        </member>
+        <member name="M:SeeSharpTools.JX.DataViewer.AnalogWaveformChart.Matrix2InterleavedArray(System.Double[0:,0:],System.Boolean)">
+            <summary>
+            将二维数组转换成按行Interleave的数据
+            </summary>
+            <param name="data">待转换的数据</param>
+            <param name="RowColFlag">数据是按行，还是按列， true：按行，false：按列</param>
+        </member>
+    </members>
+</doc>

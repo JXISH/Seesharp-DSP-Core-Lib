@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.VectorFile">
+    <Position X="6.75" Y="0.5" Width="2" />
+    <Members>
+      <Field Name="_disableBuffering" Hidden="true" />
+      <Field Name="_fileFullPath" Hidden="true" />
+      <Field Name="_fileHeaderSizeChangeable" Hidden="true" />
+      <Field Name="_fileLengthInBytes" Hidden="true" />
+      <Field Name="_fileOpened" Hidden="true" />
+      <Field Name="_infoDictionary" Hidden="true" />
+      <Field Name="_kernelFileInteropPtr" Hidden="true" />
+      <Field Name="_kernelFileStream" Hidden="true" />
+      <Field Name="_nativeFileInteropArray" Hidden="true" />
+      <Field Name="_nativeFileStream" Hidden="true" />
+      <Method Name="~VectorFile" Hidden="true" />
+      <Field Name="BYTES_OF_COMPLEX_I16" Hidden="true" />
+      <Field Name="BYTES_OF_COMPLEX_I8" Hidden="true" />
+      <Field Name="BYTES_OF_REAL_I16" Hidden="true" />
+      <Field Name="BYTES_OF_REAL_I8" Hidden="true" />
+      <Method Name="ConvertArrayToSpreadsheetString" Hidden="true" />
+      <Method Name="ConvertSpreadsheetStringToArrayDbl" Hidden="true" />
+      <Method Name="ExtractDataInfoFromDictionary" Hidden="true" />
+      <Field Name="HEADER_SECTION_NAME" Hidden="true" />
+      <Field Name="HEADER_TAG_SIZE_MAXIMUM" Hidden="true" />
+      <Field Name="HEADER_TAG_TOKENS" Hidden="true" />
+      <Method Name="LoadDataInfoFromFile" Hidden="true" />
+      <Method Name="UpdateDataInfoToDictionary" Hidden="true" />
+      <Field Name="VECTORFILE_HEADER_QUANTUM" Hidden="true" />
+      <Field Name="VECTORFILE_HEADER_TAG" Hidden="true" />
+      <Field Name="VECTORFILE_VERSION" Hidden="true" />
+      <Method Name="WriteDataInfoToFileHeader" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Storage" Type="SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="3.438" />
+        <Point X="5.312" Y="3.438" />
+        <Point X="5.312" Y="4.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Maker" Type="SeeSharpTools.JXI.FileIO.VectorFile.MakerInformation" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="3" />
+        <Point X="1.375" Y="3" />
+        <Point X="1.375" Y="4.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Archive" Type="SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="3.25" />
+        <Point X="3.375" Y="3.25" />
+        <Point X="3.375" Y="4.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Reserved" Type="SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="2.777" />
+        <Point X="9.312" Y="2.777" />
+        <Point X="9.312" Y="4.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAACsEAAAkCagABgAQAyIRiAAEBAgQEIWBBDCGRChA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Storage" />
+      <Property Name="Maker" />
+      <Property Name="Archive" />
+      <Property Name="Device" />
+      <Property Name="Reserved" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation">
+    <Position X="4.5" Y="4.75" Width="1.75" />
+    <Members>
+      <Field Name="_fileHeaderSize" Hidden="true" />
+      <Method Name="StorageInformation" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAIAAAASBBAAAAAAAA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.MakerInformation">
+    <Position X="0.5" Y="4.75" Width="1.75" />
+    <Members>
+      <Method Name="MakerInformation" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAEAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation">
+    <Position X="2.5" Y="4.75" Width="1.75" />
+    <Members>
+      <Method Name="ArchiveInformation" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAEAAAABIAAAAIAAAAAAAAAAAQAAAAAAAAAIAA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation">
+    <Position X="6.5" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAEAAAAAAAAAAACACAAABAAAAAQAAAAAACAAAA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation">
+    <Position X="8.5" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAADAIQAAAAAAAAAAAAAAAAAAAIABAAAAAAAAAAA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile">
+    <Position X="11.5" Y="1.5" Width="2" />
+    <Members>
+      <Field Name="_numberOfSamples" Hidden="true" />
+      <Method Name="ExtractDataInfoFromDictionary" Hidden="true" />
+      <Method Name="FixFrequencyStreamFile" Hidden="true" />
+      <Method Name="UpdateDataInfoToDictionary" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="SeeSharpTools.JXI.FileIO.VectorFile.VectorFile" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="0.811" />
+        <Point X="12.438" Y="0.811" />
+        <Point X="12.438" Y="1.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAIAhAEAAEAIAAgCAAAAAAAAAAAQAAAAAAAACAAEAA=</HashCode>
+      <FileName>Fix Frequency Stream File.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sampling" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.BaseSamplingInformation">
+    <Position X="11.5" Y="4.75" Width="2" />
+    <Members>
+      <Field Name="_channels" Hidden="true" />
+      <Field Name="_sampleRate" Hidden="true" />
+      <Method Name="BaseSamplingInformation" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Channels" Type="SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.083" Y="0.113" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BEAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Fix Frequency Stream File.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Channels" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo">
+    <Position X="11.5" Y="6.5" Width="2" />
+    <Members>
+      <Field Name="_digitizerScaleFactor" Hidden="true" />
+      <Field Name="_rfScaleFactor" Hidden="true" />
+      <Method Name="BaseChannelSamplingInfo" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAEAAAAAAAEAAAAAAgAAABhAAAIIAA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile">
+    <Position X="15" Y="1.5" Width="2" />
+    <Members>
+      <Method Name="ExtractDataInfoFromDictionary" Hidden="true" />
+      <Method Name="FixFrequencyFrameFile" Hidden="true" />
+      <Method Name="UpdateDataInfoToDictionary" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="SeeSharpTools.JXI.FileIO.VectorFile.VectorFile" FixedFromPoint="true">
+      <Path>
+        <Point X="8.75" Y="0.811" />
+        <Point X="16" Y="0.811" />
+        <Point X="16" Y="1.5" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="Sampling" Type="SeeSharpTools.JXI.FileIO.VectorFile.BaseSamplingInformation" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15" Y="3.845" />
+        <Point X="14.625" Y="3.845" />
+        <Point X="14.625" Y="5.299" />
+        <Point X="13.5" Y="5.299" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAIAgAEAAkAIAAgCAAAAAAgAAAAAAAAAAAAACEAQCE=</HashCode>
+      <FileName>Fix Frequency Frame File.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sampling" />
+      <Property Name="Frame" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameDataInformation">
+    <Position X="15" Y="5" Width="2" />
+    <Members>
+      <Method Name="FixFreqFrameDataInformation" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAgBAAAAAAAAQIAAAAAAAAAA=</HashCode>
+      <FileName>Fix Frequency Frame File.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile">
+    <Position X="18.25" Y="1.5" Width="2" />
+    <Members>
+      <Field Name="_numberOfFrames" Hidden="true" />
+      <Field Name="_samplingInfo" Hidden="true" />
+      <Method Name="ExtractDataInfoFromDictionary" Hidden="true" />
+      <Field Name="numOfBands" Hidden="true" />
+      <Method Name="UpdateDataInfoToDictionary" Hidden="true" />
+    </Members>
+    <InheritanceLine Type="SeeSharpTools.JXI.FileIO.VectorFile.VectorFile" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="0.812" />
+        <Point X="19.312" Y="0.812" />
+        <Point X="19.312" Y="1.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAIAgAEAAEAIAAgCAAAAAAgAAAAAAAAAEAAACEAQCA=</HashCode>
+      <FileName>Spectrum File.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sampling" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.SpectrumSamplingInformation">
+    <Position X="18.25" Y="4.75" Width="2" />
+    <Members>
+      <Field Name="_bands" Hidden="true" />
+      <Method Name="SpectrumSamplingInformation" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIIAAAAAAAAAABAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Spectrum File.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Bands" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation">
+    <Position X="18.25" Y="6.5" Width="2" />
+    <Members>
+      <Field Name="_channels" Hidden="true" />
+      <Method Name="BandSpectrumSamplingInformation" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAFAAAEAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Spectrum File.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Channels" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumChannelInformation">
+    <Position X="18.25" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAEAAAAA=</HashCode>
+      <FileName>Spectrum File.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="SeeSharpTools.JXI.FileIO.VectorFile.FileFormat">
+    <Position X="0.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAACAAAAAAAAAAAABAAAAAAAAAAABA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SeeSharpTools.JXI.FileIO.VectorFile.DataType">
+    <Position X="2.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAQIAAAAAAAAAAAAACAAAAACAAEAAAAAAAA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SeeSharpTools.JXI.FileIO.VectorFile.ByteOrder">
+    <Position X="4.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vector File Base.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

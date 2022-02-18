@@ -1,0 +1,3262 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeeSharpTools.JXI.FileIO.VectorFile</name>
+    </assembly>
+    <members>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile">
+            <summary>
+             FixFrequencyFrameFile : VectorFile
+             从基类VectorFile类中派生过来的新类
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.#ctor">
+            <summary>
+             Constructor
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.#cctor">
+            <summary>
+            constructor, execute when first call any method
+            静态构造函数，当引用任何静态成员或者创建第一个实例时调用
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Position">
+            <summary>
+            Current position,number of Frames form origion
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.NumberOfFrames">
+            <summary>
+            Total data size of file, in number of frames, valid only when openning existed file.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Sampling">
+            <summary>
+            Sampling information
+            定频数据采集设置
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Frame">
+            <summary>
+            Frame data information
+            定频帧式Vector文件的存储信息。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.Boolean)">
+            <summary>
+            Open file
+            </summary>
+            <param name="fileName">File name</param>
+            <param name="mode">File Mode</param>
+            <param name="fileAccess">File Access</param>
+            <param name="disableBuffering">Specifies whether the file will read/write without buffering. 
+            Disable buffering willl speed up data transfers but require read/write block size to be integer multiple of disk sector size</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.WriteFileHeader">
+            <summary>
+            Write data information to file header, could be called after writing data.
+            After the operation, file pointer will be set to the beginning of data (value of property "Position" is 0 after operation).
+            In creating new file use case, it must be called once before writing first block data.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Set the current read-write location of the file to a given value.     
+            </summary>
+            <param name="offset">The number of frames relative to origin. 。</param>
+            <param name="origin">Using a value of type System.IO.SeekOrigin, the start, end, or current position is specified as a reference point for offset.</param>
+            <returns>The new location of the file read and write, the number of frames away from the starting point of the data, that is, the value of the attribute "Position". 。</returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Write(System.SByte[])">
+            <summary>
+            Write data of type I8. If it is multi-channel, the data   stored as Channel Interleave. 
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Write(System.Int16[])">
+            <summary>
+            Write data of type I16. If it is multi-channel, the data stored as Channel Interleave. 
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Write(System.IntPtr,System.Int32)">
+            <summary>
+             Write data by Intptr. If it is multi-channel, the data  stored as Channel Interleave. 
+            </summary>
+            <param name="data"></param>
+            <param name="lengthInBytes">Data length,in number of Byte</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Read(System.SByte[])">
+            <summary>
+            Read data of type I8. If it is multi-channel, the data  stored as Channel Interleave. 
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Read(System.Int16[])">
+            <summary>
+             Read data of type I16. If it is multi-channel, the data  stored as Channel Interleave. 
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.Read(System.IntPtr,System.Int32)">
+            <summary>
+             Read data by IntPtr. If it is multi-channel, the data  stored as Channel Interleave.
+            </summary>
+            <param name="data"></param>
+            <param name="lengthInBytes">Data length,in number of Byte</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.ExtractDataInfoFromDictionary">
+            <summary>
+            从字典中提取数据信息
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyFrameFile.UpdateDataInfoToDictionary">
+            <summary>
+            更新信息到字典
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameDataInformation">
+            <summary>
+            Information of fixed-frequency frame Vector file. 
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameDataInformation.Length">
+            <summary>
+            Length of fram,uint is samples
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameDataInformation.SamplingInfoType">
+            <summary>
+            Information of Sampling
+            定频帧式Vector文件的采样信息类型。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameDataInformation.HeaderSize">
+            <summary>
+             When the type of data sampling information is Independent, the size of the frame header and the number of bytes per frame of data.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameDataInformation.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameFileSamplingInfoType">
+            <summary>
+            Sampling information of fixed-frequency frame Vector file. 
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameFileSamplingInfoType.Shared">
+            <summary>
+            所有数据帧有相同的采样信息。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FixFreqFrameFileSamplingInfoType.Independent">
+            <summary>
+            每帧数据都有独立的采样信息：时间和地理位置。
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.LicenseBase.LicenseBase">
+            <summary>
+            <para>License Manager Base Class</para>
+            <para>Chinese Simplified：License Manager Base Class 类 </para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.LicenseBase.LicenseBase.#cctor">
+            <summary>
+            构造函数 
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.LicenseBase.LicenseBase.Validate(System.String,System.String,System.String)">
+            <summary>
+            Validate；Chinese Simplified：激活
+            </summary>
+            <param name="computerID">computerID；Chinese Simplified：电脑ID，可以通过激活界面查询</param>
+            <param name="activeCode">activeCode；Chinese Simplified：激活码</param>
+            <param name="activeTime">active Time,uint is second；Chinese Simplified：激活时间</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler">
+            <summary> 
+            Provides methods for reading and writing to an INI file. 
+            </summary> 
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.MAX_SECTION_SIZE">
+            <summary> 
+            The maximum size of a section in an ini file. 
+            </summary> 
+            <remarks> 
+            This property defines the maximum size of the buffers used to retreive data from an ini file.  
+            This value is the maximum allowed by the win32 functions GetPrivateProfileSectionNames() or GetPrivateProfileString(). 
+            </remarks> 
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.NativeMethods">
+            <summary> 
+            A static class that provides the win32 P/Invoke signatures used by this class. 
+            </summary> 
+            <remarks> 
+            Note:  In each of the declarations below, we explicitly set CharSet to Auto.  
+            By default in C#, CharSet is set to Ansi, which reduces performance on windows 2000 and above 
+            due to needing to convert strings from Unicode (the native format for all .Net strings) to Ansi before marshalling.
+            Using Auto lets the marshaller select the Unicode version of these functions when available. 
+            </remarks> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+            <param name="path"></param> The path to read and write of ini file       
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.Path">
+            <summary> 
+            Gets the full path of ini file this object instance is operating on. 
+            </summary> 
+            <value>A file path.</value> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.ReadKey(System.String,System.String,System.String)">
+            <summary> 
+            Gets the value of specified key in an ini file as a string. 
+            </summary> 
+            <param name="section">The name of the section to read from.</param> 
+            <param name="key">The name of the key in section to read.</param> 
+            <param name="defaultValue">The default value to return if the key cannot be found.</param> 
+            <returns>The value of the key, if found.  Otherwise, returns 
+            <paramref name="defaultValue"/></returns> 
+            <remarks> 
+            The retreived value must be less than 32KB in length. 
+            </remarks> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.ReadKey(System.String,System.String,System.Int16)">
+            <summary> 
+            Gets the value of specified key in an ini file as a Int16 (short). 
+            </summary> 
+            <param name="section">The name of the section to read from.</param> 
+            <param name="key">The name of the key in section to read.</param> 
+            <param name="defaultValue">The default value to return if the key cannot be found.</param> 
+            <returns>The value of the key, if found.  Otherwise, returns 
+            <paramref name="defaultValue"/>.</returns> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.ReadKey(System.String,System.String,System.Int32)">
+            <summary> 
+            Gets the value of specified key in an ini file as a Int32. 
+            </summary> 
+            <param name="section">The name of the section to read from.</param> 
+            <param name="key">The name of the key in section to read.</param> 
+            <param name="defaultValue">The default value to return if the key cannot be found.</param> 
+            <returns>The value of the key, if found.  Otherwise, returns 
+            <paramref name="defaultValue"/></returns> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.ReadKey(System.String,System.String,System.Double)">
+            <summary> 
+            Gets the value of specified key in an ini file as a double. 
+            </summary> 
+            <param name="section">The name of the section to read from.</param> 
+            <param name="key">The name of the key in section to read.</param> 
+            <param name="defaultValue">The default value to return if the key cannot be found.</param> 
+            <returns>The value of the key, if found.  Otherwise, returns 
+            <paramref name="defaultValue"/></returns> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.ReadIniFile">
+            <summary>
+            Read the ini file and return data in string. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.GetSectionAsListOfPairs(System.String)">
+            <summary> 
+            Gets all of the values in a section as a list. 
+            </summary> 
+            <param name="section"> 
+            Name of the section to retrieve values from. 
+            </param> 
+            <returns> 
+            A <see cref="T:System.Collections.Generic.List`1"/> containing <see cref="T:System.Collections.Generic.KeyValuePair`2"/> objects that describe this section.
+            Use this verison if a section may contain multiple items with the same key value.
+            If you know that a section cannot contain multiple values with the same key name or you don't 
+            care about the duplicates, use the more convenient <see cref="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.GetSectionAsDictionary(System.String)"/> function. 
+            </returns> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> is a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.GetSectionAsDictionary(System.String)">
+            <summary> 
+            Gets all of the values in a section as a dictionary. 
+            </summary> 
+            <param name="section"> 
+            Name of the section to retrieve values from. 
+            </param> 
+            <returns> 
+            A <see cref="T:System.Collections.Generic.Dictionary`2"/> containing the key/value pairs found in this section.   
+            </returns> 
+            <remarks> 
+            If a section contains more than one key with the same name, this function only returns the first instance.
+            If you need to get all key/value pairs within a section even when keys have the same name,
+            use <see cref="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.GetSectionAsListOfPairs(System.String)"/>. 
+            </remarks> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> is a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.GetKeyNames(System.String)">
+            <summary> 
+            Gets the names of all keys under a specific section in the ini file. 
+            </summary> 
+            <param name="section"> 
+            The name of the section to read key names from. 
+            </param> 
+            <returns>An array of key names.</returns> 
+            <remarks> 
+            The total length of all key names in the section must be less than 32KB in length. 
+            </remarks> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> is a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.GetSectionNames">
+            <summary> 
+            Gets the names of all sections in the ini file. 
+            </summary> 
+            <returns>An array of section names.</returns> 
+            <remarks> 
+            The total length of all section names in the section must be less than 32KB in length. 
+            </remarks> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.ConvertNullSeperatedStringToStringArray(System.IntPtr,System.Int32)">
+            <summary> 
+            Converts the null seperated pointer to a string into a string array. 
+            </summary> 
+            <param name="ptr">A pointer to string data.</param> 
+            <param name="arrayLength"> 
+            Length of the data pointed to by <paramref name="ptr"/>. 
+            </param> 
+            <returns> 
+            An array of strings; one for each null found in the array of characters pointed 
+            at by <paramref name="ptr"/>. 
+            </returns> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.WriteValueInternal(System.String,System.String,System.String)">
+            <summary> 
+            Writes a string value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The string value to write</param> 
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.WriteKey(System.String,System.String,System.String)">
+            <summary> 
+            Writes a string value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The string value to write</param> 
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> or 
+            <paramref name="value"/>  are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.WriteKey(System.String,System.String,System.Int16)">
+            <summary> 
+            Writes an Int16 (short) value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The value to write</param> 
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> or 
+            <paramref name="value"/>  are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.WriteKey(System.String,System.String,System.Int32)">
+            <summary> 
+            Writes an Int32 value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The value to write</param> 
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.WriteKey(System.String,System.String,System.Double,System.String)">
+            <summary> 
+            Writes a double value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The value to write</param> 
+            <param name="format">The format string used to format "value" to string by its "ToString()" method.</param>
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.WriteIniFile(System.String)">
+            <summary>
+            Writes a string value to the ini file.
+            </summary>
+            <param name="iniString"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.DeleteKey(System.String,System.String)">
+            <summary> 
+            Deletes the specified key from the specified section. 
+            </summary> 
+            <param name="section"> 
+            Name of the section to remove the key from. 
+            </param> 
+            <param name="key"> 
+            Name of the key to remove. 
+            </param> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.DeleteSection(System.String)">
+            <summary> 
+            Deletes a section from the ini file. 
+            </summary> 
+            <param name="section"> 
+            Name of the section to delete. 
+            </param> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> is a null reference.
+            </exception> 
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile">
+            <summary>
+            存储频谱数据的文件。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.#ctor">
+            <summary>
+             Constructor
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.#cctor">
+            <summary>
+            constructor, execute when first call any method
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Position">
+            <summary>
+            获取或设置文件的当前读写位置，即从数据起始的频谱帧数（Frame）。
+            Current position,number of framess form origion.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.NumberOfFrames">
+            <summary>
+            文件中包含的频谱总帧数。
+            Total data size of file, in frames, valid only when openning existed file.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Sampling">
+            <summary>
+            频谱数据的采样信息。
+            Sampling Information.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Open(System.String,System.IO.FileMode,System.IO.FileAccess)">
+            <summary>
+            打开或创建文件。
+            </summary>
+            <param name="fileName">File name</param>
+            <param name="mode">File Mode</param>
+            <param name="fileAccess">File Access</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.WriteFileHeader">
+            <summary>
+            将数据信息写入文件头，在开始写入数据之前，必须调用一次WriteFileHeader()方法写入文件头。后续可以随时再次调用WriteFileHeader()方法来更新文件头。
+            每次调用WriteFileHeader()方法之后，数据的写入位置会被重置为起始位置，即等效于调用了一次Seek(0, SeekOrigin.Begin)。
+            Write data information to file header, could be called after writing data.
+            After the operation, file pointer will be set to the beginning of data (value of property "Position" is 0 after operation).
+            In creating new file use case, it must be called once before writing first block data.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Set the current read-write location of the file to a given value. 
+            </summary>
+            <param name="offset">The number of samples relative to origin. 。</param>
+            <param name="origin">Using a value of type System.IO.SeekOrigin, the start, end, or current position is specified as a reference point for offset.</param>
+            <returns>The new location of the file read and write, the number of samples away from the starting point of the data, that is, the value of the attribute "Position". </returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Write(System.Single[])">
+            <summary>
+            写入单通道单频段频谱数据，float数据类型。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Write(System.Double[])">
+            <summary>
+            写入单通道单频段频谱数据，double数据类型。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Write(System.Single[][])">
+            <summary>
+            写入单通道多频段频谱数据，或多通道单频段数据，float数据类型。
+            当为单通道多频段数据时，按频段索引，即data[0]为第一个频段的频谱数据，以此类推。
+            当为多通道单频段数据时，按通道索引，即data[0]为第一个通道的频谱数据，以此类推。
+            判断data[0]的个数与通道还是频段数相符。若与通道相符，则按通道索引，判断数据长度与线数是否相符，相符则分别写入各通道的数据。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Write(System.Double[][])">
+            <summary>
+            写入单通道多频段频谱数据，或多通道单频段数据，double数据类型。
+            当为单通道多频段数据时，按频段索引，即data[0]为第一个频段的频谱数据，以此类推。
+            当为多通道单频段数据时，按通道索引，即data[0]为第一个通道的频谱数据，以此类推。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Write(System.Double[][][])">
+            <summary>
+            写入多通道多频段频谱数据，double数据类型。依次按通道、频段索引，即data[0][1]为第一个通道的第二频段的频谱数据，以此类推。      
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Write(System.Single[][][])">
+            <summary>
+            写入多通道多频段频谱数据，float数据类型。依次按通道、频段索引，即data[0][1]为第一个通道的第二频段的频谱数据，以此类推。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Read(System.Single[])">
+            <summary>
+            读取单通道单频段频谱数据，float数据类型。
+            参数data由调用者分配空间，长度为Sampling.Bands[0].NumOfSpectrualLines。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Read(System.Double[])">
+            <summary>
+            读取单通道单频段频谱数据，double数据类型。
+            参数data由调用者分配空间，长度为Sampling.Bands[0].NumOfSpectrualLines。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Read(System.Single[][])">
+            <summary>
+            读取单通道多频段频谱数据，或多通道单频段数据，float数据类型。参数data由调用者分配空间：
+            当为单通道多频段数据时，按频段索引，即第一维长度为[Sampling.Bands.Count]，第二维长度为各Band的谱线数[Sampling.Band[i].NumOfSpectrualLines]。
+            当为多通道单频段数据时，按通道索引，即第一维长度为[Storage.NumberOfChannels]，第二维长度为谱线数[Sampling.Band[0].NumOfSpectrualLines]。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Read(System.Double[][])">
+            <summary>
+            读取单通道多频段频谱数据，或多通道单频段数据，double数据类型。参数data由调用者分配空间：
+            当为单通道多频段数据时，按频段索引，即第一维长度为[Sampling.Bands.Count]，第二维长度为各Band的谱线数[Sampling.Band[i].NumOfSpectrualLines]。
+            当为多通道单频段数据时，按通道索引，即第一维长度为[Storage.NumberOfChannels]，第二维长度为谱线数[Sampling.Band[0].NumOfSpectrualLines]。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Read(System.Single[][][])">
+            <summary>
+            读取多通道多频段频谱数据，float数据类型。参数data由调用者分配空间，依次按通道、频段索引：
+            长度为[Storage.NumberOfChannels][Sampling.Bands.Count][Sampling.Band[i].NumOfSpectrualLines]。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.Read(System.Double[][][])">
+            <summary>
+            读取多通道多频段频谱数据，double数据类型。参数data由调用者分配空间，依次按通道、频段索引：
+            长度为[Storage.NumberOfChannels][Sampling.Bands.Count][Sampling.Band[i].NumOfSpectrualLines]。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.ExtractDataInfoFromDictionary">
+            <summary>
+            从字典中提取数据信息
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumFile.UpdateDataInfoToDictionary">
+            <summary>
+            将数据信息更新到字典
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumSamplingInformation">
+            <summary>
+            频谱的完整采样信息。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumSamplingInformation.Unit">
+            <summary>
+            频谱数据的工程单位。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumSamplingInformation.Interval">
+            <summary>
+            数据记录的时间间隔。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumSamplingInformation.Bands">
+            <summary>
+            所有频段的频谱采样信息。列表中的每个元素对应频谱的一个频段。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.SpectrumSamplingInformation.#ctor">
+            <summary>
+            构造函数。
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation">
+            <summary>
+            一个频段的频谱采样信息。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation.FrequencyStart">
+            <summary>
+            频谱起始频率,以Hz为单位。
+            Start frequency of spectrum, in Hz.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation.FrequencyStop">
+            <summary>
+            频谱终止频率,以Hz为单位。
+            Stop frequency of spectrum, in Hz.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation.FrequencyStep">
+            <summary>
+            频率步进，以Hz为单位。
+            FrequencyStep, in Hz.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation.NumOfSpectralLines">
+            <summary>
+            频谱线数。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation.Channels">
+            <summary>
+            在当前频段下，各通道的采样信息。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumSamplingInformation.#ctor(System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+            构造函数。
+            </summary>
+            <param name="frequencyStart">频谱起始频率,以Hz为单位。</param>
+            <param name="frequencyStop">频谱终止频率,以Hz为单位。</param>
+            <param name="frequencyStep">频率步进，以Hz为单位。</param>
+            <param name="numOfSpectralLines">频谱线数。</param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumChannelInformation">
+            <summary>
+            在频谱的一个频段上，一个通道的采样信息。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumChannelInformation.FrequencyShift">
+            <summary>
+            频谱的偏置频率，以Hz为单位。
+            Offset frequency of spectrum, in Hz.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BandSpectrumChannelInformation.ReferenceLevel">
+            <summary>
+            参考电平。
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer">
+            <summary>
+            Data priviewer for Vector File Fix Frequency Stream Format.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer._scaleFactor">
+            <summary>
+            Scale factor of channels, updated when Commit() is called.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.NumberOfSamples">
+            <summary>
+            Total data size of file, in number of samples.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.SelectionStart">
+            <summary>
+            Selected data start position, in Samples.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.SelectionEnd">
+            <summary>
+            Selected data end position, in Samples.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.PreviewLength">
+            <summary>
+            Result preview waveform length, in Samples.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.PreviewLengthAuto">
+            <summary>
+            If set to true, preview waveform length is automatically selected.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.Unit">
+            <summary>
+            Unit of preview data.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.Decimation">
+            <summary>
+            Decimation ratio of preview data, calculated by "(SelectionEnd - SelectionStart + 1) /PreviewLength".
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.#ctor">
+            <summary>
+            Create instance of data previewer for Vector File Fix Frequency Stream format.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.Commit">
+            <summary>
+            Commit data selection to get output preview data(waveform) length.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.GetData(System.Double[]@,System.Int32)">
+            <summary>
+            Get one channel preview data.
+            </summary>
+            <param name="data"></param>
+            <param name="channelIndex"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.ThreadProcessPreview(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            ThreadProcessPreview
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.ProcessDataForPreview(System.Int16[],SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.DataPreviewResultOf1Ch1Segment[]@,System.Boolean)">
+            <summary>
+            Find the Max/Min pair of input "rawData" and return corresponding amplitude in "previewResult".
+            </summary>
+            <param name="rawData">Channel interleaved data, and I/Q interleaved if data is complex format.</param>
+            <param name="previewResult">Returned preview data, its length must be the same as number of channels.</param>
+            <param name="isInterleavedIQ">If true, input "rawData" is interleaved IQ format, if false, "rawData" is real format.</param>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.DataPreviewResultOf1Ch1Segment.MinValue">
+            <summary>
+            Minimum value of the Segment
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.DataPreviewResultOf1Ch1Segment.MaxValue">
+            <summary>
+            Maximum value of the Segment
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.DataPreviewResultOf1Ch1Segment.IndexOfMin">
+            <summary>
+            Index of minimum value.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.DataPreviewResultOf1Ch1Segment.IndexOfMax">
+            <summary>
+            Index of maximumvalue.
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile">
+            <summary>
+            FixFrequencyStreamFile : VectorFile
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.#ctor">
+            <summary>
+             Constructor//实例构造函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.#cctor">
+            <summary>
+            constructor, execute when first call any method
+            //静态构造函数，创建第一个实例或者引用任何的静态成员时调用
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.SupportFrameFileFormat">
+            <summary>
+            是否支持打开Fix Frequency Frame文件。
+            若为true，则将Fix Frequency Frame格式的文件也视为Fix Frequency Stream文件访问。
+            若为false，则在Open(...)方法中检查文件格式，若文件不是Fix Frequency Stream格式则抛出异常。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.Position">
+            <summary>
+            Current position,number of samples form origion
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.NumberOfSamples">
+            <summary>
+            Total data size of file, in number of samples, valid only when openning existed file.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.Sampling">
+            <summary>
+            Sampling Information
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.Boolean)">
+            <summary>
+            Open file
+            </summary>
+            <param name="fileName">File name</param>
+            <param name="mode">File Mode</param>
+            <param name="fileAccess">File Access</param>
+            <param name="disableBuffering">Specifies whether the file will read/write without buffering.是否缓冲区读写
+            Disable buffering willl speed up data transfers but require read/write block size to be integer multiple of disk sector size</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.WriteFileHeader">
+            <summary>
+            将数据信息写入文件头，在开始写入数据之前，必须调用一次WriteFileHeader()方法写入文件头。后续可以随时再次调用WriteFileHeader()方法来更新文件头。
+            每次调用WriteFileHeader()方法之后，数据的写入位置会被重置为起始位置，即等效于调用了一次Seek(0, SeekOrigin.Begin)。？？？重置为起始位置，数据不会乱？？
+            Write data information to file header, could be called after writing data.
+            After the operation, file pointer will be set to the beginning of data (value of property "Position" is 0 after operation).
+            In creating new file use case, it must be called once before writing first block data.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamFile.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Set the current read-write location of the file to a given value. 
+            将文件读写位置设置为给定值
+            </summary>
+            <param name="offset">The number of samples relative to origin. 。</param>
+            <param name="origin">Using a value of type System.IO.SeekOrigin, the start, end, or current position is specified as a reference point for offset.</param>
+            <returns>The new location of the file read and write, the number of samples away from the starting point of the data, that is, the value of the attribute "Position". </returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.BaseSamplingInformation">
+            <summary>
+            Sampling Information
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BaseSamplingInformation.SampleRate">
+            <summary>
+            SampleRate，S/s
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BaseSamplingInformation.Channels">
+            <summary>
+            Sampling Infomaton of Channels
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.BaseSamplingInformation.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler">
+            <summary> 
+            Provides methods for reading and writing to an INI file. 
+            </summary> 
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.MAX_SECTION_SIZE">
+            <summary> 
+            The maximum size of a section in an ini file. 
+            </summary> 
+            <remarks> 
+            This property defines the maximum size of the buffers used to retreive data from an ini file.  
+            This value is the maximum allowed by the win32 functions GetPrivateProfileSectionNames() or GetPrivateProfileString(). 
+            </remarks> 
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.NativeMethods">
+            <summary> 
+            A static class that provides the win32 P/Invoke signatures used by this class. 
+            </summary> 
+            <remarks> 
+            Note:  In each of the declarations below, we explicitly set CharSet to Auto.  
+            By default in C#, CharSet is set to Ansi, which reduces performance on windows 2000 and above 
+            due to needing to convert strings from Unicode (the native format for all .Net strings) to Ansi before marshalling.
+            Using Auto lets the marshaller select the Unicode version of these functions when available. 
+            </remarks> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.#ctor(System.String)">
+            <summary> 
+            Initializes a new instance of the class. 
+            </summary> 
+            <param name="iniString">the ini string.</param> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.GetAllText">
+            <summary>
+            get all ini text string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.Path">
+            <summary> 
+            Gets the full path of ini file this object instance is operating on. 
+            </summary> 
+            <value>A file path.</value> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.ReadKey(System.String,System.String,System.String)">
+            <summary> 
+            Gets the value of specified key in an ini file as a string. 
+            </summary> 
+            <param name="section">The name of the section to read from.</param> 
+            <param name="key">The name of the key in section to read.</param> 
+            <param name="defaultValue">The default value to return if the key cannot be found.</param> 
+            <returns>The value of the key, if found.  Otherwise, returns 
+            <paramref name="defaultValue"/></returns> 
+            <remarks> 
+            The retreived value must be less than 32KB in length. 
+            </remarks> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.ReadKey(System.String,System.String,System.Int16)">
+            <summary> 
+            Gets the value of specified key in an ini file as a Int16 (short). 
+            </summary> 
+            <param name="section">The name of the section to read from.</param> 
+            <param name="key">The name of the key in section to read.</param> 
+            <param name="defaultValue">The default value to return if the key cannot be found.</param> 
+            <returns>The value of the key, if found.  Otherwise, returns 
+            <paramref name="defaultValue"/>.</returns> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.ReadKey(System.String,System.String,System.Int32)">
+            <summary> 
+            Gets the value of specified key in an ini file as a Int32. 
+            </summary> 
+            <param name="section">The name of the section to read from.</param> 
+            <param name="key">The name of the key in section to read.</param> 
+            <param name="defaultValue">The default value to return if the key cannot be found.</param> 
+            <returns>The value of the key, if found.  Otherwise, returns 
+            <paramref name="defaultValue"/></returns> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.ReadKey(System.String,System.String,System.Double)">
+            <summary> 
+            Gets the value of specified key in an ini file as a double. 
+            </summary> 
+            <param name="section">The name of the section to read from.</param> 
+            <param name="key">The name of the key in section to read.</param> 
+            <param name="defaultValue">The default value to return if the key cannot be found.</param> 
+            <returns>The value of the key, if found.  Otherwise, returns 
+            <paramref name="defaultValue"/></returns> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.GetSectionAsListOfPairs(System.String,System.Boolean)">
+            <summary> 
+            Gets all of the values in a section as a list. 
+            </summary> 
+            <param name="section"> 
+            Name of the section to retrieve values from. 
+            </param> 
+            <returns> 
+            <param name="trimDoubleQuotes">是否移除ini项Value首尾的双引号。</param>
+            A <see cref="T:System.Collections.Generic.List`1"/> containing <see cref="T:System.Collections.Generic.KeyValuePair`2"/> objects that describe this section.
+            Use this verison if a section may contain multiple items with the same key value.
+            If you know that a section cannot contain multiple values with the same key name or you don't 
+            care about the duplicates, use the more convenient <see cref="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.GetSectionAsDictionary(System.String,System.Boolean)"/> function. 
+            </returns> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> is a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.GetSectionAsDictionary(System.String,System.Boolean)">
+            <summary> 
+            Gets all of the values in a section as a dictionary. 
+            </summary> 
+            <param name="section"> 
+            Name of the section to retrieve values from. 
+            </param> 
+            <param name="trimDoubleQuotes">是否移除ini项Value首尾的双引号。</param>
+            <returns> 
+            A <see cref="T:System.Collections.Generic.Dictionary`2"/> containing the key/value pairs found in this section.   
+            </returns> 
+            <remarks> 
+            If a section contains more than one key with the same name, this function only returns the first instance.
+            If you need to get all key/value pairs within a section even when keys have the same name,
+            use <see cref="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.GetSectionAsListOfPairs(System.String,System.Boolean)"/>. 
+            </remarks> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> is a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.GetKeyNames(System.String)">
+            <summary> 
+            Gets the names of all keys under a specific section in the ini file. 
+            </summary> 
+            <param name="section"> 
+            The name of the section to read key names from. 
+            </param> 
+            <returns>An array of key names.</returns> 
+            <remarks> 
+            The total length of all key names in the section must be less than 32KB in length. 
+            </remarks> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> is a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.GetSectionNames">
+            <summary> 
+            Gets the names of all sections in the ini file. 
+            </summary> 
+            <returns>An array of section names.</returns> 
+            <remarks> 
+            The total length of all section names in the section must be less than 32KB in length. 
+            </remarks> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.ConvertNullSeperatedStringToStringArray(System.IntPtr,System.Int32)">
+            <summary> 
+            Converts the null seperated pointer to a string into a string array. 
+            </summary> 
+            <param name="ptr">A pointer to string data.</param> 
+            <param name="arrayLength"> 
+            Length of the data pointed to by <paramref name="ptr"/>. 
+            </param> 
+            <returns> 
+            An array of strings; one for each null found in the array of characters pointed 
+            at by <paramref name="ptr"/>. 
+            </returns> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.WriteValueInternal(System.String,System.String,System.String)">
+            <summary> 
+            Writes a string value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The string value to write</param> 
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.WriteKey(System.String,System.String,System.String)">
+            <summary> 
+            Writes a string value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The string value to write</param> 
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> or 
+            <paramref name="value"/>  are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.WriteKey(System.String,System.String,System.Int16)">
+            <summary> 
+            Writes an Int16 (short) value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The value to write</param> 
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> or 
+            <paramref name="value"/>  are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.WriteKey(System.String,System.String,System.Int32)">
+            <summary> 
+            Writes an Int32 value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The value to write</param> 
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.WriteKey(System.String,System.String,System.Double,System.String)">
+            <summary> 
+            Writes a double value of specified key to the ini file. 
+            </summary> 
+            <param name="section">The name of the section to write to .</param> 
+            <param name="key">The name of the key to write to.</param> 
+            <param name="value">The value to write</param> 
+            <param name="format">The format string used to format "value" to string by its "ToString()" method.</param>
+            <exception cref="T:System.ComponentModel.Win32Exception"> 
+            The write failed. 
+            </exception> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.DeleteKey(System.String,System.String)">
+            <summary> 
+            Deletes the specified key from the specified section. 
+            </summary> 
+            <param name="section"> 
+            Name of the section to remove the key from. 
+            </param> 
+            <param name="key"> 
+            Name of the key to remove. 
+            </param> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> or <paramref name="key"/> are a null reference.
+            </exception> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.IniStreamHandler.DeleteSection(System.String)">
+            <summary> 
+            Deletes a section from the ini file. 
+            </summary> 
+            <param name="section"> 
+            Name of the section to delete. 
+            </param> 
+            <exception cref="T:System.ArgumentNullException"> 
+            <paramref name="section"/> is a null reference.
+            </exception> 
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._fileOpened">
+            <summary>
+            Flag indicates whether file is opened.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._fileHeaderSizeChangeable">
+            <summary>
+            Indicates whether header size is changeable. In opening existing file use case, it is false.
+            In creating new file use case, it is true until a "CommitDataInformation()" is called.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._disableBuffering">
+            <summary>
+            Whether the file will read/write without buffering. If true, KernelFileStream is used.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._nativeFileStream">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._nativeFileInteropArray">
+            <summary>
+            Internal byte[] for converting short[]/IntPtr data input/output for FileStream read/write.
+            The Read()/Write() of C# FileStream class only accept byte[] data type, 
+            so we need to perform data type convert when reading/writing other data type (e.g. short[]/Intptr)
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._kernelFileStream">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._kernelFileInteropPtr">
+            <summary>
+            Internal IntPtr for converting sbyte[]/short[] data input/output for KernelFileStream read/write.
+            The Read()/Write() of KernelFileStream class only accept IntPtr data type, 
+            so we need to perform data type convert when reading/writing other data type (e.g. sbyte[]/short[]).
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._infoDictionary">
+            <summary>
+            Dictionary contains all keys/values of Vector File header information.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._fileFullPath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Name">
+            <summary>
+            获取文件的全路径名，即传递给构造函数的名称。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._fileLengthInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Length">
+            <summary>
+            获取文件长度，字节数。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.BytesPerSample">
+            <summary>
+            BytesPerSample is determined by "Storage.DataType" and "Storage.NumberOfChannels", 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._storageInfo">
+            <summary>
+            Storage Information
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Storage">
+            <summary>
+            存储格式。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._makerInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Maker">
+            <summary>
+            制造商信息。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._archiveInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Archive">
+            <summary>
+            归档信息。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._deviceInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Device">
+            <summary>
+            设备信息。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile._reservedInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Reserved">
+            <summary>
+            预留信息。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.#ctor">
+            <summary>
+            构造函数。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Finalize">
+            <summary>
+             析构函数，关闭已打开的文件。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.Boolean)">
+            <summary>
+            打开或创建文件。
+            </summary>
+            <param name="filePath"></param>
+            <param name="mode"></param>
+            <param name="fileAccess"></param>
+            <param name="disableBuffering">Specifies whether the file will read/write without buffering. 
+            Disable buffering willl speed up data transfers but require read/write block size to be integer multiple of disk sector size.</param>   
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Close">
+            <summary>
+            关闭当前文件并释放与之关联的所有资源（如文件句柄）。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.WriteFileHeader">
+            <summary>
+            Write data information to file header, could be called after writing data.
+            After the operation, file pointer will be set to the beginning of data (value of property "Position" is 0 after operation).
+            In creating new file use case, it must be called once before writing first block data.      
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Write(System.SByte[])">
+            <summary>
+            写入I8类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Write(System.Int16[])">
+            <summary>
+            写入I16类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Write(System.Single[])">
+            <summary>
+            写入Float32类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Write(System.Double[])">
+            <summary>
+            写入double64类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Write(System.IntPtr,System.Int32)">
+            <summary>
+             以IntPtr写入数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+            <param name="lengthInBytes">数据长度，字节数。</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Read(System.SByte[])">
+            <summary>
+            读出I8类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Read(System.Int16[])">
+            <summary>
+            读出I16类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Read(System.Single[])">
+            <summary>
+            读出Float32类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Read(System.Double[])">
+            <summary>
+            读出Double64类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.Read(System.IntPtr,System.Int32)">
+            <summary>
+             以IntPtr读出数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
+            </summary>
+            <param name="data"></param>
+            <param name="lengthInBytes">数据长度，字节数。</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.LoadDataInfoFromFile(System.String,System.IO.FileMode,System.IO.FileAccess)">
+            <summary>
+            Open existed vector file, read data information from header and store in "_infoDictionary" private field.
+            </summary>
+            <param name="filePath"></param>
+            <param name="mode"></param>
+            <param name="fileAccess"></param>
+            <returns>Full header size in bytes, or data start position in file.</returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.ExtractDataInfoFromDictionary">
+            <summary>
+            Extract base data information from dictionary and update this.Public Properties ((Maker/Archive/Device/Storage/Reserved).
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.UpdateDataInfoToDictionary">
+            <summary>
+            Update data information dictionary according to this.Public Properties (Maker/Archive/Device/Storage/Reserved).
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.WriteDataInfoToFileHeader">
+            <summary>
+            Formating data information dictionary to Vector File Header Format and write to file.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.ConvertSpreadsheetStringToArrayDbl(System.String,System.String)">
+            <summary> 
+            Converts spreadsheet string with specified separator into a double array. 
+            </summary> 
+            <param name="spreadsheetString">String data to convert.</param> 
+            <param name="separator">Separator used to separate fields in the spreadsheet string.</param> 
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFile.ConvertArrayToSpreadsheetString(System.Double[],System.String,System.String)">
+            <summary>
+            Converts a double array into spreadsheet string with specified separator. 
+            </summary>
+            <param name="data"></param>
+            <param name="format"></param>
+            <param name="separator">Separator used to separate fields in the spreadsheet string.</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation">
+            <summary>
+            文件格式和数据格式信息
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation.FileFormat">
+            <summary>
+            文件格式，FixFreqStream/FixFreRecord/ScanRecord
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation.NumberOfChannels">
+            <summary>
+            通道数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation.DataType">
+            <summary>
+            数据类型，Complex/Real，I8/I16/DBL
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation.ByteOrder">
+            <summary>
+            字节序，Little Endian/Big Endian
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation.FileHeaderSize">
+            <summary>
+            文件头长度，字节数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.StorageInformation.#ctor">
+            <summary>
+            Constructor, initializing default values.
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.MakerInformation">
+            <summary>
+            Maker information includes file version, software and producer.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.MakerInformation.Version">
+            <summary>
+            VectorFile版本
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.MakerInformation.Software">
+            <summary>
+            生成该数据文件的软件
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.MakerInformation.Producer">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.MakerInformation.#ctor">
+            <summary>
+            Constructor will initialize "Version".
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation">
+            <summary>
+            Archive information including date time, location, data source, tag and comment.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation.StationID">
+            <summary>
+            数据来源的设备或站点ID
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation.Operator">
+            <summary>
+            数据来源的设备操作员ID
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation.DataTag">
+            <summary>
+            DataTag
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation.DateTime">
+            <summary>
+            数据起始点的时间
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation.Location">
+            <summary>
+            Location description.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation.Coordinate">
+            <summary>
+            Geographical coordinate of data source.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation.Comment">
+            <summary>
+            可用于描述数据备注
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.ArchiveInformation.#ctor">
+            <summary>
+            归档信息，默认构造函数，will initialize "DataStartTime" and "Coordinate"。
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation">
+            <summary>
+            Information of acquisition device, used when the data is acquired by device.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation.ReceiverModel">
+            <summary>
+            接收设备model
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation.ReceiverSerialNumber">
+            <summary>
+            设备序列号
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation.AntennalModel">
+            <summary>
+            接收天线model
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation.AntennalSerialNumber">
+            <summary>
+            接收天线序列号
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation.FrontendModel">
+            <summary>
+            接收前端model
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation.FrontendSerialNumber">
+            <summary>
+            接收前端序列号
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DeviceInformation.Comment">
+            <summary>
+            可用于描述设备备注
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.GeoCoordinate">
+            <summary>
+            地理信息（经度，维度和高度）
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.GeoCoordinate.Latitude">
+            <summary>
+            纬度
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.GeoCoordinate.Longitude">
+            <summary>
+            经度
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.GeoCoordinate.Altitude">
+            <summary>
+            高度
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.GeoCoordinate.IsUnknown">
+            <summary>
+            含有未知经度，纬度和高度的数据
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.GeoCoordinate.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            构造函数。
+            </summary>
+            <param name="latitude"></param>
+            <param name="longitude"></param>
+            <param name="altitude"></param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation">
+            <summary>
+            预留
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation.Double1">
+            <summary>
+            浮点数1
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation.Double2">
+            <summary>
+            浮点数2
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation.Double3">
+            <summary>
+            浮点数3
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation.Double4">
+            <summary>
+            浮点数4
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation.String1">
+            <summary>
+            字符串1
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.ReservedInformation.String2">
+            <summary>
+            字符串2
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.FileFormat">
+            <summary>
+            文件格式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FileFormat.FixFrequencyStream">
+            <summary>
+            Fix Frequency Stream, data is continuous.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FileFormat.FixFrequencyFrame">
+            <summary>
+            Fix Frequency Records, data is by frame.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FileFormat.FrequencyScanIQ">
+            <summary>
+            Scan Records, data is by frame and each frame corresponds to index of a frequency sequence.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FileFormat.Spectrum">
+            <summary>
+            Multi-band Spectrum.
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.DataType">
+            <summary>
+            数据格式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.DataType.ComplexI8">
+            <summary>
+            Raw complex data, interleaved I/Q, 8-bit. 
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.DataType.ComplexI16">
+            <summary>
+            Raw complex data, interleaved I/Q, 16-bit. 
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.DataType.RealI8">
+            <summary>
+            Raw ADC data, 8-bit
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.DataType.RealI16">
+            <summary>
+            Raw ADC data, 16-bit
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.DataType.RealF32">
+            <summary>
+            实数单精度浮点数，32-bit
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.DataType.RealD64">
+            <summary>
+            实数双精度浮点数，64-bit
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.ByteOrder">
+            <summary>
+            字节序
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.ByteOrder.LittleEndian">
+            <summary>
+            将低序字节存储在起始地址
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.ByteOrder.BigEndian">
+            <summary>
+            将高序字节存储在起始地址
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo">
+            <summary>
+            基础采样信息。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo.RFFrequency">
+            <summary>
+            射频中心频率，以Hz为单位
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo.Bandwidth">
+            <summary>
+            带宽，以Hz为单位
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo.ReferenceLevel">
+            <summary>
+            参考电平，以dBm为单位
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo.IFFrequency">
+            <summary>
+            中频频率，以Hz为单位
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo.RFScaleFactor">
+            <summary>
+            RF链路补偿因子，线性（非dB），用于与raw数据相乘得到电压值。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo.DigitizerScaleFactor">
+            <summary>
+            数字化仪补偿因子，线性（非dB），用于与raw数据相乘得到电压值。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.BaseChannelSamplingInfo.GetScaleFactor">
+            <summary>
+            Return total scale factor, which is calculated by "RFScaleFactor * DigitizerScaleFactor".
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr">
+            <summary>
+             A flexible IntPtr whose size will automatically increase when property "LeastLength" is set, 
+             or when Copy() is called and input data size is larger the current length.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr._bufferLength">
+            <summary>
+            Actual buffer length in Bytes.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr.LeastLength">
+            <summary>
+            Least buffer length in Bytes.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr.FlexIntPtr">
+            <summary>
+            The unmanaged memory handle.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr.#ctor">
+            <summary>
+             Constructor to create a IntPtr with default length.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr.Finalize">
+            <summary>
+            Destructor to free allocated unmanaged memory.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr.Copy(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            将一维的托管 8 位无符号整数数组中的数据复制到内部的非托管内存指针FlexInptr。
+            </summary>
+            <param name="source">从中进行复制的一维数组。</param>
+            <param name="startIndex">源数组中复制起始位置的索引（从零开始）。</param>
+            <param name="length">要复制的数组元素的数目。</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr.Copy(System.Int16[],System.Int32,System.Int32)">
+            <summary>
+            将一维的托管 16 位有符号整数数组中的数据复制到内部的非托管内存指针FlexInptr。
+            </summary>
+            <param name="source">从中进行复制的一维数组。</param>
+            <param name="startIndex">源数组中复制起始位置的索引（从零开始）。</param>
+            <param name="length">要复制的数组元素的数目。</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr.Copy(System.Single[],System.Int32,System.Int32)">
+            <summary>
+            将一维的托管 32 位单精度浮点数组中的数据复制到内部的非托管内存指针FlexInptr。
+            </summary>
+            <param name="source">从中进行复制的一维数组。</param>
+            <param name="startIndex">源数组中复制起始位置的索引（从零开始）。</param>
+            <param name="length">要复制的数组元素的数目。</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexInteropPtr.Copy(System.Double[],System.Int32,System.Int32)">
+            <summary>
+            将一维的托管 64 位双精度浮点数组中的数据复制到内部的非托管内存指针FlexInptr。
+            </summary>
+            <param name="source">从中进行复制的一维数组。</param>
+            <param name="startIndex">源数组中复制起始位置的索引（从零开始）。</param>
+            <param name="length">要复制的数组元素的数目。</param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.FlexByteArray">
+            <summary>
+             A flexible byte[] whose size will automatically increase when property "LeastLength" is set, 
+             or when Copy() is called and input data size is larger the current length.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.FlexByteArray._length">
+            <summary>
+            Actual buffer length in Bytes.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FlexByteArray.LeastLength">
+            <summary>
+            Least buffer length in Bytes.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.FlexByteArray.FlexArray">
+            <summary>
+            The flex array.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexByteArray.#ctor">
+            <summary>
+             Constructor to create an array with default length.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexByteArray.Copy``1(``0[],System.Int32,System.Int32)">
+            <summary>
+            将指定元素数目的从起始于特定偏移量的源数组复制到内部托管 8 位无符号整数数组"FlexArray"。
+            </summary>
+            <param name="source">从中进行复制的一维数组。</param>
+            <param name="startIndex">源数组中复制起始位置的索引（从零开始）。</param>
+            <param name="length">要复制的数组元素的数目。</param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.FlexByteArray.Copy(System.IntPtr,System.Int32,System.Int32)">
+            <summary>
+            将数据从非托管内存指针复制到内部托管 8 位无符号整数数组"FlexArray"。
+            </summary>
+            <param name="source">从中进行复制的数组。</param>
+            <param name="startIndex">源数组中复制起始位置的索引（从零开始）。</param>
+            <param name="length">要复制的字节数。</param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.VectorFileException">
+            <summary>
+            异常类
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorFileException.ErrorCode">
+            <summary>
+            异常错误代码
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorFileException.#ctor(SeeSharpTools.JXI.FileIO.VectorFile.ExceptionEnum,System.String)">
+            <summary>
+            构造函数，指定异常错误代码
+            </summary>
+            <param name="exceptionType"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.ExceptionEnum">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.ExceptionEnum.InvalidFile">
+            <summary>
+            无效的文件
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.ExceptionEnum.InconsistantFileHeaderInfo">
+            <summary>
+            数据信息冲突
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.ExceptionEnum.DataTypeConflict">
+            <summary>
+            写入或读取的数据类型与文件格式不符
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.ExceptionEnum.DataLengthConflict">
+            <summary>
+            写入或读取的数据长度与文件格式不符
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream">
+            <summary>
+            KernelFileStream
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.Finalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.Position">
+            <summary>
+            获取或设置文件的当前读写位置，即从起始的字节数。
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.Boolean)">
+            <summary>
+            Open
+            </summary>
+            <param name="fileName"></param>
+            <param name="mode"></param>
+            <param name="fileAccess"></param>
+            <param name="disableBuffering"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.Close">
+            <summary>
+            Close
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            
+            </summary>
+            <param name="offset"></param>
+            <param name="origin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.Read(System.IntPtr,System.Int32)">
+            <summary>
+            Read
+            </summary>
+            <param name="data"></param>
+            <param name="numberOfBytesToRead"></param>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.Write(System.IntPtr,System.Int32)">
+            <summary>
+            Write
+            </summary>
+            <param name="data"></param>
+            <param name="numberOfBytesToWrite"></param>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase">
+            <summary>
+            Base class of data previewer for Vector File.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase._timeoutStopwatch">
+            <summary>
+            Stopwatch to keep elapsed time since Start();
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.#ctor">
+            <summary>
+            Create instance of data previewer for Vector File.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase._filePath">
+            <summary>
+            Full path of file.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.FilePath">
+            <summary>
+            Full path of file.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase._timeout">
+            <summary>
+            Max time to generate data preview, in milliseconds.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.Timeout">
+            <summary>
+            Max time to generate data preview, in milliseconds.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase._workerReportInterval">
+            <summary>
+            Interval of the worker reports progress, in ms (milliseconds).
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.WorkerReportInterval">
+            <summary>
+            Interval of the worker reports progress, in ms (milliseconds).
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.Commit">
+            <summary>
+            Commit data preview parameters.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.Start">
+            <summary>
+            Start background thread to process data for preview.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.Stop">
+            <summary>
+            Stop backgournd thread which is processing data for preview.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.ThreadProcessPreview(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            Implementation of processing data for preview.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase.UnitConversion(System.Double,System.Double,SeeSharpTools.JXI.FileIO.VectorFile.VectorDataAmplitudeUnit)">
+            <summary>
+            Convert input unscaled raw amplitude to specified outputUnit.
+            </summary>
+            <param name="amplitude"> Raw amplitude (usually ADC value).</param>
+            <param name="scaleFactor"> Scale factor used to convert unscaled amplitude to Volt. </param>
+            <param name="outputUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataAmplitudeUnit">
+            <summary>
+            Unit of preview data.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataAmplitudeUnit.V">
+            <summary>
+            Amplitude in Volt.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataAmplitudeUnit.uV">
+            <summary>
+            Amplitude in MicroVolt
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataAmplitudeUnit.dBuV">
+            <summary>
+            Power in dBuV.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataAmplitudeUnit.dBm">
+            <summary>
+            Power in dBm.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataAmplitudeUnit.Unscaled">
+            <summary>
+            Raw unscaled amplitude.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DataPreviewSegmentBase.PositionStart">
+            <summary>
+            Start position in samples.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DataPreviewSegmentBase.PositionEnd">
+            <summary>
+            End position in samples.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.DataPreviewSegmentForMultiRead.SamplesPerBlock">
+            <summary>
+            Samples to read from file, for each block.
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewResult">
+            <summary>
+            VectorDataPreviewResult 
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewResult.IsCompletePreview">
+            <summary>
+            Indicates whether all selected data is processed (correspondingly "PreviewRatio" is 1).
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewResult.PreviewRatio">
+            <summary>
+            Ratio (0 ~ 1) of processed data length to selected data length.
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewResult.Progress">
+            <summary>
+            Progress in percentage (1 ~100).
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewResult.#ctor(System.Boolean,System.Double,System.Double)">
+            <summary>
+            VectorDataPreviewResult
+            </summary>
+            <param name="isCompletePreview"></param>
+            <param name="previewRatio"></param>
+            <param name="progress"></param>
+        </member>
+        <member name="T:IniParser.Exceptions.ParsingException">
+            <summary>
+            Represents an error ococcurred while parsing data 
+            </summary>
+        </member>
+        <member name="T:IniParser.FileIniDataParser">
+            <summary>
+                Represents an INI data parser for files.
+            </summary>
+        </member>
+        <member name="M:IniParser.FileIniDataParser.#ctor">
+            <summary>
+                Ctor
+            </summary>
+        </member>
+        <member name="M:IniParser.FileIniDataParser.#ctor(IniParser.Parser.IniDataParser)">
+            <summary>
+                Ctor
+            </summary>
+            <param name="parser"></param>
+        </member>
+        <member name="M:IniParser.FileIniDataParser.ReadFile(System.String)">
+            <summary>
+                Implements reading ini data from a file.
+            </summary>
+            <remarks>
+                Uses <see cref="P:System.Text.Encoding.Default"/> codification for the file.
+            </remarks>
+            <param name="filePath">
+                Path to the file
+            </param>
+        </member>
+        <member name="M:IniParser.FileIniDataParser.ReadFile(System.String,System.Text.Encoding)">
+            <summary>
+                Implements reading ini data from a file.
+            </summary>
+            <param name="filePath">
+                Path to the file
+            </param>
+            <param name="fileEncoding">
+                File's encoding.
+            </param>
+        </member>
+        <member name="M:IniParser.FileIniDataParser.SaveFile(System.String,IniParser.Model.IniData)">
+            <summary>
+                Saves INI data to a file.
+            </summary>
+            <remarks>
+                Creats an ASCII encoded file by default.
+            </remarks>
+            <param name="filePath">
+                Path to the file.
+            </param>
+            <param name="parsedData">
+                IniData to be saved as an INI file.
+            </param>
+        </member>
+        <member name="M:IniParser.FileIniDataParser.WriteFile(System.String,IniParser.Model.IniData,System.Text.Encoding)">
+            <summary>
+                Writes INI data to a text file.
+            </summary>
+            <param name="filePath">
+                Path to the file.
+            </param>
+            <param name="parsedData">
+                IniData to be saved as an INI file.
+            </param>
+            <param name="fileEncoding">
+                Specifies the encoding used to create the file.
+            </param>
+        </member>
+        <member name="M:IniParser.Helpers.Assert.StringHasNoBlankSpaces(System.String)">
+            <summary>
+            Asserts that a strings has no blank spaces.
+            </summary>
+            <param name="s">The string to be checked.</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:IniParser.Model.Configuration.ConcatenateDuplicatedKeysIniParserConfiguration.ConcatenateSeparator" -->
+        <member name="T:IniParser.Model.Configuration.IniParserConfiguration">
+            <summary>
+                Defines data for a Parser configuration object.
+            </summary>
+                With a configuration object you can redefine how the parser
+                will detect special items in the ini file by defining new regex
+                (e.g. you can redefine the comment regex so it just treat text as
+                a comment iff the comment caracter is the first in the line)
+                or changing the set of characters used to define elements in
+                the ini file (e.g. change the 'comment' caracter from ';' to '#')
+                You can also define how the parser should treat errors, or how liberal
+                or conservative should it be when parsing files with "strange" formats.
+        </member>
+        <member name="M:IniParser.Model.Configuration.IniParserConfiguration.#ctor">
+            <summary>
+                Default values used if an instance of <see cref="T:IniParser.Parser.IniDataParser"/>
+                is created without specifying a configuration.
+            </summary>
+            <remarks>
+                By default the various delimiters for the data are setted:
+                <para>';' for one-line comments</para>
+                <para>'[' ']' for delimiting a section</para>
+                <para>'=' for linking key / value pairs</para>
+                <example>
+                    An example of well formed data with the default values:
+                    <para>
+                    ;section comment<br/>
+                    [section] ; section comment<br/>
+                    <br/>
+                    ; key comment<br/>
+                    key = value ;key comment<br/>
+                    <br/>
+                    ;key2 comment<br/>
+                    key2 = value<br/>
+                    </para>
+                </example>
+            </remarks>
+        </member>
+        <member name="M:IniParser.Model.Configuration.IniParserConfiguration.#ctor(IniParser.Model.Configuration.IniParserConfiguration)">
+            <summary>
+                Copy ctor.
+            </summary>
+            <param name="ori">
+                Original instance to be copied.
+            </param>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.SectionStartChar">
+            <summary>
+                Sets the char that defines the start of a section name.
+            </summary>
+            <remarks>
+                Defaults to character '['
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.SectionEndChar">
+            <summary>
+                Sets the char that defines the end of a section name.
+            </summary>
+            <remarks>
+                Defaults to character ']'
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.CaseInsensitive">
+            <summary>
+                Retrieving section / keys by name is done with a case-insensitive
+                search.
+            </summary>
+            <remarks>
+                Defaults to false (case sensitive search)
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.CommentChar">
+            <summary>
+                Sets the char that defines the start of a comment.
+                A comment spans from the comment character to the end of the line.
+            </summary>
+            <remarks>
+                Defaults to character ';'
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.CommentString">
+            <summary>
+                Sets the string that defines the start of a comment.
+                A comment spans from the mirst matching comment string
+                to the end of the line.
+            </summary>
+            <remarks>
+                Defaults to string ";"
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.NewLineStr">
+            <summary>
+                Gets or sets the string to use as new line string when formating an IniData structure using a
+                IIniDataFormatter. Parsing an ini-file accepts any new line character (Unix/windows)
+            </summary>
+            <remarks>
+                This allows to write a file with unix new line characters on windows (and vice versa)
+            </remarks>
+            <value>Defaults to value Environment.NewLine</value>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.KeyValueAssigmentChar">
+            <summary>
+                Sets the char that defines a value assigned to a key
+            </summary>
+            <remarks>
+                Defaults to character '='
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.AssigmentSpacer">
+            <summary>
+                Sets the string around KeyValuesAssignmentChar
+            </summary>
+            <remarks>
+                Defaults to string ' '
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.AllowKeysWithoutSection">
+            <summary>
+                Allows having keys in the file that don't belong to any section.
+                i.e. allows defining keys before defining a section.
+                If set to <c>false</c> and keys without a section are defined,
+                the <see cref="T:IniParser.Parser.IniDataParser"/> will stop with an error.
+            </summary>
+            <remarks>
+                Defaults to <c>true</c>.
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.AllowDuplicateKeys">
+            <summary>
+                If set to <c>false</c> and the <see cref="T:IniParser.Parser.IniDataParser"/> finds duplicate keys in a
+                section the parser will stop with an error.
+                If set to <c>true</c>, duplicated keys are allowed in the file. The value
+                of the duplicate key will be the last value asigned to the key in the file.
+            </summary>
+            <remarks>
+                Defaults to <c>false</c>.
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.OverrideDuplicateKeys">
+            <summary>
+                Only used if <see cref="P:IniParser.Model.Configuration.IniParserConfiguration.AllowDuplicateKeys"/> is also <c>true</c>
+                If set to <c>true</c> when the parser finds a duplicate key, it overrites
+                the previous value, so the key will always contain the value of the
+                last key readed in the file
+                If set to <c>false</c> the first readed value is preserved, so the key will
+                always contain the value of the first key readed in the file
+            </summary>
+            <remarks>
+                Defaults to <c>false</c>.
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.ConcatenateDuplicateKeys">
+            <summary>
+                Gets or sets a value indicating whether duplicate keys are concatenate
+                together by <see cref="!:ConcatenateSeparator"/>.
+            </summary>
+            <value>
+                Defaults to <c>false</c>.
+            </value>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.ThrowExceptionsOnError">
+            <summary>
+                If <c>true</c> the <see cref="T:IniParser.Parser.IniDataParser"/> instance will thrown an exception
+                if an error is found.
+                If <c>false</c> the parser will just stop execution and return a null value.
+            </summary>
+            <remarks>
+                Defaults to <c>true</c>.
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.AllowDuplicateSections">
+            <summary>
+                If set to <c>false</c> and the <see cref="T:IniParser.Parser.IniDataParser"/> finds a duplicate section
+                the parser will stop with an error.
+                If set to <c>true</c>, duplicated sections are allowed in the file, but only a
+                <see cref="T:IniParser.Model.SectionData"/> element will be created in the <see cref="P:IniParser.Model.IniData.Sections"/>
+                collection.
+            </summary>
+            <remarks>
+                Defaults to <c>false</c>.
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.Configuration.IniParserConfiguration.AllowCreateSectionsOnFly">
+            <summary>
+                If set to <c>false</c>, the <see cref="T:IniParser.Parser.IniDataParser"/> stop with a error if you try
+                to access a section that was not created previously and the parser will stop with an error.
+                If set to <c>true</c>, inexistents sections are created, always returning a valid
+                <see cref="T:IniParser.Model.SectionData"/> element.
+            </summary>
+            <remarks>
+                Defaults to <c>false</c>.
+            </remarks>
+        </member>
+        <member name="M:IniParser.Model.Configuration.IniParserConfiguration.Clone">
+            <summary>
+            Creates a new object that is a copy of the current instance.
+            </summary>
+            <returns>
+            A new object that is a copy of this instance.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="P:IniParser.Model.Formatting.DefaultIniDataFormatter.Configuration">
+            <summary>
+                Configuration used to write an ini file with the proper
+                delimiter characters and data.
+            </summary>
+            <remarks>
+                If the <see cref="T:IniParser.Model.IniData"/> instance was created by a parser,
+                this instance is a copy of the <see cref="T:IniParser.Model.Configuration.IniParserConfiguration"/> used
+                by the parser (i.e. different objects instances)
+                If this instance is created programatically without using a parser, this
+                property returns an instance of <see cref="T:IniParser.Model.Configuration.IniParserConfiguration"/>
+            </remarks>
+        </member>
+        <member name="T:IniParser.Model.Formatting.IIniDataFormatter">
+            <summary>
+                Formats a IniData structure to an string
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.Formatting.IIniDataFormatter.IniDataToString(IniParser.Model.IniData)">
+            <summary>
+                Produces an string given
+            </summary>
+            <returns>The data to string.</returns>
+            <param name="iniData">Ini data.</param>
+        </member>
+        <member name="P:IniParser.Model.Formatting.IIniDataFormatter.Configuration">
+            <summary>
+                Configuration used by this formatter when converting IniData
+                to an string
+            </summary>
+        </member>
+        <member name="T:IniParser.Model.IniData">
+            <summary>
+                Represents all data from an INI file
+            </summary>
+        </member>
+        <member name="F:IniParser.Model.IniData._sections">
+            <summary>
+                Represents all sections from an INI file
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.IniData.#ctor">
+            <summary>
+                Initializes an empty IniData instance.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.IniData.#ctor(IniParser.Model.SectionDataCollection)">
+            <summary>
+                Initializes a new IniData instance using a previous
+                <see cref="T:IniParser.Model.SectionDataCollection"/>.
+            </summary>
+            <param name="sdc">
+                <see cref="T:IniParser.Model.SectionDataCollection"/> object containing the
+                data with the sections of the file
+            </param>
+        </member>
+        <member name="P:IniParser.Model.IniData.Configuration">
+            <summary>
+                Configuration used to write an ini file with the proper
+                delimiter characters and data.
+            </summary>
+            <remarks>
+                If the <see cref="T:IniParser.Model.IniData"/> instance was created by a parser,
+                this instance is a copy of the <see cref="T:IniParser.Model.Configuration.IniParserConfiguration"/> used
+                by the parser (i.e. different objects instances)
+                If this instance is created programatically without using a parser, this
+                property returns an instance of <see cref="T:IniParser.Model.Configuration.IniParserConfiguration"/>
+            </remarks>
+        </member>
+        <member name="P:IniParser.Model.IniData.Global">
+            <summary>
+            	Global sections. Contains key/value pairs which are not
+            	enclosed in any section (i.e. they are defined at the beginning 
+            	of the file, before any section.
+            </summary>
+        </member>
+        <member name="P:IniParser.Model.IniData.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:IniParser.Model.KeyDataCollection"/> instance 
+            with the specified section name.
+            </summary>
+        </member>
+        <member name="P:IniParser.Model.IniData.Sections">
+            <summary>
+            Gets or sets all the <see cref="T:IniParser.Model.SectionData"/> 
+            for this IniData instance.
+            </summary>
+        </member>
+        <member name="P:IniParser.Model.IniData.SectionKeySeparator">
+            <summary>
+                Used to mark the separation between the section name and the key name 
+                when using <see cref="M:IniParser.Model.IniData.TryGetKey(System.String,System.String@)"/>. 
+            </summary>
+            <remarks>
+                Defaults to '.'.
+            </remarks>
+        </member>
+        <member name="M:IniParser.Model.IniData.Clone">
+            <summary>
+                Creates a new object that is a copy of the current instance.
+            </summary>
+            <returns>
+                A new object that is a copy of this instance.
+            </returns>
+        </member>
+        <member name="F:IniParser.Model.IniData._configuration">
+            <summary>
+                See property <see cref="P:IniParser.Model.IniData.Configuration"/> for more information. 
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.IniData.ClearAllComments">
+            <summary>
+                Deletes all comments in all sections and key values
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.IniData.Merge(IniParser.Model.IniData)">
+            <summary>
+                Merges the other iniData into this one by overwriting existing values.
+                Comments get appended.
+            </summary>
+            <param name="toMergeIniData">
+                IniData instance to merge into this. 
+                If it is null this operation does nothing.
+            </param>
+        </member>
+        <member name="M:IniParser.Model.IniData.TryGetKey(System.String,System.String@)">
+            <summary>
+                Attempts to retrieve a key, using a single string combining section and 
+                key name.
+            </summary>
+            <param name="key">
+                The section and key name to retrieve, separated by <see cref="!:IniParserConfiguration.SectionKeySeparator"/>.
+            
+                If key contains no separator, it is treated as a key in the <see cref="P:IniParser.Model.IniData.Global"/> section.
+            
+                Key may contain no more than one separator character.
+            </param>
+            <param name="value">
+                If true is returned, is set to the value retrieved.  Otherwise, is set
+                to an empty string.
+            </param>
+            <returns>
+                True if key was found, otherwise false.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                key contained multiple separators.
+            </exception>
+        </member>
+        <member name="M:IniParser.Model.IniData.GetKey(System.String)">
+            <summary>
+                Retrieves a key using a single input string combining section and key name.
+            </summary>
+            <param name="key">
+                The section and key name to retrieve, separated by <see cref="!:IniParserConfiguration.SectionKeySeparator"/>.
+            
+                If key contains no separator, it is treated as a key in the <see cref="P:IniParser.Model.IniData.Global"/> section.
+            
+                Key may contain no more than one separator character.
+            </param>
+            <returns>
+                The key's value if it was found, otherwise null.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                key contained multiple separators.
+            </exception>
+        </member>
+        <member name="M:IniParser.Model.IniData.MergeSection(IniParser.Model.SectionData)">
+            <summary>
+                Merge the sections into this by overwriting this sections.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.IniData.MergeGlobal(IniParser.Model.KeyDataCollection)">
+            <summary>
+                Merges the given global values into this globals by overwriting existing values.
+            </summary>
+        </member>
+        <member name="T:IniParser.Model.IniDataCaseInsensitive">
+            <summary>
+                Represents all data from an INI file exactly as the <see cref="T:IniParser.Model.IniData"/>
+                class, but searching for sections and keys names is done with
+                a case insensitive search.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.IniDataCaseInsensitive.#ctor">
+            <summary>
+                Initializes an empty IniData instance.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.IniDataCaseInsensitive.#ctor(IniParser.Model.SectionDataCollection)">
+            <summary>
+                Initializes a new IniData instance using a previous
+                <see cref="T:IniParser.Model.SectionDataCollection"/>.
+            </summary>
+            <param name="sdc">
+                <see cref="T:IniParser.Model.SectionDataCollection"/> object containing the
+                data with the sections of the file
+            </param>
+        </member>
+        <member name="M:IniParser.Model.IniDataCaseInsensitive.#ctor(IniParser.Model.IniData)">
+            <summary>
+            Copies an instance of the <see cref="T:IniParser.Model.IniDataCaseInsensitive"/> class
+            </summary>
+            <param name="ori">Original </param>
+        </member>
+        <member name="T:IniParser.Model.KeyData">
+            <summary>
+                Information associated to a key from an INI file.
+                Includes both the value and the comments associated to the key.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.KeyData.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:IniParser.Model.KeyData"/> class.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.KeyData.#ctor(IniParser.Model.KeyData)">
+            <summary>
+                Initializes a new instance of the <see cref="T:IniParser.Model.KeyData"/> class
+                from a previous instance of <see cref="T:IniParser.Model.KeyData"/>.
+            </summary>
+            <remarks>
+                Data is deeply copied
+            </remarks>
+            <param name="ori">
+                The instance of the <see cref="T:IniParser.Model.KeyData"/> class 
+                used to create the new instance.
+            </param>
+        </member>
+        <member name="P:IniParser.Model.KeyData.Comments">
+            <summary>
+            Gets or sets the comment list associated to this key.
+            </summary>
+        </member>
+        <member name="P:IniParser.Model.KeyData.Value">
+            <summary>
+                Gets or sets the value associated to this key.
+            </summary>
+        </member>
+        <member name="P:IniParser.Model.KeyData.KeyName">
+            <summary>
+                Gets or sets the name of the key.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.KeyData.Clone">
+            <summary>
+                Creates a new object that is a copy of the current instance.
+            </summary>
+            <returns>
+                A new object that is a copy of this instance.
+            </returns>
+        </member>
+        <member name="T:IniParser.Model.KeyDataCollection">
+            <summary>
+                Represents a collection of Keydata.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:IniParser.Model.KeyDataCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.#ctor(System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+                Initializes a new instance of the <see cref="T:IniParser.Model.KeyDataCollection"/> class with a given
+                search comparer
+            </summary>
+            <param name="searchComparer">
+                Search comparer used to find the key by name in the collection
+            </param>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.#ctor(IniParser.Model.KeyDataCollection,System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+                Initializes a new instance of the <see cref="T:IniParser.Model.KeyDataCollection"/> class
+                from a previous instance of <see cref="T:IniParser.Model.KeyDataCollection"/>.
+            </summary>
+            <remarks>
+                Data from the original KeyDataCollection instance is deeply copied
+            </remarks>
+            <param name="ori">
+                The instance of the <see cref="T:IniParser.Model.KeyDataCollection"/> class 
+                used to create the new instance.
+            </param>
+        </member>
+        <member name="P:IniParser.Model.KeyDataCollection.Item(System.String)">
+            <summary>
+                Gets or sets the value of a concrete key.
+            </summary>
+            <remarks>
+                If we try to assign the value of a key which doesn't exists,
+                a new key is added with the name and the value is assigned to it.
+            </remarks>
+            <param name="keyName">
+                Name of the key
+            </param>
+            <returns>
+                The string with key's value or null if the key was not found.
+            </returns>
+        </member>
+        <member name="P:IniParser.Model.KeyDataCollection.Count">
+            <summary>
+                Return the number of keys in the collection
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:IniParser.Model.KeyDataCollection.AddKey(System.String)" -->
+        <member name="M:IniParser.Model.KeyDataCollection.AddKey(IniParser.Model.KeyData)">
+            <summary>
+                Adds a new key to the collection
+            </summary>
+            <param name="keyData">
+                KeyData instance.
+            </param>
+            <returns>
+                <c>true</c> if the key was added  <c>false</c> if a key with the same name already exist 
+                in the collection
+            </returns>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.AddKey(System.String,System.String)">
+            <summary>
+                Adds a new key with the specified name and value to the collection
+            </summary>
+            <param name="keyName">
+                Name of the new key to be added.
+            </param>
+            <param name="keyValue">
+                Value associated to the key.
+            </param>
+            <returns>
+                <c>true</c> if the key was added  <c>false</c> if a key with the same name already exist 
+                in the collection.
+            </returns>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.ClearComments">
+            <summary>
+                Clears all comments of this section
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.ContainsKey(System.String)">
+            <summary>
+            Gets if a specifyed key name exists in the collection.
+            </summary>
+            <param name="keyName">Key name to search</param>
+            <returns><c>true</c> if a key with the specified name exists in the collectoin
+            <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.GetKeyData(System.String)">
+            <summary>
+            Retrieves the data for a specified key given its name
+            </summary>
+            <param name="keyName">Name of the key to retrieve.</param>
+            <returns>
+            A <see cref="T:IniParser.Model.KeyData"/> instance holding
+            the key information or <c>null</c> if the key wasn't found.
+            </returns>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.RemoveAllKeys">
+            <summary>
+            	Deletes all keys in this collection.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.RemoveKey(System.String)">
+            <summary>
+            Deletes a previously existing key, including its associated data.
+            </summary>
+            <param name="keyName">The key to be removed.</param>
+            <returns>
+            <c>true</c> if a key with the specified name was removed 
+            <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.SetKeyData(IniParser.Model.KeyData)">
+            <summary>
+            Sets the key data associated to a specified key.
+            </summary>
+            <param name="data">The new <see cref="T:IniParser.Model.KeyData"/> for the key.</param>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.GetEnumerator">
+            <summary>
+            Allows iteration througt the collection.
+            </summary>
+            <returns>A strong-typed IEnumerator </returns>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Implementation needed
+            </summary>
+            <returns>A weak-typed IEnumerator.</returns>
+        </member>
+        <member name="M:IniParser.Model.KeyDataCollection.Clone">
+            <summary>
+            Creates a new object that is a copy of the current instance.
+            </summary>
+            <returns>
+            A new object that is a copy of this instance.
+            </returns>
+        </member>
+        <member name="F:IniParser.Model.KeyDataCollection._keyData">
+            <summary>
+            Collection of KeyData for a given section
+            </summary>
+        </member>
+        <member name="T:IniParser.Model.SectionData">
+            <summary>
+                Information associated to a section in a INI File
+                Includes both the value and the comments associated to the key.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.SectionData.#ctor(System.String,System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+                Initializes a new instance of the <see cref="T:IniParser.Model.SectionData"/> class.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.SectionData.#ctor(IniParser.Model.SectionData,System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+                Initializes a new instance of the <see cref="T:IniParser.Model.SectionData"/> class
+                from a previous instance of <see cref="T:IniParser.Model.SectionData"/>.
+            </summary>
+            <remarks>
+                Data is deeply copied
+            </remarks>
+            <param name="ori">
+                The instance of the <see cref="T:IniParser.Model.SectionData"/> class 
+                used to create the new instance.
+            </param>
+            <param name="searchComparer">
+                Search comparer.
+            </param>
+        </member>
+        <member name="M:IniParser.Model.SectionData.ClearComments">
+            <summary>
+                Deletes all comments in this section and key/value pairs
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.SectionData.ClearKeyData">
+            <summary>
+            Deletes all the key-value pairs in this section.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.SectionData.Merge(IniParser.Model.SectionData)">
+            <summary>
+                Merges otherSection into this, adding new keys if they don't exists
+                or overwriting values if the key already exists.
+            Comments get appended.
+            </summary>
+            <remarks>
+                Comments are also merged but they are always added, not overwritten.
+            </remarks>
+            <param name="toMergeSection"></param>
+        </member>
+        <member name="P:IniParser.Model.SectionData.SectionName">
+            <summary>
+                Gets or sets the name of the section.
+            </summary>
+            <value>
+                The name of the section
+            </value>
+        </member>
+        <member name="P:IniParser.Model.SectionData.Comments">
+            <summary>
+                Gets or sets the comment list associated to this section.
+            </summary>
+            <value>
+                A list of strings.
+            </value>
+        </member>
+        <member name="P:IniParser.Model.SectionData.Keys">
+            <summary>
+                Gets or sets the keys associated to this section.
+            </summary>
+            <value>
+                A collection of KeyData objects.
+            </value>
+        </member>
+        <member name="M:IniParser.Model.SectionData.Clone">
+            <summary>
+                Creates a new object that is a copy of the current instance.
+            </summary>
+            <returns>
+                A new object that is a copy of this instance.
+            </returns>
+        </member>
+        <member name="T:IniParser.Model.SectionDataCollection">
+            <summary>
+            <para>Represents a collection of SectionData.</para>
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:IniParser.Model.SectionDataCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.#ctor(System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:IniParser.Model.SectionDataCollection"/> class.
+            </summary>
+            <param name="searchComparer">
+                StringComparer used when accessing section names
+            </param>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.#ctor(IniParser.Model.SectionDataCollection,System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:IniParser.Model.SectionDataCollection"/> class
+            from a previous instance of <see cref="T:IniParser.Model.SectionDataCollection"/>.
+            </summary>
+            <remarks>
+            Data is deeply copied
+            </remarks>
+            <param name="ori">
+            The instance of the <see cref="T:IniParser.Model.SectionDataCollection"/> class 
+            used to create the new instance.</param>
+        </member>
+        <member name="P:IniParser.Model.SectionDataCollection.Count">
+            <summary>
+            Returns the number of SectionData elements in the collection
+            </summary>
+        </member>
+        <member name="P:IniParser.Model.SectionDataCollection.Item(System.String)">
+            <summary>
+            Gets the key data associated to a specified section name.
+            </summary>
+            <value>An instance of as <see cref="T:IniParser.Model.KeyDataCollection"/> class 
+            holding the key data from the current parsed INI data, or a <c>null</c>
+            value if the section doesn't exist.</value>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.AddSection(System.String)">
+            <summary>
+            Creates a new section with empty data.
+            </summary>
+            <remarks>
+            <para>If a section with the same name exists, this operation has no effect.</para>
+            </remarks>
+            <param name="keyName">Name of the section to be created</param>
+            <return><c>true</c> if the a new section with the specified name was added,
+            <c>false</c> otherwise</return>
+            <exception cref="T:System.ArgumentException">If the section name is not valid.</exception>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.Add(IniParser.Model.SectionData)">
+            <summary>
+                Adds a new SectionData instance to the collection
+            </summary>
+            <param name="data">Data.</param>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.Clear">
+            <summary>
+            Removes all entries from this collection
+            </summary>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.ContainsSection(System.String)">
+            <summary>
+            Gets if a section with a specified name exists in the collection.
+            </summary>
+            <param name="keyName">Name of the section to search</param>
+            <returns>
+            <c>true</c> if a section with the specified name exists in the
+             collection <c>false</c> otherwise
+            </returns>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.GetSectionData(System.String)">
+            <summary>
+            Returns the section data from a specify section given its name.
+            </summary>
+            <param name="sectionName">Name of the section.</param>
+            <returns>
+            An instance of a <see cref="T:IniParser.Model.SectionData"/> class 
+            holding the section data for the currently INI data
+            </returns>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.SetSectionData(System.String,IniParser.Model.SectionData)">
+            <summary>
+            Sets the section data for given a section name.
+            </summary>
+            <param name="sectionName"></param>
+            <param name="data">The new <see cref="T:IniParser.Model.SectionData"/>instance.</param>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.RemoveSection(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="keyName"></param>
+            <return><c>true</c> if the section with the specified name was removed, 
+            <c>false</c> otherwise</return>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:IniParser.Model.SectionDataCollection.Clone">
+            <summary>
+            Creates a new object that is a copy of the current instance.
+            </summary>
+            <returns>
+            A new object that is a copy of this instance.
+            </returns>
+        </member>
+        <member name="F:IniParser.Model.SectionDataCollection._sectionData">
+            <summary>
+            Data associated to this section
+            </summary>
+        </member>
+        <member name="T:IniParser.Parser.IniDataParser">
+            <summary>
+            	Responsible for parsing an string from an ini file, and creating
+            	an <see cref="T:IniParser.Model.IniData"/> structure.
+            </summary>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.#ctor">
+            <summary>
+                Ctor
+            </summary>
+            <remarks>
+                The parser uses a <see cref="T:IniParser.Model.Configuration.IniParserConfiguration"/> by default
+            </remarks>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.#ctor(IniParser.Model.Configuration.IniParserConfiguration)">
+            <summary>
+                Ctor
+            </summary>
+            <param name="parserConfiguration">
+                Parser's <see cref="T:IniParser.Model.Configuration.IniParserConfiguration"/> instance.
+            </param>
+        </member>
+        <member name="P:IniParser.Parser.IniDataParser.Configuration">
+            <summary>
+                Configuration that defines the behaviour and constraints
+                that the parser must follow.
+            </summary>
+        </member>
+        <member name="P:IniParser.Parser.IniDataParser.HasError">
+            <summary>
+            True is the parsing operation encounter any problem
+            </summary>
+        </member>
+        <member name="P:IniParser.Parser.IniDataParser.Errors">
+            <summary>
+            Returns the list of errors found while parsing the ini file.
+            </summary>
+            <remarks>
+            If the configuration option ThrowExceptionOnError is false it can contain one element
+            for each problem found while parsing; otherwise it will only contain the very same 
+            exception that was raised.
+            </remarks>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.Parse(System.String)">
+            <summary>
+                Parses a string containing valid ini data
+            </summary>
+            <param name="iniDataString">
+                String with data
+            </param>
+            <returns>
+                An <see cref="T:IniParser.Model.IniData"/> instance with the data contained in
+                the <paramref name="iniDataString"/> correctly parsed an structured.
+            </returns>
+            <exception cref="T:IniParser.Exceptions.ParsingException">
+                Thrown if the data could not be parsed
+            </exception>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.LineContainsAComment(System.String)">
+            <summary>
+                Checks if a given string contains a comment.
+            </summary>
+            <param name="line">
+                String with a line to be checked.
+            </param>
+            <returns>
+                <c>true</c> if any substring from s is a comment, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.LineMatchesASection(System.String)">
+            <summary>
+                Checks if a given string represents a section delimiter.
+            </summary>
+            <param name="line">
+                The string to be checked.
+            </param>
+            <returns>
+                <c>true</c> if the string represents a section, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.LineMatchesAKeyValuePair(System.String)">
+            <summary>
+                Checks if a given string represents a key / value pair.
+            </summary>
+            <param name="line">
+                The string to be checked.
+            </param>
+            <returns>
+                <c>true</c> if the string represents a key / value pair, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.ExtractComment(System.String)">
+            <summary>
+                Removes a comment from a string if exist, and returns the string without
+                the comment substring.
+            </summary>
+            <param name="line">
+                The string we want to remove the comments from.
+            </param>
+            <returns>
+                The string s without comments.
+            </returns>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.ProcessLine(System.String,IniParser.Model.IniData)">
+            <summary>
+                Processes one line and parses the data found in that line
+                (section or key/value pair who may or may not have comments)
+            </summary>
+            <param name="currentLine">The string with the line to process</param>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.ProcessSection(System.String,IniParser.Model.IniData)">
+            <summary>
+                Proccess a string which contains an ini section.
+            </summary>
+            <param name="line">
+                The string to be processed
+            </param>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.ProcessKeyValuePair(System.String,IniParser.Model.IniData)">
+            <summary>
+                Processes a string containing an ini key/value pair.
+            </summary>
+            <param name="line">
+                The string to be processed
+            </param>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.ExtractKey(System.String)">
+            <summary>
+                Extracts the key portion of a string containing a key/value pair..
+            </summary>
+            <param name="s">    
+                The string to be processed, which contains a key/value pair
+            </param>
+            <returns>
+                The name of the extracted key.
+            </returns>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.ExtractValue(System.String)">
+            <summary>
+                Extracts the value portion of a string containing a key/value pair..
+            </summary>
+            <param name="s">
+                The string to be processed, which contains a key/value pair
+            </param>
+            <returns>
+                The name of the extracted value.
+            </returns>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.HandleDuplicatedKeyInCollection(System.String,System.String,IniParser.Model.KeyDataCollection,System.String)">
+            <summary>
+                Abstract Method that decides what to do in case we are trying to add a duplicated key to a section
+            </summary>
+        </member>
+        <member name="M:IniParser.Parser.IniDataParser.AddKeyToKeyValueCollection(System.String,System.String,IniParser.Model.KeyDataCollection,System.String)">
+            <summary>
+                Adds a key to a concrete <see cref="T:IniParser.Model.KeyDataCollection"/> instance, checking
+                if duplicate keys are allowed in the configuration
+            </summary>
+            <param name="key">
+                Key name
+            </param>
+            <param name="value">
+                Key's value
+            </param>
+            <param name="keyDataCollection">
+                <see cref="T:IniParser.Model.KeyData"/> collection where the key should be inserted
+            </param>
+            <param name="sectionName">
+                Name of the section where the <see cref="T:IniParser.Model.KeyDataCollection"/> is contained. 
+                Used only for logging purposes.
+            </param>
+        </member>
+        <member name="F:IniParser.Parser.IniDataParser._currentCommentListTemp">
+            <summary>
+                Temp list of comments
+            </summary>
+        </member>
+        <member name="F:IniParser.Parser.IniDataParser._currentSectionNameTemp">
+            <summary>
+                Tmp var with the name of the seccion which is being process
+            </summary>
+        </member>
+        <member name="T:IniParser.StreamIniDataParser">
+            <summary>
+                Represents an INI data parser for streams.
+            </summary>
+        </member>
+        <member name="P:IniParser.StreamIniDataParser.Parser">
+            <summary>
+                This instance will handle ini data parsing and writing
+            </summary>
+        </member>
+        <member name="M:IniParser.StreamIniDataParser.#ctor">
+            <summary>
+                Ctor
+            </summary>
+        </member>
+        <member name="M:IniParser.StreamIniDataParser.#ctor(IniParser.Parser.IniDataParser)">
+            <summary>
+                Ctor
+            </summary>
+            <param name="parser"></param>
+        </member>
+        <member name="M:IniParser.StreamIniDataParser.ReadData(System.IO.StreamReader)">
+            <summary>
+                Reads data in INI format from a stream.
+            </summary>
+            <param name="reader">Reader stream.</param>
+            <returns>
+                And <see cref="T:IniParser.Model.IniData"/> instance with the readed ini data parsed.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                Thrown if <paramref name="reader"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:IniParser.StreamIniDataParser.WriteData(System.IO.StreamWriter,IniParser.Model.IniData)">
+            <summary>
+                Writes the ini data to a stream.
+            </summary>
+            <param name="writer">A write stream where the ini data will be stored</param>
+            <param name="iniData">An <see cref="T:IniParser.Model.IniData"/> instance.</param>
+            <exception cref="T:System.ArgumentNullException">
+                Thrown if <paramref name="writer"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:IniParser.StreamIniDataParser.WriteData(System.IO.StreamWriter,IniParser.Model.IniData,IniParser.Model.Formatting.IIniDataFormatter)">
+            <summary>
+                Writes the ini data to a stream.
+            </summary>
+            <param name="writer">A write stream where the ini data will be stored</param>
+            <param name="iniData">An <see cref="T:IniParser.Model.IniData"/> instance.</param>
+            <param name="formatter">Formaterr instance that controls how the ini data is transformed to a string</param>
+            <exception cref="T:System.ArgumentNullException">
+                Thrown if <paramref name="writer"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="T:IniParser.StringIniParser">
+            <summary>
+                Represents an INI data parser for strings.
+                
+            </summary>
+            <remarks>
+                This class is deprecated and kept for backwards compatibility.
+                It's just a wrapper around <see cref="T:IniParser.Parser.IniDataParser"/> class.
+                Please, replace your code.
+            </remarks>
+        </member>
+        <member name="P:IniParser.StringIniParser.Parser">
+            <summary>
+                This instance will handle ini data parsing and writing
+            </summary>
+        </member>
+        <member name="M:IniParser.StringIniParser.#ctor">
+            <summary>
+                Ctor
+            </summary>
+        </member>
+        <member name="M:IniParser.StringIniParser.#ctor(IniParser.Parser.IniDataParser)">
+            <summary>
+                Ctor
+            </summary>
+            <param name="parser"></param>
+        </member>
+        <member name="M:IniParser.StringIniParser.ParseString(System.String)">
+            <summary>
+            Parses a string containing data formatted as an INI file.
+            </summary>
+            <param name="dataStr">The string containing the data.</param>
+            <returns>
+            A new <see cref="T:IniParser.Model.IniData"/> instance with the data parsed from the string.
+            </returns>
+        </member>
+        <member name="M:IniParser.StringIniParser.WriteString(IniParser.Model.IniData)">
+            <summary>
+            Creates a string from the INI data.
+            </summary>
+            <param name="iniData">An <see cref="T:IniParser.Model.IniData"/> instance.</param>
+            <returns>
+            A formatted string with the contents of the
+            <see cref="T:IniParser.Model.IniData"/> instance object.
+            </returns>
+        </member>
+    </members>
+</doc>

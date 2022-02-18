@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="JXI.RF.DSP.Spectrum.Measurement">
+    <Position X="13.5" Y="0.5" Width="3" />
+    <Members>
+      <Method Name="OccupiedBandwidthV2" Hidden="true" />
+      <Method Name="OccupiedBandwidthXdbV2" Hidden="true" />
+      <Method Name="PowerInBandV2" Hidden="true" />
+      <Method Name="RectWindowFrequencyResponse" Hidden="true" />
+      <Method Name="ThreeFingerPeakSearch" Hidden="true" />
+      <Method Name="TotalPowerV2" Hidden="true" />
+      <Method Name="UnitConversionToV2" Hidden="true" />
+      <Method Name="UnitConversionToV2Ref" Hidden="true" />
+      <Method Name="UnitConversionV2ToOther" Hidden="true" />
+      <Method Name="WindowFrequencyResponse" Hidden="true" />
+      <Method Name="WindowFrequencyResponseFirstDerivative" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAIACARAACAABAAEAYEAIAEwAIAYw=</HashCode>
+      <FileName>Spectrum\Spectrum Occupied Bandwidth.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JXI.RF.DSP.Spectrum.SpectrumUnitInfo">
+    <Position X="13.5" Y="3.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAQAAAIAAAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Unit Convert.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JXI.RF.DSP.Spectrum.SpectralInfo">
+    <Position X="2.5" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>iAAAAAAAgIAAACAAoAAAgAACAAAAAAAAAAAEAEAAAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Config.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JXI.RF.DSP.Spectrum.SpectrumConfig">
+    <Position X="2.5" Y="0.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>GAAAAABAAAAAAAgAAAAAQAgAAAAAAAABAAAAAAABAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Config.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JXI.RF.DSP.Spectrum.SpectrumFFT">
+    <Position X="8" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAIAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAQIA=</HashCode>
+      <FileName>Spectrum\Spectrum FFT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JXI.RF.DSP.Spectrum.FFTWindow" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="0.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="JXI.RF.DSP.Spectrum.FFTWindow.FFTWindowConfig" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Spectrum\Spectrum Window.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AiAAAAgQICAAAABiAIAQIgIABAIAAgAIAADABACAAAg=</HashCode>
+      <FileName>Spectrum\Spectrum Window.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="JXI.RF.DSP.Spectrum.SpectrumAverage">
+    <Position X="11" Y="0.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="JXI.RF.DSP.Spectrum.SpectrumAverage.dataPrecision" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Spectrum\Spectrum Average.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAIAACCAAJkAxEAREAAAAANjAgAAAICAAAAAgQBABKA=</HashCode>
+      <FileName>Spectrum\Spectrum Average.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="JXI.RF.DSP.Spectrum.SpectrumSettings">
+    <Position X="2.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>xAAAEAAAAABAABAAAAAAAAACAAAAAIAAAAAEEAAAAIA=</HashCode>
+      <FileName>Spectrum\Spectrum Config.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="JXI.RF.DSP.Spectrum.SpectrumUnit" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEEAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAYAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Unit Convert.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="JXI.RF.DSP.Spectrum.PeakScaling" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Unit Convert.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="JXI.RF.DSP.Spectrum.FFTWindowType" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQGAIAAAAAAAIAACAEBAAAAAAAIAIBAEAAICEAAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Window.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="JXI.RF.DSP.Spectrum.FFTWindowGroup" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Window.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="JXI.RF.DSP.Spectrum.SpectrumAverageMode" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAgAAAAAAIAAAAAAAABAAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Average.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="JXI.RF.DSP.Spectrum.SpectrumWeightingType" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Spectrum\Spectrum Average.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="JXI.RF.DSP.Spectrum.SpectrumWeightingMode" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAABAAAAAAAQA=</HashCode>
+      <FileName>Spectrum\Spectrum Average.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

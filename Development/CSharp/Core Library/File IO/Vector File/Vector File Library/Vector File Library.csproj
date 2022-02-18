@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{510AD618-922B-4C7C-AA79-7D834248FEA5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SeeSharpTools.JXI.FileIO.VectorFile</RootNamespace>
+    <AssemblyName>SeeSharpTools.JXI.FileIO.VectorFile</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LICENSEOFF</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SeeSharpTools.JXI.FileIO.VectorFile.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\SeeSharpTools.JXI.FileIO.VectorFile.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SeeSharpTools.LicenseManager">
+      <HintPath>..\..\..\Public\External\SeeSharpTools.LicenseManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fix Frequency Frame File.cs" />
+    <Compile Include="INIFileParser\Exceptions\ParsingException.cs" />
+    <Compile Include="INIFileParser\FileIniParser.cs" />
+    <Compile Include="INIFileParser\Helpers\Assert.cs" />
+    <Compile Include="INIFileParser\Model\Configuration\ConcatenateDuplicatedKeysIniParserConfiguration.cs" />
+    <Compile Include="INIFileParser\Model\Configuration\IniParserConfiguration.cs" />
+    <Compile Include="INIFileParser\Model\Formatting\DefaultIniDataFormatter.cs" />
+    <Compile Include="INIFileParser\Model\Formatting\IIniDataFormatter.cs" />
+    <Compile Include="INIFileParser\Model\IniData.cs" />
+    <Compile Include="INIFileParser\Model\IniDataCaseInsensitive.cs" />
+    <Compile Include="INIFileParser\Model\KeyData.cs" />
+    <Compile Include="INIFileParser\Model\KeyDataCollection.cs" />
+    <Compile Include="INIFileParser\Model\SectionData.cs" />
+    <Compile Include="INIFileParser\Model\SectionDataCollection.cs" />
+    <Compile Include="INIFileParser\Parser\ConcatenateDuplicatedKeysIniDataParser.cs" />
+    <Compile Include="INIFileParser\Parser\IniDataParser.cs" />
+    <Compile Include="INIFileParser\StreamIniDataParser.cs" />
+    <Compile Include="INIFileParser\StringIniParser.cs" />
+    <Compile Include="LicenseBase\LicenseBase.cs" />
+    <Compile Include="Public\INI File Handler.cs" />
+    <Compile Include="Spectrum File.cs" />
+    <Compile Include="Vector Data Previewer\Fix Frequency Stream Data Previewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Fix Frequency Stream File.cs" />
+    <Compile Include="Public\INI Stream Handler.cs" />
+    <Compile Include="Vector File Base.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Public\Kernel File Library.cs" />
+    <Compile Include="Vector Data Previewer\Vector Data Previewer Base.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Vector Data Previewer\Vector Data Previewer Base.cd" />
+    <None Include="Public\INI and Kernel File Library.cd" />
+    <None Include="Vector File Base.cd" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

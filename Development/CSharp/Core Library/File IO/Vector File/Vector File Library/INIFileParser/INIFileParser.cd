@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IniParser.FileIniDataParser">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAABAAACAAABAA=</HashCode>
+      <FileName>INIFileParser\FileIniParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.Exceptions.ParsingException">
+    <Position X="0.5" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAEAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INIFileParser\Exceptions\ParsingException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.StreamIniDataParser">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INIFileParser\StreamIniDataParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.StringIniParser">
+    <Position X="0.5" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAgAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>INIFileParser\StringIniParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.Helpers.Assert">
+    <Position X="5.25" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INIFileParser\Helpers\Assert.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.Model.Configuration.ConcatenateDuplicatedKeysIniParserConfiguration">
+    <Position X="3" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INIFileParser\Model\Configuration\ConcatenateDuplicatedKeysIniParserConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.Model.Configuration.DefaultIniParserConfiguration">
+    <Position X="3" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INIFileParser\Model\Configuration\IniParserConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.Model.Configuration.IniParserConfiguration">
+    <Position X="0.5" Y="3" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAkBoAAgAAACAAAIwhYFACBBYjAAAIoAICAAABgAABA=</HashCode>
+      <FileName>INIFileParser\Model\Configuration\IniParserConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IniParser.Model.Formatting.DefaultIniDataFormatter" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAQAAAAAAAAgAEAAIEAAAA=</HashCode>
+      <FileName>INIFileParser\Model\Formatting\DefaultIniDataFormatter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IniParser.Model.IniData" Collapsed="true">
+    <Position X="3" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAEECQAAAAQAAAAAAQAAgEVBAAABABA=</HashCode>
+      <FileName>INIFileParser\Model\IniData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IniParser.Model.IniDataCaseInsensitive" Collapsed="true">
+    <Position X="3" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INIFileParser\Model\IniDataCaseInsensitive.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.Model.KeyData" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAgAAEAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAYBA=</HashCode>
+      <FileName>INIFileParser\Model\KeyData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IniParser.Model.KeyDataCollection" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="0.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEAAAAIAAAAdABAACAAEAAQAAAAABQAEABAABAAAABA=</HashCode>
+      <FileName>INIFileParser\Model\KeyDataCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IniParser.Model.SectionData" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAACAABCAAAAAAIAAAABQgAEAAABIAAIBA=</HashCode>
+      <FileName>INIFileParser\Model\SectionData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IniParser.Model.SectionDataCollection" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="2.25" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABIAAAAAAAAAgBAACAAAAAQAAAAAQRgEAAEABABAABA=</HashCode>
+      <FileName>INIFileParser\Model\SectionDataCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IniParser.Parser.ConcatenateDuplicatedKeysIniDataParser">
+    <Position X="10.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>INIFileParser\Parser\ConcatenateDuplicatedKeysIniDataParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IniParser.Parser.IniDataParser">
+    <Position X="7.75" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAogCAAAAIoARIAAAAAAAAABAIAAAIIwAAAAAAAAQA=</HashCode>
+      <FileName>INIFileParser\Parser\IniDataParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IniParser.Model.Formatting.IIniDataFormatter">
+    <Position X="13.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAA=</HashCode>
+      <FileName>INIFileParser\Model\Formatting\IIniDataFormatter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

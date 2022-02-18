@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SeeSharpTools.JXI.Public.Struct.CircularBufferHandle&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACCACAIAAAAgAAAACCAgAAAAEAAAAQAAAAAIBE=</HashCode>
+      <FileName>Data Structure\Circular Buffer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SeeSharpTools.JXI.Public.Struct.WinAPI" Collapsed="true">
+    <Position X="1" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data Structure\Circular Buffer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.Public.Struct.CircularBuffer&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="4.5" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAABACAAAAAAAAAAAAAAAAAEAAAAAAAg=</HashCode>
+      <FileName>Data Structure\Circular Buffer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.Public.Struct.CircularBufferReader&lt;T&gt;">
+    <Position X="4.5" Y="4.5" Width="2.25" />
+    <Members>
+      <Field Name="_isDisposed" Hidden="true" />
+      <Field Name="actualReadCount" Hidden="true" />
+      <Field Name="initReadPosition" Hidden="true" />
+      <Field Name="readerType" Hidden="true" />
+      <Field Name="readPointerLock" Hidden="true" />
+      <Field Name="readPointsCount" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABigAAAAACAAAAACAAEBgBAAAAAEAABBAAgg=</HashCode>
+      <FileName>Data Structure\Circular Buffer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_bufferHandle" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.Public.Struct.CircularBufferEx&lt;T&gt;">
+    <Position X="9.75" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAFAAAAAAiAAAAAACAAAAACAAAAABAAAAAEAAABAIIg=</HashCode>
+      <FileName>Data Structure\Circular Buffer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_reader" />
+      <Field Name="_writer" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="SeeSharpTools.JXI.Public.Struct.CircularBufEnqueueResult">
+    <Position X="7.25" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAACAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Data Structure\Circular Buffer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SeeSharpTools.JXI.Public.Struct.CircularBufDequeueResult">
+    <Position X="7.25" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAEgAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data Structure\Circular Buffer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SeeSharpTools.JXI.Public.Struct.CircularBufReaderType">
+    <Position X="7.25" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data Structure\Circular Buffer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

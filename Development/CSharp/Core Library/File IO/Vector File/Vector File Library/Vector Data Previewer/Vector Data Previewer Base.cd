@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.VectorDataPreviewerBase">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <Members>
+      <Field Name="_filePath" Hidden="true" />
+      <Field Name="_timeout" Hidden="true" />
+      <Method Name="UnitConversion" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AACAAEAAACBAAAAAAAADBAEAAAAAAAIAIABAQACAAAA=</HashCode>
+      <FileName>Vector Data Previewer\Vector Data Previewer Base.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer">
+    <Position X="3.75" Y="0.5" Width="2.25" />
+    <Members>
+      <Field Name="_previewLength" Hidden="true" />
+      <Field Name="_previewLengthAuto" Hidden="true" />
+      <Field Name="_selectionEnd" Hidden="true" />
+      <Field Name="_selectionStart" Hidden="true" />
+      <Method Name="ProcessDataForPreview" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="SeeSharpTools.JXI.FileIO.VectorFile.FixFrequencyStreamDataPreviewer.DataPreviewResultOf1Ch1Segment" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Vector Data Previewer\Fix Frequency Stream Data Previewer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAsgCEFBAAgAEoMAIQAAwAAgAUggAAAIABAAAECg=</HashCode>
+      <FileName>Vector Data Previewer\Fix Frequency Stream Data Previewer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

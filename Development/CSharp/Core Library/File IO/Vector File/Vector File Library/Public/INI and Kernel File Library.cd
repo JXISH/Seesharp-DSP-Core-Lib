@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <Members>
+      <Field Name="_fileFullPath" Hidden="true" />
+      <Field Name="_fileOpened" Hidden="true" />
+      <Field Name="_handle" Hidden="true" />
+      <Method Name="CreateFile" Hidden="true" />
+      <Field Name="DllName" Hidden="true" />
+      <Method Name="ReadFile" Hidden="true" />
+      <Method Name="SetFilePointerEx" Hidden="true" />
+      <Method Name="WriteFile" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.DesiredAccess" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Kernel File Library.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.ShareMode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Kernel File Library.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.CreationDisposition" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Kernel File Library.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.FlagsAndAttributes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Kernel File Library.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="SeeSharpTools.JXI.FileIO.VectorFile.KernelFileStream.SeekRefPosition" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Kernel File Library.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAEAAYAAkCAQAAAAgAAAAAAQAAAAACAGABAA=</HashCode>
+      <FileName>Kernel File Library.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler">
+    <Position X="3" Y="0.5" Width="2.5" />
+    <Members>
+      <Field Name="_filePath" Hidden="true" />
+      <Method Name="ConvertNullSeperatedStringToStringArray" Hidden="true" />
+      <Field Name="MAX_SECTION_SIZE" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Class Name="SeeSharpTools.JXI.FileIO.VectorFile.IniFileHandler.NativeMethods">
+        <TypeIdentifier>
+          <NewMemberFileName>INI File Handler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAACAAAgAAAAAIQQAAGAAAAIAAgAACAAgGAAAAAAAA=</HashCode>
+      <FileName>INI File Handler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
