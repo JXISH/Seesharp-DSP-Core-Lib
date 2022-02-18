@@ -32,9 +32,6 @@
     <DocumentationFile>bin\Release\SeeSharpTools.JXI.FileIO.VectorFile.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SeeSharpTools.LicenseManager">
-      <HintPath>..\..\..\Public\External\SeeSharpTools.LicenseManager.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Device" />
@@ -63,7 +60,6 @@
     <Compile Include="INIFileParser\Parser\IniDataParser.cs" />
     <Compile Include="INIFileParser\StreamIniDataParser.cs" />
     <Compile Include="INIFileParser\StringIniParser.cs" />
-    <Compile Include="LicenseBase\LicenseBase.cs" />
     <Compile Include="Public\INI File Handler.cs" />
     <Compile Include="Spectrum File.cs" />
     <Compile Include="Vector Data Previewer\Fix Frequency Stream Data Previewer.cs">

@@ -28,22 +28,6 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
         /// </summary>
         static SpectrumFile()
         {
-            //利用反射获取版本号
-            Assembly fileAssembly = Assembly.GetExecutingAssembly();
-            var fileVersion = fileAssembly.GetName().Version.ToString();//获取版本号
-            var firstPointIndex = fileVersion.IndexOf('.');
-            var secondPointIndex = fileVersion.Substring(firstPointIndex + 1, fileVersion.Length - firstPointIndex - 1).IndexOf('.');
-            string strProduct = "SeeSharpTools.JXI.FileIO.VectorFile";
-            string strVersion = fileVersion.Substring(0, firstPointIndex + 1 + secondPointIndex);//获取大版本号1.2.
-
-#if LICENSEOFF
-#else
-            var status = LicenseManager.LicenseManager.GetActivationStatus(strProduct, strVersion);
-            if (status < 0)
-            {
-                LicenseManager.ProductLicenseManager.GetActivationStatus(strProduct, strVersion);
-            }
-#endif
         }
 
         #endregion

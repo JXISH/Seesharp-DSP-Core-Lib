@@ -48,8 +48,6 @@ namespace SimpleVectorDataViewer
         public MainForm()
         {
             InitializeComponent();
-            SeeSharpTools.JXI.DSP.LicenseBase.LicenseBase.Validate("Z24S7-BNVLB-AE33P-AJCZX-CDUMC", "YEVUB-B7VKV-LQKRR-7FHUZ-5UHPQ", "");
-            SeeSharpTools.JXI.FileIO.VectorFile.LicenseBase.LicenseBase.Validate("Z24S7-BNVLB-AE33P-AJCZX-CDUMC", "WFYDR-V32OC-26W5H-S6VST-LHIR2", "");
             // New VectorDataPreviewer instance and subscribe events.
             _vectorDataPreviewer = new FixFrequencyStreamDataPreviewer();
             _vectorDataPreviewer.Unit = VectorDataAmplitudeUnit.Unscaled;
