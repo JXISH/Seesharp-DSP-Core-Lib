@@ -4,7 +4,9 @@ Feb-6-2022
 
 ## 下载
 
-聚星仪器:registered: 提供的下载目录或git仓库同步，建立你的 DSP-Core目录作为整个库的根目录。 下载解压后最基本的目录如下：
+公开项目：https://github.com/JXISH/Seesharp-DSP-Core-Lib
+
+或者聚星仪器:registered: 提供的下载目录或git仓库同步，建立你的 DSP-Core目录作为整个库的根目录。 下载解压后最基本的目录如下：
 
 DSP-Core
 
