@@ -62,7 +62,7 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             double[]: 2.12345678901235, 1.12345678901235, 0, 1.12345678901235, 2.12345678901235
              */
             #endregion
-            #region Add
+            #region Add example
             Console.WriteLine();
             Console.WriteLine("*** Vector.Add ***");
             //define data
