@@ -63,7 +63,7 @@
     <Compile Include="Vector\VectorArrayMulti.cs" />
     <Compile Include="Vector\VectorArrayPhase.cs" />
     <Compile Include="Vector\VectorArrayPowerLog.cs" />
-    <Compile Include="Vector\VectorArrayReserve.cs" />
+    <Compile Include="Vector\VectorArrayReverse.cs" />
     <Compile Include="Vector\VectorArraySort.cs" />
     <Compile Include="Vector\VectorArraySquareRoot.cs" />
     <Compile Include="Vector\VectorArraySub.cs" />

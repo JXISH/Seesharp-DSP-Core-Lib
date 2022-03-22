@@ -12,7 +12,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(short[] inout)
+        public static void ArrayReverse(short[] inout)
         {
             ippsFlip_16u_I(inout, inout.Length);
         }
@@ -20,7 +20,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(short[] a, short[] output)
+        public static void ArrayReverse(short[] a, short[] output)
         {
             ippsFlip_16u(a, output, a.Length);
         }
@@ -28,7 +28,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(float[] inout)
+        public static void ArrayReverse(float[] inout)
         {
             ippsFlip_32f_I(inout, inout.Length);
         }
@@ -36,7 +36,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(float[] a, float[] output)
+        public static void ArrayReverse(float[] a, float[] output)
         {
             ippsFlip_32f(a, output, a.Length);
         }
@@ -44,7 +44,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(double[] inout)
+        public static void ArrayReverse(double[] inout)
         {
             ippsFlip_64f_I(inout, inout.Length);
         }
@@ -52,7 +52,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(double[] a, double[] output)
+        public static void ArrayReverse(double[] a, double[] output)
         {
             ippsFlip_64f(a, output, a.Length);
         }
@@ -60,7 +60,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(Complex32[] inout)
+        public static void ArrayReverse(Complex32[] inout)
         {
             GCHandle inout_GC = GCHandle.Alloc(inout, GCHandleType.Pinned);
             IntPtr inout_address = inout_GC.AddrOfPinnedObject();
@@ -73,7 +73,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(Complex32[] a, Complex32[] output)
+        public static void ArrayReverse(Complex32[] a, Complex32[] output)
         {
             GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
             IntPtr a_address = a_GC.AddrOfPinnedObject();
@@ -89,7 +89,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(Complex[] inout)
+        public static void ArrayReverse(Complex[] inout)
         {
             GCHandle inout_GC = GCHandle.Alloc(inout, GCHandleType.Pinned);
             IntPtr inout_address = inout_GC.AddrOfPinnedObject();
@@ -102,7 +102,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         ///  数组反转
         /// </summary>
-        public static void ArrayReserve(Complex[] a, Complex[] output)
+        public static void ArrayReverse(Complex[] a, Complex[] output)
         {
             GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
             IntPtr a_address = a_GC.AddrOfPinnedObject();
