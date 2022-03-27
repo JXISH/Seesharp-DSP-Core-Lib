@@ -189,35 +189,122 @@ Feb-21-2022
 
 ### 核心代码
 
+```csharp
+/// <summary>
+/// Add a random number based on the existing data to generate new data and perform histogram analysis display.
+/// 在已有的data基础上加入一个随机数产生新的数据并进行直方图分析显示
+/// </summary>
+private void HistogramEvent(object sender, EventArgs e)
+{
+    nbrOfIntervals = (int)nudNbrOfIntervals.Value;  //读取前面板控件值   Read front panel control values
+    dataLength = (int)nudDataLength.Value;          //读取前面板控件值   Read front panel control values
+    dataIn = new double[dataLength];                //初始化数据数组长度 Initialize the length of the data array           
+    Generation.SineWave(ref dataIn,1,0,5);          //产生一个正弦信号   Generate a sinusoidal signal
+    histgram = new int[nbrOfIntervals];
+    intervals = new double[nbrOfIntervals];
+
+    easyChart1.Plot(dataIn);                        //时域信号显示                                Time domain signal display
+    ProbabilityStatistics.Histogram(dataIn,ref histgram, ref intervals);//分析数据直方图          data histogram analysis
+    chart1.Series["Series1"].Points.DataBindXY(intervals, histgram);//直方图显示                  Histogram display
+}
+
+/// <summary>
+/// Run the method by loop times to benchmark
+/// 运行该方法loopTimes指定次数,计算消耗时间
+/// </summary>
+private void EfficiencyEvent(object sender, EventArgs e)
+{
+    int loopTimes = (int)nudTestTimes.Value;
+    Stopwatch stopwatch = new Stopwatch();
+    dataIn = new double[dataLength];                    //初始化数据数组长度     Initialize the length of the data array     
+    Generation.SineWave(ref dataIn, 1, 0, 5);           //产生一个正弦信号       Generate a sinusoidal signal
+    stopwatch.Start();
+    for (int i = 0; i < loopTimes; i++)
+    {
+        ProbabilityStatistics.Histogram(dataIn, ref histgram, ref intervals);//分析数据直方图     Analytical data histogram
+    }
+    stopwatch.Stop();
+    txtboxTimeElapsed.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
+}
+```
+
 
 
 # Winform Mean
+
+### 界面
+
+
+
+### 核心代码
 
 
 
 # Winform MeanSquaredError
 
+### 界面
+
+
+
+### 核心代码
+
 
 
 # Winform Median
+
+### 界面
+
+
+
+### 核心代码
 
 
 
 # Windorm Mode
 
+### 界面
+
+
+
+### 核心代码
+
 
 
 # Winform MultiFunction
+
+### 界面
+
+
+
+### 核心代码
 
 
 
 # Winform RootMeanSquare
 
+### 界面
+
+
+
+### 核心代码
+
 
 
 # Winform StandardDeviation
 
+### 界面
+
+
+
+### 核心代码
+
 
 
 # Winform Variance
+
+### 界面
+
+
+
+### 核心代码
 
