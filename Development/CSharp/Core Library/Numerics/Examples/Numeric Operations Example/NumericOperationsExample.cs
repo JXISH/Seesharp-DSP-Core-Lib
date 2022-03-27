@@ -70,6 +70,9 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
 =======
             #region Add example
 >>>>>>> c8a2fb01f8e9f8104e4a45128d033a1d003365f5
+=======
+            #region Add example
+>>>>>>> c8a2fb01f8e9f8104e4a45128d033a1d003365f5
             Console.WriteLine();
             Console.WriteLine("*** Vector.Add ***");
 
