@@ -62,50 +62,152 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             double[]: 2.12345678901235, 1.12345678901235, 0, 1.12345678901235, 2.12345678901235
              */
             #endregion
+
             #region Add
+=======
+            #region Add example
+>>>>>>> c8a2fb01f8e9f8104e4a45128d033a1d003365f5
+=======
+            #region Add example
+>>>>>>> c8a2fb01f8e9f8104e4a45128d033a1d003365f5
             Console.WriteLine();
             Console.WriteLine("*** Vector.Add ***");
+
             //define data
-            double[] dataADouble = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
-            double[] dataBDouble = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+            double[] dataADoubleAdd = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
+            double[] dataBDoubleAdd = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+
             //A,B入C出
-            double[] dataCDouble = new double[dataADouble.Length];
-            Vector.ArrayAdd(dataADouble, dataBDouble, dataCDouble);
+            double[] dataCDoubleAdd = new double[dataADoubleAdd.Length];
+            Vector.ArrayAdd(dataADoubleAdd, dataBDoubleAdd, dataCDoubleAdd);
             Console.Write("参数输出: ");
-            Console.WriteLine(String.Join(", ", dataCDouble));
+            Console.WriteLine(String.Join(", ", dataCDoubleAdd));
 
             //A,B入返回数组
-            double[] dataDoubleReturn = Vector.GetArrayAdd(dataADouble, dataBDouble);
+            double[] dataDoubleAddReturn = Vector.GetArrayAdd(dataADoubleAdd, dataBDoubleAdd);
             Console.Write("数组返回: ");
-            Console.WriteLine(String.Join(", ", dataDoubleReturn));
+            Console.WriteLine(String.Join(", ", dataDoubleAddReturn));
 
             //** A,B入A出，原位计算 **
             Console.WriteLine("* 原位计算 *");
             //double原位数组相加
-            Vector.ArrayAdd(dataADouble, dataBDouble);
+            Vector.ArrayAdd(dataADoubleAdd, dataBDoubleAdd);
             Console.Write("dataADouble:  ");
-            Console.WriteLine(String.Join(", ", dataADouble));
+            Console.WriteLine(String.Join(", ", dataADoubleAdd));
 
             /* output:
-             * *** Vector.Add ***
+            
+            */
+            #endregion
+
+            #region Sub
+            Console.WriteLine();
+            Console.WriteLine("*** Vector.Sub ***");
+
+            //define data
+            double[] dataADoubleSub = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
+            double[] dataBDoubleSub = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+
+            //A,B入C出
+            double[] dataCDoubleSub = new double[dataADoubleSub.Length];
+            Vector.ArraySub(dataADoubleSub, dataBDoubleSub, dataCDoubleSub);
+            Console.Write("参数输出: ");
+            Console.WriteLine(String.Join(", ", dataCDoubleSub));
+
+            //A,B入返回数组
+            double[] dataDoubleSubReturn = Vector.GetArraySub(dataADoubleSub, dataBDoubleSub);
+            Console.Write("数组返回: ");
+            Console.WriteLine(String.Join(", ", dataDoubleSubReturn));
+
+            //** A,B入A出，原位计算 **
+            Console.WriteLine("* 原位计算 *");
+            //double原位数组相加
+            Vector.ArraySub(dataADoubleSub, dataBDoubleSub);
+            Console.Write("dataADouble:  ");
+            Console.WriteLine(String.Join(", ", dataADoubleSub));
+
+            /* output:
+             * *** Vector.Sub ***
             参数输出: -1.12, 0.88, 3, 5.12, 7.12
             数组返回: -1.12, 0.88, 3, 5.12, 7.12
             * 原位计算 *
-            dataADouble:  -1.12, 0.88, 3, 5.12, 7.12
+            dataADoubleSub:  -1.12, 0.88, 3, 5.12, 7.12
+            */
+            #endregion
+
+            #region Multi
+            Console.WriteLine();
+            Console.WriteLine("*** Vector.Add ***");
+
+            //define data
+            double[] dataADoubleMulti = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
+            double[] dataBDoubleMulti = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+
+            //A,B入C出
+            double[] dataCDoubleMulti = new double[dataADoubleMulti.Length];
+            Vector.ArrayMulti<double>(dataADoubleMulti, dataBDoubleMulti, dataCDoubleMulti);
+            Console.Write("参数输出: ");
+            Console.WriteLine(String.Join(", ", dataCDoubleMulti));
+
+            //A,B入返回数组
+            double[] dataDoubleMultiReturn = Vector.GetArrayMulti<double>(dataADoubleMulti, dataBDoubleMulti);
+            Console.Write("数组返回: ");
+            Console.WriteLine(String.Join(", ", dataDoubleMultiReturn));
+
+            //** A,B入A出，原位计算 **
+            Console.WriteLine("* 原位计算 *");
+            //double原位数组相加
+            Vector.ArrayMulti<double>(dataADoubleMulti, dataBDoubleMulti);
+            Console.Write("dataADouble:  ");
+            Console.WriteLine(String.Join(", ", dataADoubleMulti));
+
+            /* output:
+            
+            */
+            #endregion
+
+            #region Division
+            Console.WriteLine();
+            Console.WriteLine("*** Vector.Add ***");
+
+            //define data
+            double[] dataADoubleDiv = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
+            double[] dataBDoubleDiv = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+
+            //A,B入C出
+            double[] dataCDoubleDiv = new double[dataADoubleDiv.Length];
+            Vector.ArrayDivision(dataADoubleDiv, dataBDoubleDiv, dataCDoubleDiv);
+            Console.Write("参数输出: ");
+            Console.WriteLine(String.Join(", ", dataCDoubleAdd));
+
+            //A,B入返回数组
+            double[] dataDoubleDivReturn = Vector.GetArrayDivision(dataADoubleDiv, dataBDoubleDiv);
+            Console.Write("数组返回: ");
+            Console.WriteLine(String.Join(", ", dataDoubleDivReturn));
+
+            //** A,B入A出，原位计算 **
+            Console.WriteLine("* 原位计算 *");
+            //double原位数组相加
+            Vector.ArrayDivision(dataADoubleDiv, dataBDoubleDiv);
+            Console.Write("dataADouble:  ");
+            Console.WriteLine(String.Join(", ", dataADoubleDiv));
+
+            /* output:
+            
             */
             #endregion
 
             #region Add1Value
             Console.WriteLine();
             Console.WriteLine("*** Vector.Add 1 value ***");
-            dataADouble = new double[] { -2.12, -1.12, 0, 1.12, 2.12 }; //恢复初始数值
+            dataADoubleAdd = new double[] { -2.12, -1.12, 0, 1.12, 2.12 }; //恢复初始数值
             double addingValue = 10;
             //** A,B入A出，原位计算 **
             Console.WriteLine("* 原位计算 *");
             //double原位数组加常数
-            Vector.ArrayAdd(dataADouble, addingValue);
+            Vector.ArrayAdd(dataADoubleAdd, addingValue);
             Console.Write("dataADouble:  ");
-            Console.WriteLine(String.Join(", ", dataADouble));
+            Console.WriteLine(String.Join(", ", dataADoubleAdd));
             /*
              * *** Vector.Add 1 value ***
             * 原位计算 *

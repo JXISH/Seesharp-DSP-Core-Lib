@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Numerics_Library</RootNamespace>
     <AssemblyName>Numerics Library</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -63,7 +63,7 @@
     <Compile Include="Vector\VectorArrayMulti.cs" />
     <Compile Include="Vector\VectorArrayPhase.cs" />
     <Compile Include="Vector\VectorArrayPowerLog.cs" />
-    <Compile Include="Vector\VectorArrayReserve.cs" />
+    <Compile Include="Vector\VectorArrayReverse.cs" />
     <Compile Include="Vector\VectorArraySort.cs" />
     <Compile Include="Vector\VectorArraySquareRoot.cs" />
     <Compile Include="Vector\VectorArraySub.cs" />
