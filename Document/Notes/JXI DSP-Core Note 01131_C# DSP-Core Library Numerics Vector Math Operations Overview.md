@@ -1,5 +1,7 @@
 # Numerics: Vector Math Operations
 
+
+
 ## Vector类在Solution Explorer中的显示
 
 由于我们采用了Partial Class （部分定义） 的方法，在多个*.cs文件里面定义Vector Class，所以当你在Solution Explorer里面点击打开Numerics Library\Vector 下面任何一个cs文件都可以看到一长串属性和方法。你可能感到困惑，但是当你了解任何一个cs文件打开的列表是相同的，整个Vector类的列表，就不那么焦虑了。
@@ -279,7 +281,7 @@ public static Complex ArrayDotProductConj(Complex[] a, Complex[] b)
 
 ### ArrayEqual
 
-比较输入Array，返回bool类型 “是/否”
+比较输入的两个Array是否相等。
 
 ```csharp
 /// <summary>
@@ -292,10 +294,12 @@ public static bool ArrayEqual<T>(T[] a, T[] b)
 
 ### RealImageToComplex
 
-1. 实部，虚部 -> 复数 (double -> Complex, float->Complex32)
+1. 实部，虚部 -> 复数 
+
+   提供了两种数据类型的方法：(double -> Complex, float->Complex32)
 
    
-
+   
    注解：Complex32是为了节约内存，本类库定义的实部、虚部都是32位字长的复数，而系统的Complex是64位字长的。
 
 ```csharp
@@ -324,7 +328,9 @@ public static Complex32[] RealImageToComplex(float[] real, float[] image)
 
 ### PolarToComplex
 
-幅度，相位 -> 复数 (double -> Complex, float->Complex32)
+幅度，相位 -> 复数
+
+提供了两种数据类型的方法：(double -> Complex, float->Complex32)
 
 ```csharp
 /// <summary>
@@ -373,6 +379,8 @@ public static Complex32[] PolarToComplex(float[] phase)
 ### ComplexToRealImage
 
 复数 ->实部，虚部 (float -> Complex32, double -> Complex)
+
+复数 ->实部，虚部 ( Complex32 -> float , Complex -> double)
 
 ```csharp
 /// <summary>
