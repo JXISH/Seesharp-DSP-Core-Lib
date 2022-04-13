@@ -136,8 +136,8 @@ namespace SeeSharpTools.JXI.Numerics
 #if vectorMKL
             vdLog2(inout.Length, inout, inout);
 #else
-            ArrayLn(inout);
-            ippsMulC_64f_I(Math.Log10(2.0f), inout, inout.Length);
+            ArrayLog10(inout);
+            ippsMulC_64f_I(1.0 / Math.Log10(2.0f), inout, inout.Length);
 #endif
         }
 
@@ -150,8 +150,8 @@ namespace SeeSharpTools.JXI.Numerics
 #if vectorMKL
             vdLog2(a.Length, a, output);
 #else
-            ArrayLn(a, output);
-            ippsMulC_64f_I(Math.Log10(2.0f), output, output.Length);
+            ArrayLog10(a, output);
+            ippsMulC_64f_I(1.0 / Math.Log10(2.0), output, output.Length);
 #endif
         }
 
@@ -164,8 +164,8 @@ namespace SeeSharpTools.JXI.Numerics
 #if vectorMKL
             vsLog2(inout.Length, inout, inout);
 #else
-            ArrayLn(inout);
-            ippsMulC_32f_I((float)(Math.Log10(2.0f)), inout, inout.Length);
+            ArrayLog10(inout);
+            ippsMulC_32f_I(1.0f / (float)(Math.Log10(2.0f)), inout, inout.Length);
 #endif
         }
 
@@ -178,8 +178,8 @@ namespace SeeSharpTools.JXI.Numerics
 #if vectorMKL
             vsLog2(a.Length, a, output);
 #else
-            ArrayLn(a, output);
-            ippsMulC_32f_I((float)(Math.Log10(Math.E)), output, output.Length);
+            ArrayLog10(a, output);
+            ippsMulC_32f_I((float)(1.0 / Math.Log10(2.0f)), output, output.Length);
 #endif
         }
 
