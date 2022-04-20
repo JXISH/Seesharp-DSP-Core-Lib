@@ -199,11 +199,11 @@ dataADouble:  -2.12, -0.56, 0, 0.28, 0.424
 
 
 
-### Equal
+### Compare
 
 ```csharp
 Console.WriteLine();
-Console.WriteLine("*** Vector.Equal ***");
+Console.WriteLine("*** Vector.Compare ***");
 
 // define data
 double[] dataADoubleComp = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };

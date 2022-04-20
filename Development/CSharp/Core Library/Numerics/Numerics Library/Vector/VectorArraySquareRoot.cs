@@ -18,7 +18,7 @@ namespace SeeSharpTools.JXI.Numerics
         {
             ippsSqr_64f_I(inout, inout.Length);
         }
-
+        
         /// <summary>
         /// double 数组取平方
         /// output = a ** 2
