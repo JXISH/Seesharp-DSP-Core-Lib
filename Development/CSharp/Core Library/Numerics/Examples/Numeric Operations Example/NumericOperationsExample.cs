@@ -11,6 +11,7 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
     {
         static void Main(string[] args)
         {
+            // Maths:
             #region ABS Example
             Console.WriteLine("*** Vector.Abs ***");
             //define data
@@ -389,6 +390,18 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
 
             #endregion
 
+            // Operate:
+            #region Copy
+            Console.WriteLine();
+            Console.WriteLine("*** Vector.Copy ***");
+
+            // define data
+            double[] dataADoubleCopy = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
+            double[] dataBDoubleCopy = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+
+            #endregion
+
+
             #region RealImagetoComplex
             Console.WriteLine();
             Console.WriteLine("*** Vector.RealImageToComplex ***");
@@ -415,7 +428,6 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             */
 
             #endregion
-
 
 
             // Incomplete:
