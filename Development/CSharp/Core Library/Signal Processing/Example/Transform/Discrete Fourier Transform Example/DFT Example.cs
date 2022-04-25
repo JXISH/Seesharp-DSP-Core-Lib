@@ -32,6 +32,7 @@ namespace Discrete_Fourier_Transform_Example
             double[] noiseI = Vector.GaussNoise(signalLength, 0, 0.01, (uint)seed.Next(10000));
             Complex[] noise = new Complex[signalLength];
             Vector.RealImageToComplex(noiseR, noiseI, noise);
+            Vector.ArrayAdd(signal, noise); //signal + noise ->signal
             double[] signalR = new double[signalLength];
             double[] signalI = new double[signalLength];
             Vector.ComplexToRealImage(signal, signalR, signalI);
