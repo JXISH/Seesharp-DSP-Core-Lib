@@ -262,7 +262,7 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             Console.Write("Return Output: ");
             Console.WriteLine(String.Join(", ", squareOutput));
 
-            //** A,B入A出，原位计算 **
+            //** A入A出，原位计算 **
             Console.WriteLine("* In-Place Calculation *");
             //double原位数组平方
             Vector.ArraySquare(dataADoubleSquare);
@@ -297,7 +297,7 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             Console.Write("Return Output: ");
             Console.WriteLine(String.Join(", ", sqrtOutput));
 
-            //** A,B入A出，原位计算 **
+            //** A入A出，原位计算 **
             Console.WriteLine("* In-Place Calculation *");
             //double原位数组平方
             Vector.ArrayRoot(dataADoubleSqrt);
@@ -340,22 +340,22 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             // define data
             double[] dataADoubleScale = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
             double[] dataCDoubleScale = new double[dataADoubleScale.Length];
-            double b = 3.5;
+            double scaleValue = 3.5;
 
-            //A,b入C出
-            Vector.ArrayScale<double>(dataADoubleScale, b, dataCDoubleScale);
+            //A,B入C出
+            Vector.ArrayScale<double>(dataADoubleScale, scaleValue, dataCDoubleScale);
             Console.WriteLine("Argument output:");
             Console.WriteLine(String.Join(", ", dataCDoubleScale));
 
-            //A,b入返回数组
-            double[] dataDoubleScaleReturn = Vector.GetArrayScale<double>(dataADoubleScale, b);
+            //A,B入返回数组
+            double[] dataDoubleScaleReturn = Vector.GetArrayScale<double>(dataADoubleScale, scaleValue);
             Console.Write("Return Output: ");
             Console.WriteLine(String.Join(", ", dataDoubleScaleReturn));
 
-            //** A,b入A出，原位计算 **
+            //** A,B入A出，原位计算 **
             Console.WriteLine("* In-Place Calculation *");
-            //A,b入A出
-            Vector.ArrayScale<double>(dataADoubleScale, b);
+            //A,B入A出
+            Vector.ArrayScale<double>(dataADoubleScale, scaleValue);
             Console.Write("dataADoubleScale: ");
             Console.WriteLine(String.Join(", ", dataADoubleScale));
 
