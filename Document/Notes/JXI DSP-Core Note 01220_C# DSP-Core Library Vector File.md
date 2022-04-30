@@ -13,10 +13,8 @@ Feb-9-2022
   * Close
 * 类库公开方法
 
-``` c#
-/// <summary>
+``` csharp
 /// 打开或创建文件。
-/// </summary>
 /// <param name="filePath"></param>
 /// <param name="mode"></param>
 /// <param name="fileAccess"></param>
@@ -24,86 +22,60 @@ Feb-9-2022
 /// Disable buffering willl speed up data transfers but require read/write block size to be integer multiple of disk sector size.</param>   
 public virtual void Open(string filePath, FileMode mode, FileAccess fileAccess, bool disableBuffering = false)
 
-/// <summary>
 /// Set the current read-write location of the file to a given value.     
-/// </summary>
 /// <param name="offset">The number of frames relative to origin. 。</param>
 /// <param name="origin">Using a value of type System.IO.SeekOrigin, the start, end, or current position is specified as a reference point for offset.</param>
 /// <returns>The new location of the file read and write, the number of frames away from the starting point of the data, that is, the value of the attribute "Position". 。</returns>
 public long Seek(long offset, SeekOrigin origin)
 
-/// <summary>
 /// Write data information to file header, could be called after writing data.
 /// After the operation, file pointer will be set to the beginning of data (value of property "Position" is 0 after operation).
 /// In creating new file use case, it must be called once before writing first block data.      
-/// </summary>
 public virtual void WriteFileHeader()
 
-/// <summary>
 /// 写入I8类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Write(sbyte[] data)
 
-/// <summary>
 /// 写入I16类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Write(short[] data)
 
-/// <summary>
 /// 写入Float32类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Write(float[] data)
 
-/// <summary>
 /// 写入double64类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Write(double[] data)
 
-/// <summary>
 ///  以IntPtr写入数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 /// <param name="lengthInBytes">数据长度，字节数。</param>
 public virtual void Write(IntPtr data, int lengthInBytes)
 
-/// <summary>
 /// 读出I8类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Read(sbyte[] data)
 
-/// <summary>
 /// 读出I16类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Read(short[] data)
 
-/// <summary>
 /// 读出Float32类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Read(float[] data)
 
-/// <summary>
 /// 读出Double64类型数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Read(double[] data)
 
-/// <summary>
 ///  以IntPtr读出数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 /// <param name="lengthInBytes">数据长度，字节数。</param>
 public virtual void Read(IntPtr data, int lengthInBytes)
 
-/// <summary>
 /// 关闭当前文件并释放与之关联的所有资源（如文件句柄）。
-/// </summary>
 public void Close()
 ```
 
@@ -119,13 +91,10 @@ public void Close()
 
 ### 核心代码
 
-```c#
-/// <summary>
+```csharp
 /// 在文件的当前位置读取IQ数据，计算频谱并显示。
-/// </summary>
 private void ReadDataAndDisplay()
 {
-
     // 在当前位置读取IQ数据，若“当前位置 + 读取长度”已超出文件长度，则先将“当前读取位置”向前移动。
     if (_iqFrameFile.Position + 1 > _iqFrameFile.NumberOfFrames) { _iqFrameFile.Seek(-1, SeekOrigin.End); }
 
@@ -176,13 +145,10 @@ finally
 
 ### 核心代码
 
-```c#
-/// <summary>
+```csharp
 /// 在文件的当前位置读取IQ数据，计算频谱并显示。
-/// </summary>
 private void ReadDataAndDisplay()
 {
-
     // 在当前位置读取IQ数据，若“当前位置 + 读取长度”已超出文件长度，则先将“当前读取位置”向前移动。
     if (_iqStreamFile.Position + NumOfSamplesPerRead > _iqStreamFile.NumberOfSamples) { _iqStreamFile.Seek(-NumOfSamplesPerRead, SeekOrigin.End); }
 
@@ -234,7 +200,7 @@ private void ReadDataAndDisplay()
 
 ### 核心代码
 
-```c#
+```csharp
 // 获取BackgroudWorker对象，用于运行控制。
 var bgWorker = sender as BackgroundWorker;
 
@@ -361,7 +327,7 @@ finally
 
 * 读取全部键值
 
-```c#
+```csharp
 if (_iniFile == null)
 {
     if (_guiFileBrowseDialog.ShowDialog() == DialogResult.Cancel) { return; }
@@ -519,12 +485,11 @@ FileHeaderSize = 65536
 
 ### 核心代码
 
-```c#
+```csharp
 // Read raw data from file.
     short[] rawData = new short[numberOfRawSamplesToRead * arrayElementsPerSample];
     _vectorFile.Seek(_currentSelectionStart, SeekOrigin.Begin);
     _vectorFile.Read(rawData);
-
 ```
 
 
@@ -537,7 +502,7 @@ FileHeaderSize = 65536
 
 ### 核心代码
 
-```c#
+```csharp
 private void GuiReadPositionBar_ValueChanged(object sender, EventArgs e)
 {
     //如果当前已启动连续读取，则TrackerBar的控件值改变是因BackgroundWorker更新显示而触发，无需任何处理，直接返回。
@@ -592,7 +557,7 @@ private void ReadDataAndDisplay()
 
 ### 核心代码
 
-```c#
+```csharp
 // 实例化SpectrumFile对象，创建文件。
     SpectrumFile spectrumFile = new SpectrumFile();
     spectrumFile.Open(filePath, FileMode.Create, FileAccess.Write);
@@ -611,5 +576,4 @@ else if (spectrumFile.Storage.DataType == DataType.RealF32)
 }
 
 ```
-
 
