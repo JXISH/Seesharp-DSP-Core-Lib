@@ -618,7 +618,7 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
 
             // define data
             double[] magnitudePtoC = new double[] { 1, 2 };
-            double[] phasePtoC = new double[] { 0, 1.57 };
+            double[] phasePtoC = new double[] { 0, 1.57 }; //0 and pi/2
             Complex[] complexDataPtoC = new Complex[] { new Complex(), new Complex() };
 
             // magnitude, phase入, complex出
@@ -633,13 +633,13 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
 
             // 返回complex数组:
             magnitudePtoC = new double[] { 2, 3 };
-            phasePtoC = new double[] { 1, 2 };
+            phasePtoC = new double[] { 0.785, 3.141 }; //pi/4, pi
             // magnitude, phase入, 返回complex data
             complexDataPtoC = Vector.PolarToComplex(magnitudePtoC, phasePtoC);
             Console.Write("Return output: ");
             Console.WriteLine(String.Join(", ", complexDataPtoC));
 
-            // phase入, 返回complex data
+            // phase入, 幅度恒等于1， 返回complex data
             complexDataPtoC = Vector.PolarToComplex(phasePtoC);
             Console.Write("Return output: ");
             Console.WriteLine(String.Join(", ", complexDataPtoC));
@@ -648,8 +648,8 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
              * *** Vector.PolarToComplex ***
             Complex Argument output: (1, 0), (0.00159265342146653, 1.99999936586367)
             Complex Argument output: (1, 0), (0.000796326710733263, 0.999999682931835)
-            Return Output: (1.08060461173628, 1.68294196961579), (-1.24844050964143, 2.72789228047704)
-            Return Output: (0.54030230586814, 0.841470984807897), (-0.416146836547142, 0.909297426825682)
+            Return output: (1.4147765383344, 1.41365036221073), (-2.9999994731426, 0.00177796066529836)
+            Return output: (0.7073882691672, 0.706825181105366), (-0.999999824380866, 0.000592653555099454)
             */
 
             #endregion
