@@ -20,18 +20,15 @@ Feb-8-2022 JXISH
 
 * 类库公开方法
 
-```c#
+```csharp
 //*** 构造函数 ***
-/// <summary>
 /// 新建或打开一个Wav文件。
-/// </summary>
 /// <param name="filePath"></param>
 /// <param name="mode"></param>
 /// <param name="fileAccess"></param>
 public WavFileStream(string filePath, FileMode mode = FileMode.OpenOrCreate, FileAccess fileAccess = FileAccess.ReadWrite)
-/// <summary>
+
 /// 新建或打开一个Wav文件。
-/// </summary>
 /// <param name="filePath"></param>
 /// <param name="mode"></param>
 /// <param name="fileAccess"></param>
@@ -39,36 +36,28 @@ public WavFileStream(string filePath, FileMode mode = FileMode.OpenOrCreate, Fil
 public WavFileStream(string filePath, FileMode mode, FileAccess fileAccess, FileShare fileShare)   
 
 //*** 写入方法 ***
-/// <summary>
 /// 写入I16类型PCM数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public void Write(short[] data)
-            /// <summary>
+            
 /// 写入byte[]类型PCM数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public void Write(byte[] data)
+
 //*** 读取方法 ***
-            /// <summary>
 /// 读出I16类型PCM数据，若为多通道，则data中的数据为Channel Interleave(通道交织)存放。
-/// </summary>
 /// <param name="data"></param>
 public virtual void Read(short[] data)
 
 //*** 定位 ***
-            /// <summary>
 /// 将文件的当前读写位置设置为给定值。
-/// </summary>
 /// <param name="offset">相对于origin 的Sample数。</param>
 /// <param name="origin">使用 System.IO.SeekOrigin 类型的值，将开始位置、结束位置或当前位置指定为 offset 的参考点。</param>
 /// <returns>文件读写的新位置，距离数据起始点的Sample数，即属性"Position"的值。</returns>
 public void Seek(long offset, SeekOrigin origin)
 
 //*** 关闭 ***
-            /// <summary>
 /// 关闭当前文件并释放与之关联的所有资源（如文件句柄）。
-/// </summary>
 public void Close()
 ```
 
@@ -84,7 +73,7 @@ public void Close()
 
 * 生成模拟数据并写入文件
 
-```c#
+```csharp
 _numOfChannels = Convert.ToUInt16(_guiChannelSelection.Text);
 _sampleRate = Convert.ToDouble(_guiAudioSampleRate.Text);
 string folderPath = _guiRecorderFolder.Text;
@@ -158,7 +147,7 @@ _wavFileStream.Close();
 
 2. 程序中调用_guiRecFolderDialog.ShowDialog方法，显示弹窗，获取路径
 
-   ```c#
+   ```csharp
    if (_guiRecFolderDialog.ShowDialog() == DialogResult.OK)
    {
        //如果用户点击目录弹窗OK，进入此条件分支，获取目录名称
@@ -180,7 +169,7 @@ _wavFileStream.Close();
 
 * 打开文件，读取属性，产生读位置修改事件
 
-```c#
+```csharp
 // Show dialog for user to select IQ file.
 OpenFileDialog fileDialog = new OpenFileDialog();
 fileDialog.Multiselect = false;
@@ -209,7 +198,7 @@ _guiReadPosition_ValueChanged(null, 0);
 
 * 读位置修改事件响应，读取一块数据
 
-```c#
+```csharp
 //创建缓存
 short[] data = new short[(int)_guiAudioDisplaySamples.Value * _numberOfChannels];
 var displayData = new short[_numberOfChannels, data.Length / _numberOfChannels];

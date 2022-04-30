@@ -399,8 +399,135 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             double[] dataADoubleCopy = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
             double[] dataBDoubleCopy = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
 
+            // A入B出
+            Vector.ArrayCopy(dataADoubleCopy, 2, dataBDoubleCopy, 1, 2);
+            Console.Write("dataBDoubleCopy: ");
+            Console.WriteLine(String.Join(", ", dataBDoubleCopy));
+
+            // A入B出
+            Vector.ArrayCopy(dataADoubleCopy, dataBDoubleCopy);
+            Console.Write("dataBDoubleCopy: ");
+            Console.WriteLine(String.Join(", ", dataBDoubleCopy));
+
+            /* output:
+            *** Vector.Copy ***
+            dataBDoubleCopy: 1, 0, 1.12, 4, 5
+            dataBDoubleCopy: -2.12, -1.12, 0, 1.12, 2.12
+            */
+
             #endregion
 
+            #region Sort
+            Console.WriteLine();
+            Console.WriteLine("*** Vector.Sort ***");
+
+            // define data
+            double[] dataADoubleSort = new double[] { -2.12, 1.12, 7, -1.12, 2.12 };
+            double[] dataBDoubleSort = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+            int[] sortIndex = new int[dataADoubleSort.Length];
+            // print origin
+            Console.Write("Original data A: ");
+            Console.WriteLine(String.Join(", ", dataADoubleSort));
+
+            // A入B出
+            Vector.ArrayAscend(dataADoubleSort, dataBDoubleSort);
+            Console.Write("Argument output: ");
+            Console.WriteLine(String.Join(", ", dataBDoubleSort));
+
+            // 返回排序结果及索引位置
+            Vector.ArrayAscendIndex(dataADoubleSort, dataBDoubleSort, sortIndex);
+            Console.Write("Sorted Argument outout: ");
+            Console.WriteLine(String.Join(", ", dataBDoubleSort));
+            Console.Write("sortedIndex Argument outout: ");
+            Console.WriteLine(String.Join(", ", sortIndex));
+
+            // ** 原位计算 **
+            Console.WriteLine("* In-Place Calculation *");
+            // A入A出
+            Vector.ArrayAscend(dataADoubleSort);
+            Console.Write("dataADoubleSort: ");
+            Console.WriteLine(String.Join(", ", dataADoubleSort));
+
+            // 原位排序并返回索引位置
+            dataADoubleSort = new double[] { -2.12, 1.12, 7, -1.12, 2.12 };
+            Vector.ArrayAscendIndex(dataADoubleSort, sortIndex);
+            Console.Write("Sorted Argument outout: ");
+            Console.WriteLine(String.Join(", ", dataADoubleSort));
+            Console.Write("sortedIndex Argument output: ");
+            Console.WriteLine(String.Join(", ", sortIndex));
+
+            /* output:
+            *** Vector.Sort ***
+            Original data A: -2.12, 1.12, 7, -1.12, 2.12
+            Argument output: -2.12, -1.12, 1.12, 2.12, 7
+            Sorted Argument outout: -2.12, -1.12, 1.12, 2.12, 7
+            sortedIndex Argument outout: 0, 3, 1, 4, 2
+            * In-Place Calculation *
+            dataADoubleSort: -2.12, -1.12, 1.12, 2.12, 7
+            Sorted Argument outout: -2.12, -1.12, 1.12, 2.12, 7
+            sortedIndex Argument output: 0, 3, 1, 4, 2
+            */
+
+            #endregion
+
+            #region Transpose
+            Console.WriteLine();
+            Console.WriteLine("*** Vector.Transpose ***");
+
+            // define data
+            double[][] dataADoubleTranspose = new double[][] { new double[] { -2.12, -1.12, -0.12 },
+                                                                new double[] { 1.12, 2.12, 0.12 } };
+            double[][] dataBDoubleTranspose = new double[3][];
+            dataBDoubleTranspose[0] = new double[2];
+            dataBDoubleTranspose[1] = new double[2];
+            dataBDoubleTranspose[2] = new double[2];
+
+            // A进 output出
+            Vector.ArrayTranspose(dataADoubleTranspose, dataBDoubleTranspose);
+            Console.WriteLine("Transposed Argument Output: ");
+            for (int i = 0; i < dataBDoubleTranspose.Length; i++)
+            {
+                Console.WriteLine(String.Join(", ", dataBDoubleTranspose[i]));
+            }
+
+            /* output:
+            *** Vector.Transpose ***
+            Transposed Argument Output:
+            -2.12, 1.12
+            -1.12, 2.12
+            -0.12, 0.12
+            */
+
+            #endregion
+
+            #region Reverse
+            Console.WriteLine();
+            Console.WriteLine("*** Vector.Reverse ***");
+
+            // define data
+            double[] dataADoubleRev = new double[] { -5.12, -4.12, 0, 2.12, 1.12 };
+            double[] dataBDoubleRev = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+
+            //A入B出
+            Vector.ArrayReverse(dataADoubleRev, dataBDoubleRev);
+            Console.Write("Argument output: ");
+            Console.WriteLine(String.Join(", ", dataBDoubleRev));
+
+            //** 原位计算 **
+            Console.WriteLine("* In-Place Calculation *");
+            //A入A出
+            Vector.ArrayReverse(dataADoubleRev);
+            Console.Write("dataADoubleRev ");
+            Console.WriteLine(String.Join(", ", dataADoubleRev));
+
+            /* output:
+            *** Vector.Reverse ***
+            Argument output: 1.12, 2.12, 0, -4.12, -5.12
+            * In-Place Calculation *
+            dataADoubleRev 1.12, 2.12, 0, -4.12, -5.12
+            */
+
+            #endregion
 
             #region RealImagetoComplex
             Console.WriteLine();
@@ -411,15 +538,15 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             double[] dataBDoubleReal = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
 
             //A,B入，C出
-            Complex[] complexData1 = new Complex[dataADoubleReal.Length];
-            Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal, complexData1);
+            Complex[] complexDataRItoC1 = new Complex[dataADoubleReal.Length];
+            Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal, complexDataRItoC1);
             Console.Write("Argument output: ");
-            Console.WriteLine(String.Join(", ", complexData1));
+            Console.WriteLine(String.Join(", ", complexDataRItoC1));
 
             //A,B入，返回数组
-            Complex[] complexData2 = Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal);
+            Complex[] complexDataRItoC2 = Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal);
             Console.Write("Return Output: ");
-            Console.WriteLine(String.Join(", ", complexData2));
+            Console.WriteLine(String.Join(", ", complexDataRItoC2));
 
             /* output:
             *** Vector.RealImageToComplex ***
@@ -429,23 +556,59 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
 
             #endregion
 
-
-            // Incomplete:
-            /*
             #region ComplexToRealImage
             Console.WriteLine();
             Console.WriteLine("*** Vector.ComplexToRealImage ***");
 
             // define data
-            Complex[] complexData = new Complex[] { (-2.12, 1), (-1.12, 2), (0, 3), (1.12, 4), (2.12, 5) };
+            Complex[] complexDataCtoRI = new Complex[] { new Complex(-2.12, -1), new Complex(1.12, 2)};
+            Complex32[] complex32DataCtoRI = new Complex32[] { new Complex32((float)-2.12, -1),
+                                                                new Complex32((float)1.12, 2) };
 
             //complex入，real, image出
-            double[] Real1A = new double[complexData.Length];
-            double[] Real1B = new double[complexData.Length];
-            Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal, complexData1);
-            Console.Write("Argument output: ");
-            Console.WriteLine(String.Join(", ", complexData1));
+            double[] Real1A = new double[complexDataCtoRI.Length];
+            double[] Image1A = new double[complexDataCtoRI.Length];
+            Vector.ComplexToRealImage(complexDataCtoRI, Real1A, Image1A);
+            Console.WriteLine("Complex in; Real, Image out: ");
+            Console.Write("Real Argument output: ");
+            Console.WriteLine(String.Join(", ", Real1A));
+            Console.Write("Image Argument output: ");
+            Console.WriteLine(String.Join(", ", Image1A));
 
+            //complex32入，real, image出
+            float[] Real32 = new float[complex32DataCtoRI.Length];
+            float[] Image32 = new float[complex32DataCtoRI.Length];
+            Vector.ComplexToRealImage(complex32DataCtoRI, Real32, Image32);
+            Console.WriteLine("Complex32 in; Real, Image out: ");
+            Console.Write("Real Argument output: ");
+            Console.WriteLine(String.Join(", ", Real32));
+            Console.Write("Image Argument output: ");
+            Console.WriteLine(String.Join(", ", Image32));
+
+            //magnitude, double入，real, image出
+            double[] magnitudeCtoRI = new double[] {1, 2};
+            double[] phaseCtoRI = new double[] {0, 1.57};
+            double[] Real2A = new double[2];
+            double[] Image2A = new double[2];
+            Vector.ComplexToRealImage(magnitudeCtoRI, phaseCtoRI, Real2A, Image2A);
+            Console.WriteLine("Magnitude, Phase in; Real, Image out: ");
+            Console.Write("Real Argument output: ");
+            Console.WriteLine(String.Join(", ", Real2A));
+            Console.Write("Image Argument output: ");
+            Console.WriteLine(String.Join(", ", Image2A));
+
+            /* output:
+             *** Vector.ComplexToRealImage ***
+            Complex in; Real, Image out:
+            Real Argument output: -2.12, 1.12
+            Image Argument output: -1, 2
+            Complex32 in; Real, Image out:
+            Real Argument output: -2.12, 1.12
+            Image Argument output: -1, 2
+            Magnitude, Phase in; Real, Image out:
+            Real Argument output: 1, 0.00159265342146653
+            Image Argument output: 0, 1.99999936586367
+            */
 
             #endregion
 
@@ -453,8 +616,43 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             Console.WriteLine();
             Console.WriteLine("*** Vector.PolarToComplex ***");
 
-            #endregion
+            // define data
+            double[] magnitudePtoC = new double[] { 1, 2 };
+            double[] phasePtoC = new double[] { 0, 1.57 };
+            Complex[] complexDataPtoC = new Complex[] { new Complex(), new Complex() };
+
+            // magnitude, phase入, complex出
+            Vector.PolarToComplex(magnitudePtoC, phasePtoC, complexDataPtoC);
+            Console.Write("Complex Argument output: ");
+            Console.WriteLine(String.Join(", ", complexDataPtoC));
+
+            // phase入, complex出
+            Vector.PolarToComplex(phasePtoC, complexDataPtoC);
+            Console.Write("Complex Argument output: ");
+            Console.WriteLine(String.Join(", ", complexDataPtoC));
+
+            // 返回complex数组:
+            magnitudePtoC = new double[] { 2, 3 };
+            phasePtoC = new double[] { 1, 2 };
+            // magnitude, phase入, 返回complex data
+            complexDataPtoC = Vector.PolarToComplex(magnitudePtoC, phasePtoC);
+            Console.Write("Return output: ");
+            Console.WriteLine(String.Join(", ", complexDataPtoC));
+
+            // phase入, 返回complex data
+            complexDataPtoC = Vector.PolarToComplex(phasePtoC);
+            Console.Write("Return output: ");
+            Console.WriteLine(String.Join(", ", complexDataPtoC));
+
+            /* output:
+             * *** Vector.PolarToComplex ***
+            Complex Argument output: (1, 0), (0.00159265342146653, 1.99999936586367)
+            Complex Argument output: (1, 0), (0.000796326710733263, 0.999999682931835)
+            Return Output: (1.08060461173628, 1.68294196961579), (-1.24844050964143, 2.72789228047704)
+            Return Output: (0.54030230586814, 0.841470984807897), (-0.416146836547142, 0.909297426825682)
             */
+
+            #endregion
 
             //wait until keypress
             Console.ReadKey();
