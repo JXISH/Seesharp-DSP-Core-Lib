@@ -1,6 +1,6 @@
 # C# DSP-Core Library 功能树
 
-Feb-17-2022
+May-4-2022
 
 ## 关于
 
@@ -10,7 +10,7 @@ DSP-Core是聚星仪器基于C#的核心数字信号处理库，及其开发项�
 
 下面这个功能树是整个项目function grouping的概览，也是多年信号处理编程经验的呈现。
 
-![DSP-Core Overview_2022-0206](.\Resources\Note 00100\DSP-Core Overview_2022-0206.PNG)
+![DSP-Core Overview_2022-0504](.\Resources\Note 00100\DSP-Core Overview_2022-0504.PNG)
 
 ## 功能树
 
@@ -21,14 +21,15 @@ DSP-Core
       1. Const
       2. Circular Buffer
       3. Complex32  //float 组成的复数比Complex少用一半内存
-      4. NumericUtility
-      5. NumericRange
-      6. MathExtension
+      4. NumericUtility  //交织数组和复数的转换
+      5. NumericRange //上下限截断
+      6. MathExtension //增加一个sinc函数
    2. Vector
       1. Init
-      2. Math: Abs, Add, Sub, Sum, Multi, Division, DotProduct, SquareRoot
-      3. Operation: Copy, Sort, Reverse
-      4. Logic: Compare
+      2. Math: Abs, Add, Sub, Sum, Multi, Division, DotProduct, SquareRoot, 平方, log2/e/10, Exp2/e/10
+      3. Operation: Copy, Sort, Reverse, 升降采样，极坐标-复数互换， 复数-实部虚部互换
+      4. Stats: 统计数组Max, Min, Mean, 相位平均
+      5. Logic: Compare, 两数组对应元素取大、取小
 2. File IO
    1. Wav
    2. Vector File
@@ -73,6 +74,12 @@ DSP-Core
    2. Modulator
       1. Modulator
       2. DigitalConverter
+
+
+
+## JXI DSP和Math Toolset
+
+这个库Math和Signal Processing主要来自原来的收费软件包JXI Math 和 DSP Tooset。我们在Math里面增加了Geometry, Point-by-point, Linear Algebra；在Signal Processing里面增加了Advanced Filter (含升降采样的FIR), Spectrum Analysis的RFSA Spectrum, Transform的DFT。
 
 
 
