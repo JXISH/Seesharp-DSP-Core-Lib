@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="JTFA\RFSAJTFA\" />
-    <Folder Include="Spectrum Analysis\SpectrumMeasurements\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SynchronizerCoefficient.bin" />
