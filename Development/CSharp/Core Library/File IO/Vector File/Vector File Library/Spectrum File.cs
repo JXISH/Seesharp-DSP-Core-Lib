@@ -91,7 +91,10 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
                 {
                     // Extract data information (e.g. samplilng information).
                     ExtractDataInfoFromDictionary();
-                    _numberOfFrames = (_fileLengthInBytes - _storageInfo.FileHeaderSize) / this.BytesPerSample;
+
+                    int numOfLinesPerFrame = 0;
+                    foreach(var band in _samplingInfo.Bands) { numOfLinesPerFrame += band.NumOfSpectralLines; }
+                    _numberOfFrames = ((_fileLengthInBytes - _storageInfo.FileHeaderSize) / this.BytesPerSample) / numOfLinesPerFrame;
                 }
                 else
                 {
@@ -569,9 +572,7 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
 
             if (_infoDictionary.ContainsKey(HeaderKeyCostants.SamplingScanFrameInterval))
             {
-                rawCsvString = Convert.ToString(_infoDictionary[HeaderKeyCostants.SamplingScanFrameInterval]);
-                strTime = rawCsvString.Split(separatorSecond);
-                _samplingInfo.Interval = new TimeSpan(Convert.ToInt32(strTime[0]), Convert.ToInt32(strTime[1]), Convert.ToInt32(strTime[2]));
+                _samplingInfo.Interval = TimeSpan.Parse(_infoDictionary[HeaderKeyCostants.SamplingScanFrameInterval]);
             }
             else
             { throw new VectorFileException(ExceptionEnum.InconsistantFileHeaderInfo, "Interval"); }
@@ -743,7 +744,7 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
 
             #region------------------------------------------Update "Interval"--------------------------------
 
-            resultString = _samplingInfo.Interval.ToString();
+            resultString = _samplingInfo.Interval.ToString(@"hh\:mm\:ss\.fffffff");
             if (_infoDictionary.ContainsKey(HeaderKeyCostants.SamplingRecordInterval))
             { _infoDictionary[HeaderKeyCostants.SamplingRecordInterval] = resultString; }
             else

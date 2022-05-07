@@ -48,6 +48,9 @@
             System.Windows.Forms.Label label18;
             System.Windows.Forms.GroupBox _guiSignalDisplay;
             SeeSharpTools.JY.GUI.EasyChartXSeries easyChartXSeries1 = new SeeSharpTools.JY.GUI.EasyChartXSeries();
+            System.Windows.Forms.Label label19;
+            System.Windows.Forms.Label label20;
+            System.Windows.Forms.Label label21;
             this._guiSpectrumChart = new SeeSharpTools.JY.GUI.EasyChartX();
             this.labelTitle = new System.Windows.Forms.Label();
             this._guiSignalParam = new System.Windows.Forms.GroupBox();
@@ -64,6 +67,7 @@
             this._guiBand1FreqStart = new System.Windows.Forms.NumericUpDown();
             this._guiNumberOfChannels = new System.Windows.Forms.NumericUpDown();
             this._guiFileParam = new System.Windows.Forms.GroupBox();
+            this._guiFrameIntervalInMilliSec = new System.Windows.Forms.NumericUpDown();
             this._guiWriteDataType = new System.Windows.Forms.ComboBox();
             this._guiBrowseFolder = new System.Windows.Forms.Button();
             this._guiDestinationFolder = new System.Windows.Forms.TextBox();
@@ -93,6 +97,9 @@
             label17 = new System.Windows.Forms.Label();
             label18 = new System.Windows.Forms.Label();
             _guiSignalDisplay = new System.Windows.Forms.GroupBox();
+            label19 = new System.Windows.Forms.Label();
+            label20 = new System.Windows.Forms.Label();
+            label21 = new System.Windows.Forms.Label();
             _guiSignalDisplay.SuspendLayout();
             this._guiSignalParam.SuspendLayout();
             this._guiSignalBand2Info.SuspendLayout();
@@ -107,6 +114,7 @@
             ((System.ComponentModel.ISupportInitialize)(this._guiBand1FreqStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._guiNumberOfChannels)).BeginInit();
             this._guiFileParam.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._guiFrameIntervalInMilliSec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._guiFileLength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,7 +125,7 @@
             label3.Location = new System.Drawing.Point(12, 29);
             label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(223, 28);
+            label3.Size = new System.Drawing.Size(152, 19);
             label3.TabIndex = 7;
             label3.Text = "Number Of Channels";
             // 
@@ -126,7 +134,7 @@
             label1.AutoSize = true;
             label1.Location = new System.Drawing.Point(11, 41);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(115, 28);
+            label1.Size = new System.Drawing.Size(79, 19);
             label1.TabIndex = 9;
             label1.Text = "Freq Start";
             // 
@@ -135,7 +143,7 @@
             label2.AutoSize = true;
             label2.Location = new System.Drawing.Point(199, 41);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(59, 28);
+            label2.Size = new System.Drawing.Size(40, 19);
             label2.TabIndex = 9;
             label2.Text = "MHz";
             // 
@@ -144,7 +152,7 @@
             label4.AutoSize = true;
             label4.Location = new System.Drawing.Point(11, 73);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(111, 28);
+            label4.Size = new System.Drawing.Size(77, 19);
             label4.TabIndex = 9;
             label4.Text = "Freq Stop";
             // 
@@ -153,7 +161,7 @@
             label5.AutoSize = true;
             label5.Location = new System.Drawing.Point(199, 73);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(59, 28);
+            label5.Size = new System.Drawing.Size(40, 19);
             label5.TabIndex = 9;
             label5.Text = "MHz";
             // 
@@ -162,7 +170,7 @@
             label6.AutoSize = true;
             label6.Location = new System.Drawing.Point(11, 105);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(110, 28);
+            label6.Size = new System.Drawing.Size(76, 19);
             label6.TabIndex = 9;
             label6.Text = "Freq Step";
             // 
@@ -171,7 +179,7 @@
             label7.AutoSize = true;
             label7.Location = new System.Drawing.Point(199, 105);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(59, 28);
+            label7.Size = new System.Drawing.Size(40, 19);
             label7.TabIndex = 9;
             label7.Text = "MHz";
             // 
@@ -180,7 +188,7 @@
             label8.AutoSize = true;
             label8.Location = new System.Drawing.Point(11, 137);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(115, 28);
+            label8.Size = new System.Drawing.Size(79, 19);
             label8.TabIndex = 9;
             label8.Text = "# Of Lines";
             // 
@@ -189,7 +197,7 @@
             label9.AutoSize = true;
             label9.Location = new System.Drawing.Point(199, 73);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(59, 28);
+            label9.Size = new System.Drawing.Size(40, 19);
             label9.TabIndex = 9;
             label9.Text = "MHz";
             // 
@@ -198,7 +206,7 @@
             label10.AutoSize = true;
             label10.Location = new System.Drawing.Point(199, 105);
             label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(59, 28);
+            label10.Size = new System.Drawing.Size(40, 19);
             label10.TabIndex = 9;
             label10.Text = "MHz";
             // 
@@ -207,7 +215,7 @@
             label11.AutoSize = true;
             label11.Location = new System.Drawing.Point(199, 41);
             label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(59, 28);
+            label11.Size = new System.Drawing.Size(40, 19);
             label11.TabIndex = 9;
             label11.Text = "MHz";
             // 
@@ -216,7 +224,7 @@
             label12.AutoSize = true;
             label12.Location = new System.Drawing.Point(11, 73);
             label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(111, 28);
+            label12.Size = new System.Drawing.Size(77, 19);
             label12.TabIndex = 9;
             label12.Text = "Freq Stop";
             // 
@@ -225,7 +233,7 @@
             label13.AutoSize = true;
             label13.Location = new System.Drawing.Point(11, 137);
             label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(115, 28);
+            label13.Size = new System.Drawing.Size(79, 19);
             label13.TabIndex = 9;
             label13.Text = "# Of Lines";
             // 
@@ -234,7 +242,7 @@
             label14.AutoSize = true;
             label14.Location = new System.Drawing.Point(11, 105);
             label14.Name = "label14";
-            label14.Size = new System.Drawing.Size(110, 28);
+            label14.Size = new System.Drawing.Size(76, 19);
             label14.TabIndex = 9;
             label14.Text = "Freq Step";
             // 
@@ -243,7 +251,7 @@
             label15.AutoSize = true;
             label15.Location = new System.Drawing.Point(11, 41);
             label15.Name = "label15";
-            label15.Size = new System.Drawing.Size(115, 28);
+            label15.Size = new System.Drawing.Size(79, 19);
             label15.TabIndex = 9;
             label15.Text = "Freq Start";
             // 
@@ -254,7 +262,7 @@
             label16.Location = new System.Drawing.Point(12, 31);
             label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label16.Name = "label16";
-            label16.Size = new System.Drawing.Size(131, 28);
+            label16.Size = new System.Drawing.Size(89, 19);
             label16.TabIndex = 7;
             label16.Text = "Folder Path";
             // 
@@ -265,7 +273,7 @@
             label17.Location = new System.Drawing.Point(264, 84);
             label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label17.Name = "label17";
-            label17.Size = new System.Drawing.Size(83, 28);
+            label17.Size = new System.Drawing.Size(57, 19);
             label17.TabIndex = 10;
             label17.Text = "frames";
             // 
@@ -276,7 +284,7 @@
             label18.Location = new System.Drawing.Point(12, 84);
             label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label18.Name = "label18";
-            label18.Size = new System.Drawing.Size(127, 28);
+            label18.Size = new System.Drawing.Size(86, 19);
             label18.TabIndex = 7;
             label18.Text = "File Length";
             // 
@@ -287,9 +295,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             _guiSignalDisplay.Controls.Add(this._guiSpectrumChart);
             _guiSignalDisplay.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            _guiSignalDisplay.Location = new System.Drawing.Point(7, 322);
+            _guiSignalDisplay.Location = new System.Drawing.Point(7, 329);
             _guiSignalDisplay.Name = "_guiSignalDisplay";
-            _guiSignalDisplay.Size = new System.Drawing.Size(760, 181);
+            _guiSignalDisplay.Size = new System.Drawing.Size(760, 220);
             _guiSignalDisplay.TabIndex = 13;
             _guiSignalDisplay.TabStop = false;
             _guiSignalDisplay.Text = "Signal Display";
@@ -299,6 +307,7 @@
             this._guiSpectrumChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this._guiSpectrumChart.AutoClear = true;
             this._guiSpectrumChart.AxisX.AutoScale = true;
             this._guiSpectrumChart.AxisX.AutoZoomReset = false;
             this._guiSpectrumChart.AxisX.Color = System.Drawing.Color.Black;
@@ -311,7 +320,9 @@
             this._guiSpectrumChart.AxisX.MajorGridCount = -1;
             this._guiSpectrumChart.AxisX.MajorGridEnabled = true;
             this._guiSpectrumChart.AxisX.MajorGridType = SeeSharpTools.JY.GUI.EasyChartXAxis.GridStyle.Dash;
+            this._guiSpectrumChart.AxisX.MaxGridCountPerPixel = 0.012D;
             this._guiSpectrumChart.AxisX.Maximum = 1000D;
+            this._guiSpectrumChart.AxisX.MinGridCountPerPixel = 0.004D;
             this._guiSpectrumChart.AxisX.Minimum = 0D;
             this._guiSpectrumChart.AxisX.MinorGridColor = System.Drawing.Color.Black;
             this._guiSpectrumChart.AxisX.MinorGridEnabled = false;
@@ -334,7 +345,9 @@
             this._guiSpectrumChart.AxisX2.MajorGridCount = -1;
             this._guiSpectrumChart.AxisX2.MajorGridEnabled = true;
             this._guiSpectrumChart.AxisX2.MajorGridType = SeeSharpTools.JY.GUI.EasyChartXAxis.GridStyle.Dash;
+            this._guiSpectrumChart.AxisX2.MaxGridCountPerPixel = 0.012D;
             this._guiSpectrumChart.AxisX2.Maximum = 1000D;
+            this._guiSpectrumChart.AxisX2.MinGridCountPerPixel = 0.004D;
             this._guiSpectrumChart.AxisX2.Minimum = 0D;
             this._guiSpectrumChart.AxisX2.MinorGridColor = System.Drawing.Color.Black;
             this._guiSpectrumChart.AxisX2.MinorGridEnabled = false;
@@ -357,7 +370,9 @@
             this._guiSpectrumChart.AxisY.MajorGridCount = 6;
             this._guiSpectrumChart.AxisY.MajorGridEnabled = true;
             this._guiSpectrumChart.AxisY.MajorGridType = SeeSharpTools.JY.GUI.EasyChartXAxis.GridStyle.Dash;
+            this._guiSpectrumChart.AxisY.MaxGridCountPerPixel = 0.012D;
             this._guiSpectrumChart.AxisY.Maximum = 20D;
+            this._guiSpectrumChart.AxisY.MinGridCountPerPixel = 0.004D;
             this._guiSpectrumChart.AxisY.Minimum = -120D;
             this._guiSpectrumChart.AxisY.MinorGridColor = System.Drawing.Color.Black;
             this._guiSpectrumChart.AxisY.MinorGridEnabled = false;
@@ -380,7 +395,9 @@
             this._guiSpectrumChart.AxisY2.MajorGridCount = 6;
             this._guiSpectrumChart.AxisY2.MajorGridEnabled = true;
             this._guiSpectrumChart.AxisY2.MajorGridType = SeeSharpTools.JY.GUI.EasyChartXAxis.GridStyle.Dash;
+            this._guiSpectrumChart.AxisY2.MaxGridCountPerPixel = 0.012D;
             this._guiSpectrumChart.AxisY2.Maximum = 3.5D;
+            this._guiSpectrumChart.AxisY2.MinGridCountPerPixel = 0.004D;
             this._guiSpectrumChart.AxisY2.Minimum = 0.5D;
             this._guiSpectrumChart.AxisY2.MinorGridColor = System.Drawing.Color.Black;
             this._guiSpectrumChart.AxisY2.MinorGridEnabled = false;
@@ -414,6 +431,7 @@
             this._guiSpectrumChart.Miscellaneous.CheckInfinity = false;
             this._guiSpectrumChart.Miscellaneous.CheckNaN = false;
             this._guiSpectrumChart.Miscellaneous.CheckNegtiveOrZero = false;
+            this._guiSpectrumChart.Miscellaneous.DataStorage = SeeSharpTools.JY.GUI.DataStorageType.Clone;
             this._guiSpectrumChart.Miscellaneous.DirectionChartCount = 3;
             this._guiSpectrumChart.Miscellaneous.Fitting = SeeSharpTools.JY.GUI.EasyChartX.FitType.Range;
             this._guiSpectrumChart.Miscellaneous.MarkerSize = 7;
@@ -425,8 +443,8 @@
             this._guiSpectrumChart.Miscellaneous.SplitLayoutRowInterval = 0F;
             this._guiSpectrumChart.Miscellaneous.SplitViewAutoLayout = true;
             this._guiSpectrumChart.Name = "_guiSpectrumChart";
-            this._guiSpectrumChart.SeriesCount = 1;
-            this._guiSpectrumChart.Size = new System.Drawing.Size(741, 146);
+            this._guiSpectrumChart.SeriesCount = 0;
+            this._guiSpectrumChart.Size = new System.Drawing.Size(741, 185);
             this._guiSpectrumChart.SplitView = false;
             this._guiSpectrumChart.TabIndex = 0;
             this._guiSpectrumChart.XCursor.AutoInterval = true;
@@ -441,6 +459,39 @@
             this._guiSpectrumChart.YCursor.Mode = SeeSharpTools.JY.GUI.EasyChartXCursor.CursorMode.Disabled;
             this._guiSpectrumChart.YCursor.SelectionColor = System.Drawing.Color.LightGray;
             this._guiSpectrumChart.YCursor.Value = double.NaN;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label19.Location = new System.Drawing.Point(12, 118);
+            label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label19.Name = "label19";
+            label19.Size = new System.Drawing.Size(79, 19);
+            label19.TabIndex = 7;
+            label19.Text = "Data Type";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label20.Location = new System.Drawing.Point(12, 149);
+            label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label20.Name = "label20";
+            label20.Size = new System.Drawing.Size(112, 19);
+            label20.TabIndex = 7;
+            label20.Text = "Frame Interval";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label21.Location = new System.Drawing.Point(293, 151);
+            label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label21.Name = "label21";
+            label21.Size = new System.Drawing.Size(29, 19);
+            label21.TabIndex = 10;
+            label21.Text = "ms";
             // 
             // labelTitle
             // 
@@ -478,7 +529,7 @@
             this._guiBand2Enabled.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this._guiBand2Enabled.Location = new System.Drawing.Point(313, 55);
             this._guiBand2Enabled.Name = "_guiBand2Enabled";
-            this._guiBand2Enabled.Size = new System.Drawing.Size(180, 32);
+            this._guiBand2Enabled.Size = new System.Drawing.Size(124, 23);
             this._guiBand2Enabled.TabIndex = 9;
             this._guiBand2Enabled.Text = "Enable Band2";
             this._guiBand2Enabled.UseVisualStyleBackColor = true;
@@ -520,7 +571,7 @@
             0,
             0});
             this._guiBand2FreqStop.Name = "_guiBand2FreqStop";
-            this._guiBand2FreqStop.Size = new System.Drawing.Size(97, 36);
+            this._guiBand2FreqStop.Size = new System.Drawing.Size(97, 26);
             this._guiBand2FreqStop.TabIndex = 9;
             this._guiBand2FreqStop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiBand2FreqStop.Value = new decimal(new int[] {
@@ -546,7 +597,7 @@
             0});
             this._guiBand2NumOfLines.Name = "_guiBand2NumOfLines";
             this._guiBand2NumOfLines.ReadOnly = true;
-            this._guiBand2NumOfLines.Size = new System.Drawing.Size(97, 36);
+            this._guiBand2NumOfLines.Size = new System.Drawing.Size(97, 26);
             this._guiBand2NumOfLines.TabIndex = 9;
             this._guiBand2NumOfLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiBand2NumOfLines.Value = new decimal(new int[] {
@@ -576,7 +627,7 @@
             0,
             196608});
             this._guiBand2FreqStep.Name = "_guiBand2FreqStep";
-            this._guiBand2FreqStep.Size = new System.Drawing.Size(97, 36);
+            this._guiBand2FreqStep.Size = new System.Drawing.Size(97, 26);
             this._guiBand2FreqStep.TabIndex = 9;
             this._guiBand2FreqStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiBand2FreqStep.Value = new decimal(new int[] {
@@ -601,7 +652,7 @@
             0,
             0});
             this._guiBand2FreqStart.Name = "_guiBand2FreqStart";
-            this._guiBand2FreqStart.Size = new System.Drawing.Size(97, 36);
+            this._guiBand2FreqStart.Size = new System.Drawing.Size(97, 26);
             this._guiBand2FreqStart.TabIndex = 9;
             this._guiBand2FreqStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiBand2FreqStart.Value = new decimal(new int[] {
@@ -647,7 +698,7 @@
             0,
             0});
             this._guiBand1FreqStop.Name = "_guiBand1FreqStop";
-            this._guiBand1FreqStop.Size = new System.Drawing.Size(97, 36);
+            this._guiBand1FreqStop.Size = new System.Drawing.Size(97, 26);
             this._guiBand1FreqStop.TabIndex = 9;
             this._guiBand1FreqStop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiBand1FreqStop.Value = new decimal(new int[] {
@@ -673,7 +724,7 @@
             0});
             this._guiBand1NumOfLines.Name = "_guiBand1NumOfLines";
             this._guiBand1NumOfLines.ReadOnly = true;
-            this._guiBand1NumOfLines.Size = new System.Drawing.Size(97, 36);
+            this._guiBand1NumOfLines.Size = new System.Drawing.Size(97, 26);
             this._guiBand1NumOfLines.TabIndex = 9;
             this._guiBand1NumOfLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiBand1NumOfLines.Value = new decimal(new int[] {
@@ -703,7 +754,7 @@
             0,
             196608});
             this._guiBand1FreqStep.Name = "_guiBand1FreqStep";
-            this._guiBand1FreqStep.Size = new System.Drawing.Size(97, 36);
+            this._guiBand1FreqStep.Size = new System.Drawing.Size(97, 26);
             this._guiBand1FreqStep.TabIndex = 9;
             this._guiBand1FreqStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiBand1FreqStep.Value = new decimal(new int[] {
@@ -728,7 +779,7 @@
             0,
             0});
             this._guiBand1FreqStart.Name = "_guiBand1FreqStart";
-            this._guiBand1FreqStart.Size = new System.Drawing.Size(97, 36);
+            this._guiBand1FreqStart.Size = new System.Drawing.Size(97, 26);
             this._guiBand1FreqStart.TabIndex = 9;
             this._guiBand1FreqStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiBand1FreqStart.Value = new decimal(new int[] {
@@ -754,7 +805,7 @@
             0,
             0});
             this._guiNumberOfChannels.Name = "_guiNumberOfChannels";
-            this._guiNumberOfChannels.Size = new System.Drawing.Size(72, 41);
+            this._guiNumberOfChannels.Size = new System.Drawing.Size(72, 30);
             this._guiNumberOfChannels.TabIndex = 6;
             this._guiNumberOfChannels.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiNumberOfChannels.Value = new decimal(new int[] {
@@ -768,20 +819,43 @@
             // 
             this._guiFileParam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this._guiFileParam.Controls.Add(this._guiFrameIntervalInMilliSec);
             this._guiFileParam.Controls.Add(this._guiWriteDataType);
             this._guiFileParam.Controls.Add(this._guiBrowseFolder);
             this._guiFileParam.Controls.Add(this._guiDestinationFolder);
             this._guiFileParam.Controls.Add(this._guiFileLength);
             this._guiFileParam.Controls.Add(label16);
+            this._guiFileParam.Controls.Add(label21);
             this._guiFileParam.Controls.Add(label17);
+            this._guiFileParam.Controls.Add(label20);
+            this._guiFileParam.Controls.Add(label19);
             this._guiFileParam.Controls.Add(label18);
             this._guiFileParam.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._guiFileParam.Location = new System.Drawing.Point(7, 509);
+            this._guiFileParam.Location = new System.Drawing.Point(7, 555);
             this._guiFileParam.Name = "_guiFileParam";
-            this._guiFileParam.Size = new System.Drawing.Size(760, 121);
+            this._guiFileParam.Size = new System.Drawing.Size(760, 180);
             this._guiFileParam.TabIndex = 7;
             this._guiFileParam.TabStop = false;
             this._guiFileParam.Text = "File Param";
+            // 
+            // _guiFrameIntervalInMilliSec
+            // 
+            this._guiFrameIntervalInMilliSec.DecimalPlaces = 4;
+            this._guiFrameIntervalInMilliSec.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._guiFrameIntervalInMilliSec.Location = new System.Drawing.Point(168, 149);
+            this._guiFrameIntervalInMilliSec.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this._guiFrameIntervalInMilliSec.Name = "_guiFrameIntervalInMilliSec";
+            this._guiFrameIntervalInMilliSec.Size = new System.Drawing.Size(120, 26);
+            this._guiFrameIntervalInMilliSec.TabIndex = 12;
+            this._guiFrameIntervalInMilliSec.Value = new decimal(new int[] {
+            10001234,
+            0,
+            0,
+            262144});
             // 
             // _guiWriteDataType
             // 
@@ -791,9 +865,9 @@
             this._guiWriteDataType.Items.AddRange(new object[] {
             "Double",
             "Float"});
-            this._guiWriteDataType.Location = new System.Drawing.Point(345, 76);
+            this._guiWriteDataType.Location = new System.Drawing.Point(168, 114);
             this._guiWriteDataType.Name = "_guiWriteDataType";
-            this._guiWriteDataType.Size = new System.Drawing.Size(121, 36);
+            this._guiWriteDataType.Size = new System.Drawing.Size(121, 27);
             this._guiWriteDataType.TabIndex = 11;
             this._guiWriteDataType.SelectedIndexChanged += new System.EventHandler(this.GuiWriteDataType_SelectedIndexChanged);
             // 
@@ -835,7 +909,7 @@
             0,
             0});
             this._guiFileLength.Name = "_guiFileLength";
-            this._guiFileLength.Size = new System.Drawing.Size(92, 41);
+            this._guiFileLength.Size = new System.Drawing.Size(92, 30);
             this._guiFileLength.TabIndex = 6;
             this._guiFileLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._guiFileLength.Value = new decimal(new int[] {
@@ -848,10 +922,10 @@
             // 
             this._guiProgressValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._guiProgressValue.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._guiProgressValue.Location = new System.Drawing.Point(337, 640);
+            this._guiProgressValue.Location = new System.Drawing.Point(337, 745);
             this._guiProgressValue.Name = "_guiProgressValue";
             this._guiProgressValue.ReadOnly = true;
-            this._guiProgressValue.Size = new System.Drawing.Size(70, 36);
+            this._guiProgressValue.Size = new System.Drawing.Size(70, 26);
             this._guiProgressValue.TabIndex = 12;
             this._guiProgressValue.TabStop = false;
             this._guiProgressValue.Text = "0 %";
@@ -860,7 +934,7 @@
             // _guiProgressBar
             // 
             this._guiProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this._guiProgressBar.Location = new System.Drawing.Point(7, 636);
+            this._guiProgressBar.Location = new System.Drawing.Point(7, 741);
             this._guiProgressBar.Name = "_guiProgressBar";
             this._guiProgressBar.Size = new System.Drawing.Size(324, 33);
             this._guiProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -870,7 +944,7 @@
             // 
             this._guiStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._guiStop.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._guiStop.Location = new System.Drawing.Point(666, 636);
+            this._guiStop.Location = new System.Drawing.Point(666, 741);
             this._guiStop.Name = "_guiStop";
             this._guiStop.Size = new System.Drawing.Size(101, 33);
             this._guiStop.TabIndex = 9;
@@ -882,7 +956,7 @@
             // 
             this._guiStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._guiStart.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._guiStart.Location = new System.Drawing.Point(543, 636);
+            this._guiStart.Location = new System.Drawing.Point(543, 741);
             this._guiStart.Name = "_guiStart";
             this._guiStart.Size = new System.Drawing.Size(101, 33);
             this._guiStart.TabIndex = 10;
@@ -893,6 +967,7 @@
             // _bgWorker
             // 
             this._bgWorker.WorkerReportsProgress = true;
+            this._bgWorker.WorkerSupportsCancellation = true;
             this._bgWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgWorker_DoWork);
             this._bgWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BgWorker_ProgressChanged);
             this._bgWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgWorker_RunWorkerCompleted);
@@ -900,7 +975,7 @@
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(784, 681);
+            this.ClientSize = new System.Drawing.Size(784, 786);
             this.Controls.Add(_guiSignalDisplay);
             this.Controls.Add(this._guiProgressValue);
             this.Controls.Add(this._guiProgressBar);
@@ -931,6 +1006,7 @@
             ((System.ComponentModel.ISupportInitialize)(this._guiNumberOfChannels)).EndInit();
             this._guiFileParam.ResumeLayout(false);
             this._guiFileParam.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._guiFrameIntervalInMilliSec)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._guiFileLength)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -965,6 +1041,7 @@
         private System.ComponentModel.BackgroundWorker _bgWorker;
         private System.Windows.Forms.FolderBrowserDialog _guiFolderBrowserDialog;
         private System.Windows.Forms.ComboBox _guiWriteDataType;
+        private System.Windows.Forms.NumericUpDown _guiFrameIntervalInMilliSec;
     }
 }
 

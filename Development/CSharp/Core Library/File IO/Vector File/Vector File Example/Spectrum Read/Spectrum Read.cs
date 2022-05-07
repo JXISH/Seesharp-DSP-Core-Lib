@@ -35,11 +35,6 @@ namespace SpectrumFileReadExample
         private float[][][] _spectrumDataFloat;
 
         /// <summary>
-        /// 一次读一帧，一帧的频谱线数。
-        /// </summary>
-        private int _numOfLinesPerFrame;
-
-        /// <summary>
         /// 当前是否已启动连续读取。
         /// </summary>
         private bool _isContinuousReading;
@@ -106,19 +101,20 @@ namespace SpectrumFileReadExample
                 _guiFileInfoView.Rows[0].Cells[0].Value = "Channel"; _guiFileInfoView.Rows[0].Cells[1].Value = numOfChannels;
                 _guiFileInfoView.Rows[1].Cells[0].Value = "Band"; _guiFileInfoView.Rows[1].Cells[1].Value = numOfBands;
                 _guiFileInfoView.Rows[2].Cells[0].Value = "数据起始时间"; _guiFileInfoView.Rows[2].Cells[1].Value = _spectrumFile.Archive.DateTime.ToString("yyy-MM-dd HH:mm:ss:");
-                _guiFileInfoView.Rows[3].Cells[0].Value = "存储时间间隔";_guiFileInfoView.Rows[3].Cells[1].Value = _spectrumFile.Sampling.Interval.ToString();
+                _guiFileInfoView.Rows[3].Cells[0].Value = "存储时间间隔";_guiFileInfoView.Rows[3].Cells[1].Value = _spectrumFile.Sampling.Interval.TotalMilliseconds.ToString("f4") + " ms";
+                _guiFileInfoView.Rows[4].Cells[0].Value = "数据总帧数"; _guiFileInfoView.Rows[4].Cells[1].Value = _spectrumFile.NumberOfFrames;
 
-                int indexOfCurrentRow = 4;
+                int indexOfCurrentRow = 5;
                 for (int i = 0; i < numOfBands; i++)
                 {
                     _guiFileInfoView.Rows[indexOfCurrentRow].Cells[0].Value = "FStart";
-                    _guiFileInfoView.Rows[indexOfCurrentRow].Cells[1].Value = _spectrumFile.Sampling.Bands[i].FrequencyStart;
+                    _guiFileInfoView.Rows[indexOfCurrentRow].Cells[1].Value = (_spectrumFile.Sampling.Bands[i].FrequencyStart / 1E6).ToString() + " MHz";
                     indexOfCurrentRow++;
                     _guiFileInfoView.Rows[indexOfCurrentRow].Cells[0].Value = "FStop";
-                    _guiFileInfoView.Rows[indexOfCurrentRow].Cells[1].Value = _spectrumFile.Sampling.Bands[i].FrequencyStop;
+                    _guiFileInfoView.Rows[indexOfCurrentRow].Cells[1].Value = (_spectrumFile.Sampling.Bands[i].FrequencyStop / 1E6).ToString() + " MHz";
                     indexOfCurrentRow++;
                     _guiFileInfoView.Rows[indexOfCurrentRow].Cells[0].Value = "FStep";
-                    _guiFileInfoView.Rows[indexOfCurrentRow].Cells[1].Value = _spectrumFile.Sampling.Bands[i].FrequencyStep;
+                    _guiFileInfoView.Rows[indexOfCurrentRow].Cells[1].Value = (_spectrumFile.Sampling.Bands[i].FrequencyStep / 1E6).ToString() + " MHz";
                     indexOfCurrentRow++;
                     _guiFileInfoView.Rows[indexOfCurrentRow].Cells[0].Value = "Lines";
                     _guiFileInfoView.Rows[indexOfCurrentRow].Cells[1].Value = _spectrumFile.Sampling.Bands[i].NumOfSpectralLines;
@@ -129,10 +125,8 @@ namespace SpectrumFileReadExample
 
                 #region--------------------------------------分配数据空间，用于存储每次读取的数据。--------------------------
 
-                _numOfLinesPerFrame = 0;
-
                 //Double数据。
-                if (vectorFile.Storage.DataType == DataType.RealD64)
+                if (_spectrumFile.Storage.DataType == DataType.RealD64)
                 {
                     _spectrumDataDouble = new double[numOfChannels][][];
                     for (int i = 0; i < numOfChannels; i++)
@@ -141,13 +135,12 @@ namespace SpectrumFileReadExample
                         for (int j = 0; j < numOfBands; j++)
                         {
                             _spectrumDataDouble[i][j] = new double[_spectrumFile.Sampling.Bands[j].NumOfSpectralLines];
-                            _numOfLinesPerFrame += _spectrumFile.Sampling.Bands[j].NumOfSpectralLines;
                         }
                     }
                 }
 
                 //Float数据。
-                else if (vectorFile.Storage.DataType == DataType.RealF32)
+                else if (_spectrumFile.Storage.DataType == DataType.RealF32)
                 {
                     _spectrumDataFloat = new float[numOfChannels][][];
                     for (int i = 0; i < numOfChannels; i++)
@@ -156,32 +149,27 @@ namespace SpectrumFileReadExample
                         for (int j = 0; j < numOfBands; j++)
                         {
                             _spectrumDataFloat[i][j] = new float[_spectrumFile.Sampling.Bands[j].NumOfSpectralLines];
-                            _numOfLinesPerFrame += _spectrumFile.Sampling.Bands[j].NumOfSpectralLines;
                         }
                     }
                 }
                 else { throw new VectorFileException(ExceptionEnum.DataLengthConflict, "文件数据不是Double或Float类型。"); }
 
                 //每次从文件中读取一帧数据，若文件长度（线数）不足以读取一次，则直接抛出异常。
-                if (_spectrumFile.NumberOfFrames * _spectrumFile.Storage.NumberOfChannels < _numOfLinesPerFrame)
-                {
-                    throw new VectorFileException(ExceptionEnum.InvalidFile, "文件包含的数点数太少。");
-                }
+                if (_spectrumFile.NumberOfFrames < 1) { throw new VectorFileException(ExceptionEnum.InvalidFile, "文件包含的数点数太少。"); }
+
                 #endregion
 
                 #region--------------------------------------根据数据总长度设置TrackBar控件属性。----------------------------
 
-                //最大值为整个文件包含的总帧数*1000。
-                _guiReadPositionBar.Maximum = ((int)_spectrumFile.NumberOfFrames * numOfChannels / _numOfLinesPerFrame - 1) * 1000;
+                //最大值为整个文件包含的总帧数减1。
+                _guiReadPositionBar.Maximum = (int)_spectrumFile.NumberOfFrames - 1;
 
-                //滚动框长距离移动时，每次增加一帧数据，即多通道多频段的线数。
-                _guiReadPositionBar.LargeChange = 1000;
-
-                //滚动框短距离移动时，每次增加1。
+                //滚动框移动时，每次增加一帧数据。
+                _guiReadPositionBar.LargeChange = 1;
                 _guiReadPositionBar.SmallChange = 1;
 
-                //显示文件中频谱线数。
-                _guiReadPosValue.Text = "1";
+                //显示当前显示的帧索引。
+                _guiReadPosValue.Text = "0";
 
                 #endregion
 
@@ -207,9 +195,9 @@ namespace SpectrumFileReadExample
             //如果当前已启动连续读取，则TrackerBar的控件值改变是因BackgroundWorker更新显示而触发，无需任何处理，直接返回。
             if (_isContinuousReading) { return; }
 
-            // 根据TrackBar控件的当前值（相对于数据起始的线数），计算读取位置并显示。
-            long readPosition = _guiReadPositionBar.Value / 1000;
-            _guiReadPosValue.Text = Convert.ToString(readPosition + 1);
+            // 根据TrackBar控件的当前值（相对于数据起始的帧数），计算读取位置并显示。
+            long readPosition = _guiReadPositionBar.Value;
+            _guiReadPosValue.Text = Convert.ToString(readPosition);
 
             // 设置读取位置，读取数据并显示。
             _spectrumFile.Seek(readPosition, SeekOrigin.Begin);
@@ -265,11 +253,11 @@ namespace SpectrumFileReadExample
                 //从文件当前位置开始，持续读取数据并显示，直至文件末尾。
                 this.Invoke(new Action(() => { ReadDataAndDisplay(); }));
 
-                //向GUI更新进度，不使用ProgressPercentage，而是发送当前读取位置相当于文件起始的线数。
+                //向GUI更新进度，不使用ProgressPercentage，而是发送当前读取位置相当于文件起始的帧。
                 byWorker.ReportProgress(0, (int)(_spectrumFile.Position - 1));
 
                 //若已到文件末尾，或用户取消了操作，则退出循环。
-                if (_spectrumFile.Position + 1 > _spectrumFile.NumberOfFrames * _spectrumFile.Storage.NumberOfChannels / _numOfLinesPerFrame) { break; }
+                if (_spectrumFile.Position + 1 > _spectrumFile.NumberOfFrames) { break; }
                 if (byWorker.CancellationPending) { e.Cancel = true; break; }
 
                 Thread.Sleep(10);
@@ -278,14 +266,14 @@ namespace SpectrumFileReadExample
 
         private void BgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //trackBar总长为帧数*1000，连续读取时，trackBar实时位置为当前帧数*1000。
-            _guiReadPositionBar.Value = (int)e.UserState * 1000;
-            _guiReadPosValue.Text = Convert.ToString(_guiReadPositionBar.Value / 1000 + 1);
+            // 连续读取时，trackBar实时位置为当前帧数。
+            _guiReadPositionBar.Value = (int)e.UserState;
+            _guiReadPosValue.Text = Convert.ToString(_guiReadPositionBar.Value);
         }
 
         private void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            #region-----------------------------------显示BackgroundWorker的运行结果。-------------------------------------、
+            #region-----------------------------------显示BackgroundWorker的运行结果。-------------------------------------
 
             if (e.Error != null)
             {
@@ -326,10 +314,7 @@ namespace SpectrumFileReadExample
         private void ReadDataAndDisplay()
         {
             // 在文件的当前位置读取IQ数据，若“当前位置 + 读取长度”已超出文件总的帧数，则先将“当前读取位置”向前移动1帧。            
-            if (_spectrumFile.Position + 1 > _spectrumFile.NumberOfFrames*_spectrumFile.Storage.NumberOfChannels /_numOfLinesPerFrame)
-            {
-                _spectrumFile.Seek(-1, SeekOrigin.End);
-            }
+            if (_spectrumFile.Position + 1 > _spectrumFile.NumberOfFrames){ _spectrumFile.Seek(-1, SeekOrigin.End); }
 
             //读取数据。    
             if (_spectrumFile.Storage.DataType == DataType.RealD64) { _spectrumFile.Read(_spectrumDataDouble); }
@@ -337,7 +322,11 @@ namespace SpectrumFileReadExample
 
             //获取数据信息。
             int numOfChannels = _spectrumFile.Storage.NumberOfChannels;
-            int numOfBands = _spectrumFile.Sampling.Bands.Count;                      
+            int numOfBands = _spectrumFile.Sampling.Bands.Count;
+
+            // 计算多频段（若有）合并后，一帧频谱包含的总线数。
+            int _numOfLinesPerFrame = 0;
+            foreach (var band in _spectrumFile.Sampling.Bands) { _numOfLinesPerFrame += band.NumOfSpectralLines; }
 
             double[][] xData = new double[numOfChannels][];
             double[][] yData = new double[numOfChannels][];
@@ -345,8 +334,8 @@ namespace SpectrumFileReadExample
             {
                 for (int j = 0; j < numOfBands; j++)
                 {
-                    xData[i] = new double[_numOfLinesPerFrame / numOfChannels];
-                    yData[i] = new double[_numOfLinesPerFrame / numOfChannels];
+                    xData[i] = new double[_numOfLinesPerFrame];
+                    yData[i] = new double[_numOfLinesPerFrame];
                 }
             }
 

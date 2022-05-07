@@ -307,7 +307,7 @@ namespace SpectrumFileReadExample
 
             //存储路径。
             string destinationFolder = _guiDestinationFolder.Text;
-            double fileLength = (double)_guiFileLength.Value;
+            int fileLengthInFrames = (int)_guiFileLength.Value;
 
             // 若存储目录目录不存在，则创建之，并自动生成文件名。
             if (!Directory.Exists(destinationFolder)) { Directory.CreateDirectory(destinationFolder); }
@@ -339,8 +339,8 @@ namespace SpectrumFileReadExample
                 }
             }
 
-            // 数据存储时间间隔，暂时设置为5s。
-            spectrumFile.Sampling.Interval = new TimeSpan(00, 00, 5);
+            // 数据存储时间间隔。
+            spectrumFile.Sampling.Interval = TimeSpan.FromTicks((long)((double)_guiFrameIntervalInMilliSec.Value * TimeSpan.TicksPerMillisecond));
 
             //更新完文件头信息之后，写文件头。
             spectrumFile.WriteFileHeader();
@@ -349,7 +349,7 @@ namespace SpectrumFileReadExample
             _stopwatchForSpectrum.Start();
 
             //写入文件。
-            for (int i = 0; i < fileLength; i++)
+            for (int i = 0; i < fileLengthInFrames; i++)
             {
                 // 仿真生成数据。
                 GenerateSpectrum();
@@ -358,7 +358,7 @@ namespace SpectrumFileReadExample
                 this.Invoke(new Action(() => { DisplaySpectrum(); }));
 
                 // 如果写入数据的时间间隔满足大于等于Interval。
-                if (_stopwatchForSpectrum.ElapsedMilliseconds >= spectrumFile.Sampling.Interval.Seconds * 1000 || i == 0)
+                if (_stopwatchForSpectrum.ElapsedMilliseconds >= spectrumFile.Sampling.Interval.TotalMilliseconds|| i == 0)
                 {
                     // 写入数据。
                     if (spectrumFile.Storage.DataType == DataType.RealD64)
@@ -392,7 +392,7 @@ namespace SpectrumFileReadExample
                     }
 
                     //更新进度。
-                    bgWorker.ReportProgress((int)((i + 1) / (float)fileLength * 100));
+                    bgWorker.ReportProgress((int)((i + 1) / (float)fileLengthInFrames * 100));
                     if (bgWorker.CancellationPending == true) { e.Cancel = true; break; }
 
                     // 重置定时器。
