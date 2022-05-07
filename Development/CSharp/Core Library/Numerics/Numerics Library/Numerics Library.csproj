@@ -7,8 +7,8 @@
     <ProjectGuid>{8883E73E-50D5-48A4-A994-A5E708DB4B2D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Numerics_Library</RootNamespace>
-    <AssemblyName>Numerics Library</AssemblyName>
+    <RootNamespace>SeeSharpTools.JXI.Numerics</RootNamespace>
+    <AssemblyName>SeeSharpTools.JXI.Numerics</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SeeSharpTools.JXI.Numerics.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
