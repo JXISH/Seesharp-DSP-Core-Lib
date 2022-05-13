@@ -8,7 +8,6 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SeeSharpTools.JXI.Numerics;
 using SeeSharpTools.JXI.RFCommunications.Modem;
 using SeeSharpTools.JXI.SignalProcessing;
 using SeeSharpTools.JXI.SignalProcessing.Generation;

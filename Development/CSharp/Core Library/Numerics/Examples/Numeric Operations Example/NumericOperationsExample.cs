@@ -4,6 +4,8 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using SeeSharpTools.JXI.Numerics;
 
 namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
 {
