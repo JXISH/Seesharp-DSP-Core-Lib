@@ -1,13 +1,11 @@
 ﻿using Newtonsoft.Json;
 using SeeSharpTools.JXI.FileIO.VectorFile;
 using SeeSharpTools.JXI.FileIO.WavFile;
+using SeeSharpTools.JXI.Numerics;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeeSharpTools.JXI.FileIO.IQFile
 {
@@ -19,41 +17,34 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
         /// </summary>
         /// <param name="fileName">文件路径</param>
         /// <param name="IQInfo">采样信息</param>
+        /// <param name="maxLength">Max Samples to Read, default 各个子模块自行决定</param>
+        /// <param name="startSample">Sample position to start read, default=begin</param>
         /// <returns></returns>
-        public static Complex[] ReadIQFile(string fileName, ref IQFileInfo IQInfo)
+        public static Complex[] ReadIQFile(string fileName, ref IQFileInfo IQInfo, int maxLength = 0, long startSample = 0)
         {
             string ext = Path.GetExtension(fileName);
             if (ext == ".bin")
             {
-                return ReadI16IQFile(fileName, ref IQInfo);
+                return ReadI16IQFile(fileName, ref IQInfo, maxLength, startSample);
             }
             else
                 if (ext == ".wav")
             {
-                return ReadWavFile(fileName, ref IQInfo);
+                return ReadWavFile(fileName, ref IQInfo); //尚不支持wav文件从任意位置读取
             }
             else
-                return ReadVectorFile(fileName, ref IQInfo);
+                return ReadVectorFile(fileName, ref IQInfo, maxLength, startSample);
         }
         #region Vector文件读写
-        /// <summary>
-        /// 读取IQ矢量文件
-        /// </summary>
-        /// <param name="fileName">文件路径</param>
-        /// <param name="IQInfo">采样信息</param>
-        /// <returns>IQ波形</returns>
-        public static Complex[] ReadVectorFile(string fileName, ref IQFileInfo IQInfo)
-        {
-            return ReadVectorFile(fileName, ref IQInfo, 0);
-        }
         /// <summary>
         /// 限长度，读取IQ矢量文件
         /// </summary>
         /// <param name="fileName">文件路径</param>
         /// <param name="IQInfo">采样信息</param>
+        /// <param name="seekSamples">读取第一个样本的位置</param>
         /// <param name="lengthLimit">长度限制, 不大于零时缺省为1e6</param>
         /// <returns>IQ波形</returns>
-        public static Complex[] ReadVectorFile(string fileName, ref IQFileInfo IQInfo, int lengthLimit)
+        public static Complex[] ReadVectorFile(string fileName, ref IQFileInfo IQInfo, int lengthLimit = 0, long seekSamples = 0)
         {
 
             // 打开文件，获取文件格式。
@@ -80,7 +71,16 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
                         // 对于流式数据文件，设置默认读取100k个点。
                         var streamFile = new FixFrequencyStreamFile();
                         streamFile.Open(fileName, FileMode.Open, FileAccess.Read);
-                        _NumOfSamplesToRead = (int)streamFile.NumberOfSamples;
+                        long position = seekSamples;
+                        if (seekSamples < 0 || seekSamples > streamFile.NumberOfSamples)
+                        {
+                            position = 0;
+                        }
+                        _NumOfSamplesToRead = (int)(streamFile.NumberOfSamples - position);
+                        if (lengthLimit > 0)
+                            _NumOfSamplesToRead = Math.Min(lengthLimit, _NumOfSamplesToRead); //长度限制有效
+                        else
+                            _NumOfSamplesToRead = Math.Min((int)1e6, _NumOfSamplesToRead); //长度限制无效，最多读取1e6点
                         streamFile.Close();
                         break;
                     }
@@ -90,10 +90,8 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
                         throw new VectorFileException(ExceptionEnum.DataTypeConflict, "文件格式无效。");
                     }
             }
-            if (lengthLimit > 0)
-                _NumOfSamplesToRead = Math.Min(lengthLimit, _NumOfSamplesToRead);
-            else
-                _NumOfSamplesToRead = Math.Min((int)1e6, _NumOfSamplesToRead);
+
+            
             short[] _iqData = new short[(int)_NumOfSamplesToRead * 2];
             IQInfo = new IQFileInfo();
             IQInfo.Signal = new BasebandInfo();
@@ -107,11 +105,15 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
                         frameFile.Open(fileName, FileMode.Open, FileAccess.Read);
 
                         // 获取信号的参数。
-
                         IQInfo.Signal.RFGain = frameFile.Sampling.Channels[0].GetScaleFactor();
                         IQInfo.Signal.CenterFrequency = frameFile.Sampling.Channels[0].RFFrequency;
                         IQInfo.Signal.SampleRate = frameFile.Sampling.SampleRate;
+                        IQInfo.NumOfSamples = frameFile.NumberOfFrames * frameFile.Frame.Length;
 
+                        if (seekSamples > 0 && seekSamples < frameFile.NumberOfFrames)
+                        {
+                            frameFile.Seek(seekSamples, SeekOrigin.Begin);
+                        }
                         // 读取IQ数据。 
                         frameFile.Read(_iqData);   //!此处有bug读文件报长度错
 
@@ -128,7 +130,12 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
                         IQInfo.Signal.RFGain = streamFile.Sampling.Channels[0].GetScaleFactor();
                         IQInfo.Signal.CenterFrequency = streamFile.Sampling.Channels[0].RFFrequency;
                         IQInfo.Signal.SampleRate = streamFile.Sampling.SampleRate;
+                        IQInfo.NumOfSamples = streamFile.NumberOfSamples;
 
+                        if (seekSamples > 0 && seekSamples < streamFile.NumberOfSamples)
+                        {
+                            streamFile.Seek(seekSamples, SeekOrigin.Begin);
+                        }
                         // 读取IQ数据。             
                         streamFile.Read(_iqData);
 
@@ -181,7 +188,7 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
             vectorFile.Sampling.Channels[0].RFScaleFactor = IQInfo.Signal.RFGain;
             // 仿真实现：根据设定的信号电平，计算I16 -> 电压值的换算因子。在实际应用中应填入实际换算因子。
             // 先将电平（dBm）转换为电压值（dBm -> mW -> V），然后计算对应I16 (-32767 ~ 32767）满量程的换算因子。
-            double scale = (double)30000 / iqWav.Max().Magnitude;
+            double scale = (double)30000 / iqWav.Max(value => value.Magnitude);
             vectorFile.Sampling.Channels[0].DigitizerScaleFactor = (double)1 / scale;
 
             // 写入文件头。
@@ -208,7 +215,7 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
         /// <param name="fileName">bin文件名</param>
         /// <param name="IQInfo">json文件包含的采样信息</param>
         /// <returns></returns>
-        public static Complex[] ReadI16IQFile(string fileName, ref IQFileInfo IQInfo)
+        public static Complex[] ReadI16IQFile(string fileName, ref IQFileInfo IQInfo, int maxLength = 0, long seek = 0)
         {
             /******* json范例 *******
             {
@@ -234,8 +241,16 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
             //calculate IQ length and init IQ array
             long sizeByte = fInfo.Length;
             int IQSize = (int)(sizeByte / 4) - 2; //reduce length working with ignoring heading bytes
-            binaryStream.ReadInt16(); //ignore heading 4 bytes
-            binaryStream.ReadInt16();
+
+            IQInfo.NumOfSamples = IQSize;
+            int readLength = IQSize;
+            //读取长度为文件长度和最大长度输入取小，最大长度=0表示忽略
+            if (maxLength > 0 && readLength > maxLength)
+                readLength = maxLength;
+            //读取位置保证可以读到足够数量；
+            long readPosition = Math.Min(seek, IQSize - readLength) * 4 + 4;
+            filestream.Seek(readPosition, SeekOrigin.Begin);
+
             int tempI = 0;
             int tempQ = 0;
             Complex[] IQwave = new Complex[IQSize];
@@ -249,6 +264,58 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
             binaryStream.Close();
             filestream.Close();
             return IQwave;
+        }
+
+        /// <summary>
+        /// 写入Bin文件(I16交织bin & 参数Json)
+        /// </summary>
+        /// <param name="fileName">文件路径</param>
+        /// <param name="iqWav">IQ波形</param>
+        /// <param name="IQInfo">采集信息</param>
+        public static void WriteI16IQFile(string fileName, Complex[] iqWav, IQFileInfo IQInfo)
+        {
+            //复数换I16
+            double maxReal = iqWav.Max(value => value.Real);
+            double maxImage = iqWav.Max(value => value.Imaginary);
+            double scale = 30000 / Math.Max(maxReal, maxImage); //按最大分量归一化到30000
+            Vector.ArrayScale(iqWav, scale);
+            //Complex[] => Complex32[] => short[]
+            Complex32[] iqWav32 = new Complex32[iqWav.Length];
+            Vector.ConvertToComplex32(iqWav, iqWav32);
+            short[] iqI16 = new short[iqWav.Length*2];
+            Vector.ConvertToShort(iqWav32, iqI16);
+            byte[] buffer = new byte[iqI16.Length * 2];
+
+            //写bin文件
+            FileStream _binFileStream = new FileStream(fileName, FileMode.Create);
+            BinaryWriter _binWriter = new BinaryWriter(_binFileStream);
+
+            Buffer.BlockCopy(iqI16, 0, buffer, 0, buffer.Length);
+            _binWriter.Write(buffer);
+
+            _binWriter.Close();
+            _binFileStream.Close();
+
+            //生成json文件名
+            string jName = Path.GetFileNameWithoutExtension(fileName);
+            jName += ".json";
+            jName = Path.Combine(Path.GetDirectoryName(fileName), jName);
+            //生成json描述
+            string jTxt = "{" + Environment.NewLine
+                + "   \"Signal\": {" + Environment.NewLine
+                + "      \"Format\": \"I16LittleEndianIQ\"," + Environment.NewLine
+                + "      \"CenterFrequency\": " + IQInfo.Signal.CenterFrequency.ToString("F0") + "," + Environment.NewLine
+                + "      \"IFCenterFrequency\": " + IQInfo.Signal.IFCenterFrequency.ToString("F0") + "," + Environment.NewLine
+                + "      \"RFGain\": " + (IQInfo.Signal.RFGain/scale).ToString("F6") + "," + Environment.NewLine //复合射频增益和量化增益
+                + "      \"SampleRate\": " + IQInfo.Signal.SampleRate.ToString("F0") + "," + Environment.NewLine
+                + "      \"PulseShaping\": \"NA\"," + Environment.NewLine
+                + "      \"BT\": 1.0," + Environment.NewLine
+                + "      \"EbNo\": 15.0," + Environment.NewLine
+                + "      \"FreqShift\": 0" + Environment.NewLine
+                + "   }" + Environment.NewLine
+                + @"}";
+            //写json文件
+            File.WriteAllText(jName, jTxt);
         }
         #endregion
         #region Wav文件读写
@@ -335,6 +402,7 @@ namespace SeeSharpTools.JXI.FileIO.IQFile
     public class IQFileInfo
     {
         public BasebandInfo Signal;
+        public long NumOfSamples { set; get; } //文件采样点数量
     }
     /// <summary>
     /// 基带采样信息，建议数字调制信号使用

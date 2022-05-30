@@ -88,6 +88,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Vector File\Vector File Library\Vector File Library.csproj">
+      <Project>{510ad618-922b-4c7c-aa79-7d834248fea5}</Project>
+      <Name>Vector File Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\IQ File Library\IQ File Library.csproj">
       <Project>{324d642a-7f8f-452b-999d-5e4ec43fcb61}</Project>
       <Name>IQ File Library</Name>

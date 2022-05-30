@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using SeeSharpTools.JXI.Numerics;
 
-
 namespace SeeSharpTools.JXI.SignalProcessing.Conditioning.AdvancedFilters
 {
     /// <summary>

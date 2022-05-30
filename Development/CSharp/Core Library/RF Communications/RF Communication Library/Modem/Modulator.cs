@@ -122,6 +122,11 @@ namespace SeeSharpTools.JXI.RFCommunications.Modem
         int _downSampleRate = 1;
         int _outputLength = 0;
         double _centerFreq = 0;
+
+        public DigitalConverter()
+        {
+
+        }
         /// <summary>
         /// 输出波形有效长度
         /// </summary>

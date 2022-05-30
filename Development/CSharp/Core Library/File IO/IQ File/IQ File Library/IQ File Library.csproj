@@ -52,6 +52,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Numerics\Numerics Library\Numerics Library.csproj">
+      <Project>{8883E73E-50D5-48A4-A994-A5E708DB4B2D}</Project>
+      <Name>Numerics Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Wav File\Wav File Library\Wav File Library.csproj">
       <Project>{bd331cac-e41a-4dd1-a64c-dbb0980f43be}</Project>
       <Name>Wav File Library</Name>
