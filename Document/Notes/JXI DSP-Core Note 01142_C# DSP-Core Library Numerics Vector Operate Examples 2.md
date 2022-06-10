@@ -1,4 +1,4 @@
-# Numerics: Vector Operate Examples Part 1
+# Numerics: Vector Operate Examples Part 2
 
 
 
@@ -14,11 +14,50 @@
 
 ## 数组操作功能范例
 
+### Real, Image to Complex
+
+
+
+```csharp
+Console.WriteLine();
+Console.WriteLine("*** Vector.RealImageToComplex ***");
+
+// define data
+double[] dataADoubleReal = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
+double[] dataBDoubleReal = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
+
+//A,B入，C出
+Complex[] complexDataRItoC1 = new Complex[dataADoubleReal.Length];
+Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal, complexDataRItoC1);
+Console.Write("Argument output: ");
+Console.WriteLine(String.Join(", ", complexDataRItoC1));
+
+//A,B入，返回数组
+Complex[] complexDataRItoC2 = Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal);
+Console.Write("Return Output: ");
+Console.WriteLine(String.Join(", ", complexDataRItoC2));
+```
+
+输出：
+
+```csharp
+/* output:
+*** Vector.RealImageToComplex ***
+Argument output: (-2.12, 1), (-1.12, 2), (0, 3), (1.12, 4), (2.12, 5)
+Return Output: (-2.12, 1), (-1.12, 2), (0, 3), (1.12, 4), (2.12, 5)
+*/
+```
+
+
+
 ### Complex to Real, Image
 
 
 
 ```csharp
+Console.WriteLine();
+Console.WriteLine("*** Vector.ComplexToRealImage ***");
+
 // define data
 Complex[] complexDataCtoRI = new Complex[] { new Complex(-2.12, -1), new Complex(1.12, 2)};
 Complex32[] complex32DataCtoRI = new Complex32[] { new Complex32((float)-2.12, -1),
@@ -55,7 +94,6 @@ Console.Write("Real Argument output: ");
 Console.WriteLine(String.Join(", ", Real2A));
 Console.Write("Image Argument output: ");
 Console.WriteLine(String.Join(", ", Image2A));
-
 ```
 
 输出：
@@ -82,9 +120,12 @@ Image Argument output: 0, 1.99999936586367
 
 
 ```csharp
+Console.WriteLine();
+Console.WriteLine("*** Vector.PolarToComplex ***");
+
 // define data
 double[] magnitudePtoC = new double[] { 1, 2 };
-double[] phasePtoC = new double[] { 0, 1.57 };
+double[] phasePtoC = new double[] { 0, 1.57 }; //0 and pi/2
 Complex[] complexDataPtoC = new Complex[] { new Complex(), new Complex() };
 
 // magnitude, phase入, complex出
@@ -99,17 +140,16 @@ Console.WriteLine(String.Join(", ", complexDataPtoC));
 
 // 返回complex数组:
 magnitudePtoC = new double[] { 2, 3 };
-phasePtoC = new double[] { 1, 2 };
+phasePtoC = new double[] { 0.785, 3.141 }; //pi/4, pi
 // magnitude, phase入, 返回complex data
 complexDataPtoC = Vector.PolarToComplex(magnitudePtoC, phasePtoC);
 Console.Write("Return output: ");
 Console.WriteLine(String.Join(", ", complexDataPtoC));
 
-// phase入, 返回complex data
+// phase入, 幅度恒等于1， 返回complex data
 complexDataPtoC = Vector.PolarToComplex(phasePtoC);
 Console.Write("Return output: ");
 Console.WriteLine(String.Join(", ", complexDataPtoC));
-
 ```
 
 输出：
@@ -119,43 +159,8 @@ Console.WriteLine(String.Join(", ", complexDataPtoC));
  * *** Vector.PolarToComplex ***
 Complex Argument output: (1, 0), (0.00159265342146653, 1.99999936586367)
 Complex Argument output: (1, 0), (0.000796326710733263, 0.999999682931835)
-Return Output: (1.08060461173628, 1.68294196961579), (-1.24844050964143, 2.72789228047704)
-Return Output: (0.54030230586814, 0.841470984807897), (-0.416146836547142, 0.909297426825682)
+Return output: (1.4147765383344, 1.41365036221073), (-2.9999994731426, 0.00177796066529836)
+Return output: (0.7073882691672, 0.706825181105366), (-0.999999824380866, 0.000592653555099454)
 */
 ```
-
-
-
-### Real, Image to Complex
-
-
-
-```csharp
-// define data
-double[] dataADoubleReal = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
-double[] dataBDoubleReal = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
-
-//A,B入，C出
-Complex[] complexDataRItoC1 = new Complex[dataADoubleReal.Length];
-Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal, complexDataRItoC1);
-Console.Write("Argument output: ");
-Console.WriteLine(String.Join(", ", complexDataRItoC1));
-
-//A,B入，返回数组
-Complex[] complexDataRItoC2 = Vector.RealImageToComplex(dataADoubleReal, dataBDoubleReal);
-Console.Write("Return Output: ");
-Console.WriteLine(String.Join(", ", complexDataRItoC2));
-```
-
-输出：
-
-```csharp
-/* output:
-*** Vector.RealImageToComplex ***
-Argument output: (-2.12, 1), (-1.12, 2), (0, 3), (1.12, 4), (2.12, 5)
-Return Output: (-2.12, 1), (-1.12, 2), (0, 3), (1.12, 4), (2.12, 5)
-*/
-```
-
-
 

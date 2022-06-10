@@ -14,59 +14,6 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
         static void Main(string[] args)
         {
             // Maths:
-            #region ABS Example
-            Console.WriteLine("*** Vector.Abs ***");
-            //define data
-            short[] dataI16 = new short[] { -2, -1, 0, 1, 2 };
-            int[] dataInt = new int[] { -234567, -123456, 0, 123456, 234567 };
-            float[] dataFloat = new float[] { (float)-2.1234567890123456, (float)-1.1234567890123456, 0, (float)1.1234567890123456, (float)2.1234567890123456 };
-            double[] dataDouble = new double[] { -2.1234567890123456, -1.1234567890123456, 0, 1.1234567890123456, 2.1234567890123456 };
-
-            //A入B出
-            double[] absDouble = new double[dataDouble.Length];
-            Vector.ArrayAbs(dataDouble, absDouble);
-            Console.Write("Argument output: ");
-            Console.WriteLine(String.Join(", ", absDouble));
-
-            //A入返回数组
-            double[] absDoubleReturn = Vector.GetArrayAbs(dataDouble);
-            Console.Write("Return output: ");
-            Console.WriteLine(String.Join(", ", absDoubleReturn));
-
-            //** A入A出，原位计算 **
-            Console.WriteLine("* In-Place Calculation *");
-            //short原位ABS
-            Vector.ArrayAbs(dataI16);
-            Console.Write("short[]:  ");
-            Console.WriteLine(String.Join(", ", dataI16));
-
-            //int原位ABS
-            Vector.ArrayAbs(dataInt);
-            Console.Write("int[]:    ");
-            Console.WriteLine(String.Join(", ", dataInt));
-
-            //float原位ABS
-            Vector.ArrayAbs(dataFloat);
-            Console.Write("float[]:   ");
-            Console.WriteLine(String.Join(", ", dataFloat));
-
-            //double 原位ABS
-            Vector.ArrayAbs(dataDouble);
-            Console.Write("double[]: ");
-            Console.WriteLine(String.Join(", ", dataDouble));
-
-            /* output:
-             *  *** Vector.ABS ***
-            Argument Output: 2.12345678901235, 1.12345678901235, 0, 1.12345678901235, 2.12345678901235
-            Return output: 2.12345678901235, 1.12345678901235, 0, 1.12345678901235, 2.12345678901235
-            * In-Place Calculation *
-            short[]:  2, 1, 0, 1, 2
-            int[]:    234567, 123456, 0, 123456, 234567
-            float[]:   2.123457, 1.123457, 0, 1.123457, 2.123457
-            double[]: 2.12345678901235, 1.12345678901235, 0, 1.12345678901235, 2.12345678901235
-             */
-            #endregion
-
             #region Add Example
 
             Console.WriteLine();
@@ -226,9 +173,62 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             */
             #endregion
 
+            #region ABS Example
+            Console.WriteLine("*** Vector.Abs ***");
+            //define data
+            short[] dataI16 = new short[] { -2, -1, 0, 1, 2 };
+            int[] dataInt = new int[] { -234567, -123456, 0, 123456, 234567 };
+            float[] dataFloat = new float[] { (float)-2.1234567890123456, (float)-1.1234567890123456, 0, (float)1.1234567890123456, (float)2.1234567890123456 };
+            double[] dataDouble = new double[] { -2.1234567890123456, -1.1234567890123456, 0, 1.1234567890123456, 2.1234567890123456 };
+
+            //A入B出
+            double[] absDouble = new double[dataDouble.Length];
+            Vector.ArrayAbs(dataDouble, absDouble);
+            Console.Write("Argument output: ");
+            Console.WriteLine(String.Join(", ", absDouble));
+
+            //A入返回数组
+            double[] absDoubleReturn = Vector.GetArrayAbs(dataDouble);
+            Console.Write("Return output: ");
+            Console.WriteLine(String.Join(", ", absDoubleReturn));
+
+            //** A入A出，原位计算 **
+            Console.WriteLine("* In-Place Calculation *");
+            //short原位ABS
+            Vector.ArrayAbs(dataI16);
+            Console.Write("short[]:  ");
+            Console.WriteLine(String.Join(", ", dataI16));
+
+            //int原位ABS
+            Vector.ArrayAbs(dataInt);
+            Console.Write("int[]:    ");
+            Console.WriteLine(String.Join(", ", dataInt));
+
+            //float原位ABS
+            Vector.ArrayAbs(dataFloat);
+            Console.Write("float[]:   ");
+            Console.WriteLine(String.Join(", ", dataFloat));
+
+            //double 原位ABS
+            Vector.ArrayAbs(dataDouble);
+            Console.Write("double[]: ");
+            Console.WriteLine(String.Join(", ", dataDouble));
+
+            /* output:
+             *  *** Vector.ABS ***
+            Argument Output: 2.12345678901235, 1.12345678901235, 0, 1.12345678901235, 2.12345678901235
+            Return output: 2.12345678901235, 1.12345678901235, 0, 1.12345678901235, 2.12345678901235
+            * In-Place Calculation *
+            short[]:  2, 1, 0, 1, 2
+            int[]:    234567, 123456, 0, 123456, 234567
+            float[]:   2.123457, 1.123457, 0, 1.123457, 2.123457
+            double[]: 2.12345678901235, 1.12345678901235, 0, 1.12345678901235, 2.12345678901235
+             */
+            #endregion
+
             #region Compare
             Console.WriteLine();
-            Console.WriteLine("*** Vector.Equal ***");
+            Console.WriteLine("*** Vector.Compare ***");
 
             // define data
             double[] dataADoubleCompare = new double[] { -2.12, -1.12, 0, 1.12, 2.12 };
@@ -430,6 +430,7 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             // print origin
             Console.Write("Original data A: ");
             Console.WriteLine(String.Join(", ", dataADoubleSort));
+            Console.WriteLine("Ascend Sort:");
 
             // A入B出
             Vector.ArrayAscend(dataADoubleSort, dataBDoubleSort);
@@ -458,6 +459,13 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             Console.Write("sortedIndex Argument output: ");
             Console.WriteLine(String.Join(", ", sortIndex));
 
+            // 按降序排序:
+            Console.WriteLine("Decend Sort:");
+            // A入B出
+            Vector.ArrayDescend(dataADoubleSort, dataBDoubleSort);
+            Console.Write("Ascend Argument output: ");
+            Console.WriteLine(String.Join(", ", dataBDoubleSort));
+
             /* output:
             *** Vector.Sort ***
             Original data A: -2.12, 1.12, 7, -1.12, 2.12
@@ -468,6 +476,8 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             dataADoubleSort: -2.12, -1.12, 1.12, 2.12, 7
             Sorted Argument outout: -2.12, -1.12, 1.12, 2.12, 7
             sortedIndex Argument output: 0, 3, 1, 4, 2
+            Decend Sort:
+            Ascend Argument output: 7, 2.12, 1.12, -1.12, -2.12
             */
 
             #endregion

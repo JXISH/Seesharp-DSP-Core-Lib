@@ -1,6 +1,6 @@
 # C# DSP-Core Library Wav File
 
-Feb-8-2022 JXISH
+Feb-8-2022
 
 # 功能
 
