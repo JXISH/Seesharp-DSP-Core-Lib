@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SeeSharpTools.JXI.SignalProcessing</RootNamespace>
     <AssemblyName>SeeSharpTools.JXI.SignalProcessing</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="JTFA\RFSAJTFA\" />
+    <Folder Include="Spectrum Analysis\SpectrumMeasurements\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SynchronizerCoefficient.bin" />

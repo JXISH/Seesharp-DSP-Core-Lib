@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JXI.BMS4.Audio.MP3;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using SeeSharpTools.JXI.Multimedia.MP3;
 
 namespace JXIEncodeMP3_Test
 {
