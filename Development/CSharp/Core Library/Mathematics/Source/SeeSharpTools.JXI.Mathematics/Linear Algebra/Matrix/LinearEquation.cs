@@ -77,7 +77,7 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         private static void SolveLinearEquations(T[] matrixInput, int N, bool isSymmetric, T[] dataKnownSolution, int M)
         {
             #region ---- 判断 ----
-            if (!(matrixInput.Length != N * N)) { throw (new ArgumentException("The Input Matrix is invalid.")); }
+            if (matrixInput.Length != N * N) { throw (new ArgumentException("The Input Matrix is invalid.")); }
             if (dataKnownSolution.Length != N * M) { throw (new ArgumentException("The solution vector size is invalid.")); }
             #endregion
 

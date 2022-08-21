@@ -52,7 +52,7 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         private static void SolveLinearEquationsLMS(T[] matrixInput, int M, int N, T[] dataKnownSolution, int L)
         {
             #region ---- 判断 ----
-            if (!(matrixInput.Length != M * N)) { throw (new ArgumentException("The Input Matrix is invalid.")); }
+            if (matrixInput.Length != M * N) { throw (new ArgumentException("The Input Matrix is invalid.")); }
             if (dataKnownSolution.Length != M * L) { throw (new ArgumentException("The solution vector size is invalid.")); }
             #endregion
 

@@ -64,98 +64,15 @@ namespace SeeSharpTools.JXI.SignalProcessing.Measurement
         public static void THDAnalysis(double[] timewaveform, double dt, out double detectedFundamentalFreq,
                                        out double THD, ref double[] componentsLevel, int highestHarmonic = 10)
         {
-            double[] spectrum = new double[timewaveform.Length / 2];
-            double df;
-            var spectUnit = SpectrumOutputUnit.V2; //this V^2 unit relates to power in band calculation, don't change
-            var winType = WindowType.Four_Term_Nuttal;  //relates to ENBW, must change in pair
-            //四阶窗函数，有2*4-1=7个bins，为了保险起见，防止信号泄露，再加2个bins
-            int indexCnt = 9;
-            double CG = 0;
-            double ENBW = 0;
-            double[] windowdata = new double[timewaveform.Length];
-            Window.Window.GetWindow(winType, ref windowdata, out CG, out ENBW);
-            // double ENBW = 1.500; //ENBW for winType Hanning.ENBW = 1.500 Hamming 1.362826
+            double fundamentalPower = 0;//单位V2
+            double powerTotalHarmonic = 0;//单位V2
+            double noisePower = 0;//单位V2
 
-            double maxValue = 0;
-            int maxValueIndex = 0;
-            int i, approxFreqIndex, startIndex = 0, endIndex = spectrum.Length;
-            double powerInBand = 0;
-            double powerMltIndex = 0;
-            double powerTotalHarmonic = 0;
-            double spectrumDV = 0;
-            if (componentsLevel == null || componentsLevel.Length != highestHarmonic)
-            {
-                componentsLevel = new double[highestHarmonic + 1 > 2 ? highestHarmonic + 1 : 2];//componentsLevel的长度比highestHarmonic大1，但是不能小于2
-            }
-            Spectrum.PowerSpectrum(timewaveform, 1 / dt, ref spectrum, out df, spectUnit, winType);
-            //滤除直流
-            for (int j = 0; j < indexCnt/2; j++)
-            {
-                spectrumDV = spectrum[j];
-                spectrum[j] = 0;
-            }
-            //****************************************
-            //Search peak
+            BasicAnalysis(timewaveform, dt, out detectedFundamentalFreq, out fundamentalPower, out powerTotalHarmonic, out noisePower, ref componentsLevel, highestHarmonic);
 
-            //Search spectrum from [i1] to i1+i2-1;
-            maxValue = -1; //power spectrum can not be less than 0;
-            maxValue = spectrum.Max();
-            maxValueIndex = Array.FindIndex(spectrum, s => s == maxValue);
-
-
-            //Search peak ends
-            //****************************************
-            //Peak analysis
-            startIndex = maxValueIndex - indexCnt / 2;
-            if (startIndex < 0) startIndex = 0;
-
-            endIndex = startIndex + indexCnt;
-
-            if (endIndex > spectrum.Length - 1) endIndex = spectrum.Length - 1;
-
-            for (i = startIndex; i < endIndex; i++)
-            {
-                powerInBand += spectrum[i];
-                powerMltIndex += spectrum[i] * i;
-            }
-            //Given the estimated frequency and power, the exact frequency can be _calculated
-            detectedFundamentalFreq = powerMltIndex / powerInBand * df;
-
-            componentsLevel[0] = spectrumDV / ENBW;  //DC in V^2
-            componentsLevel[1] = powerInBand / ENBW; //unit V^2 for amplitude  //Refer this formula to  ITU Handbook
-                                                     //Peak analysis ends
-                                                     //****************************************
-                                                     //Power calculation for THD
-
-            powerTotalHarmonic = 0;
-            for (i = 2; i <= highestHarmonic; i++)
-            {
-                approxFreqIndex = (int)Math.Round(detectedFundamentalFreq / df * i - 2);
-                if (approxFreqIndex < 0) approxFreqIndex = 0;
-
-                powerInBand = 0;
-                for (startIndex = 1; startIndex < 5; startIndex++)
-                {
-                    if (approxFreqIndex + startIndex < spectrum.Length)
-                    {
-                        powerInBand += spectrum[approxFreqIndex + startIndex];
-                    }
-                }
-                componentsLevel[i] = powerInBand / ENBW;
-                powerTotalHarmonic += componentsLevel[i];
-            }
-            THD = powerTotalHarmonic / componentsLevel[1];
+            //THD =sqrt(谐波功率/主信号功率)
+            THD = powerTotalHarmonic / fundamentalPower;
             THD = Math.Sqrt(THD);
-            //Power calculation ends
-            //****************************************
-            // transfer components level from V^2 to V peak amplitude;
-            for (i = 1; i < highestHarmonic + 1; i++)
-            {
-                componentsLevel[i] = Math.Sqrt(componentsLevel[i] * 2); //AC has conjugate  part so to *2 for the energy
-            }
-            componentsLevel[0] = Math.Sqrt(componentsLevel[0]); //DC has no conjugate part
-            //transfer ends
-            //****************************************
         }
 
         /// <summary>
@@ -273,30 +190,150 @@ namespace SeeSharpTools.JXI.SignalProcessing.Measurement
         public static void SINADAnalysis(double[] timewaveform, double dt, out double detectedFundamentalFreq,
                                           out double SINAD, ref double[] componentsLevel, int highestHarmonic = 10)
         {
-            //analysis body
-            double THD;
-            THDAnalysis(timewaveform, dt, out detectedFundamentalFreq, out THD, ref componentsLevel, highestHarmonic);
+            double fundamentalPower = 0;//单位V2
+            double powerTotalHarmonic = 0;//单位V2
+            double noisePower = 0;//单位V2
 
-            //计算信号扣除直流分量的RMS（均方根）
-            double std1 = StandardDeviation(timewaveform);
+            BasicAnalysis(timewaveform, dt, out detectedFundamentalFreq, out fundamentalPower, out powerTotalHarmonic, out noisePower, ref componentsLevel, highestHarmonic);
 
-            //去除主信号
-            var result = SingleToneAnalysis(timewaveform, 1/dt);
-            double[] signalNoFundamentalFreq = new double[timewaveform.Length];
-            for (int i = 0; i < timewaveform.Length; i++)
-            {
-                signalNoFundamentalFreq[i] = timewaveform[i] - result.Amplitude* Math.Sin(2 * Math.PI * result.Frequency * dt*i + result.Phase);
-            }
+            //SINAD=（S）/(D+N)
+            SINAD = (fundamentalPower) / (powerTotalHarmonic + noisePower);
 
-            //计算信号扣除直流分量的RMS（均方根）
-            double std2 = StandardDeviation(signalNoFundamentalFreq);
-
-            SINAD = 20 * Math.Log10(std1 / std2);         
+            //功率*10 log
+            SINAD = 10 * Math.Log10(SINAD);
         }
 
         #endregion
 
         #region-------------------------Private Methods----------------------
+
+        /// <summary>
+        /// 基础分析
+        /// </summary>
+        /// <param name="timewaveform">时域波形,单位V</param>
+        /// <param name="dt">时域波形的抽样间隔=1/sampleRate</param>
+        /// <param name="detectedFundamentalFreq">主信号频率</param>
+        /// <param name="fundamentalPower">主信号功率，单位V2</param>
+        /// <param name="powerTotalHarmonic">所有谐波功率，单位V2</param>
+        /// <param name="noisePower">噪声功率，单位V2</param>
+        /// <param name="componentsLevel">谐波分量，单位V</param>
+        /// <param name="highestHarmonic">最高谐波</param>
+        private static void BasicAnalysis(double[] timewaveform, double dt, out double detectedFundamentalFreq, out double fundamentalPower, out double powerTotalHarmonic,
+                               out double noisePower, ref double[] componentsLevel, int highestHarmonic = 10)
+        {
+            double[] spectrum = new double[timewaveform.Length / 2];
+            double df;
+            var spectUnit = SpectrumOutputUnit.V2; //this V^2 unit relates to power in band calculation, don't change
+            var winType = WindowType.Four_Term_Nuttal;  //relates to ENBW, must change in pair
+            //四阶窗函数，有2*4-1=7个bins，为了保险起见，防止信号泄露，再加2个bins
+            int indexCnt = 9;
+            double CG = 0;
+            double ENBW = 0;
+            double[] windowdata = new double[timewaveform.Length];
+            Window.Window.GetWindow(winType, ref windowdata, out CG, out ENBW);
+            // double ENBW = 1.500; //ENBW for winType Hanning.ENBW = 1.500 Hamming 1.362826
+
+            double maxValue = 0;
+            int maxValueIndex = 0;
+            int i, approxFreqIndex, startIndex = 0, endIndex = spectrum.Length;
+            double powerInBand = 0;
+            double powerMltIndex = 0;
+            double spectrumDV = 0;
+            if (componentsLevel == null || componentsLevel.Length != highestHarmonic)
+            {
+                componentsLevel = new double[highestHarmonic + 1 > 2 ? highestHarmonic + 1 : 2];//componentsLevel的长度比highestHarmonic大1，但是不能小于2
+            }
+            Spectrum.PowerSpectrum(timewaveform, 1 / dt, ref spectrum, out df, spectUnit, winType);
+            //滤除直流
+            for (int j = 0; j < indexCnt / 2; j++)
+            {
+                spectrumDV += spectrum[j];
+                spectrum[j] = 0;
+            }
+
+
+            //查找主信号功率
+            //****************************************
+            //Search peak
+
+            //Search spectrum from [i1] to i1+i2-1;
+            maxValue = -1; //power spectrum can not be less than 0;
+            maxValue = spectrum.Max();
+            maxValueIndex = Array.FindIndex(spectrum, s => s == maxValue);
+
+
+            //Search peak ends
+            //****************************************
+            //Peak analysis
+            startIndex = maxValueIndex - indexCnt / 2;
+            if (startIndex < 0) startIndex = 0;
+
+            endIndex = startIndex + indexCnt;
+
+            if (endIndex > spectrum.Length - 1) endIndex = spectrum.Length - 1;
+
+            for (i = startIndex; i < endIndex; i++)
+            {
+                powerInBand += spectrum[i];
+                powerMltIndex += spectrum[i] * i;
+                //扣除主信号
+                spectrum[i] = 0;
+            }
+            //Given the estimated frequency and power, the exact frequency can be _calculated
+            detectedFundamentalFreq = powerMltIndex / powerInBand * df;
+
+            componentsLevel[0] = spectrumDV / ENBW;  //DC in V^2
+            componentsLevel[1] = powerInBand / ENBW; //unit V^2 for amplitude  //Refer this formula to  ITU Handbook
+                                                     //Peak analysis ends
+            fundamentalPower = componentsLevel[1];
+
+            //****************************************
+            //Power calculation for THD
+
+            //查找谐波的功率
+            powerTotalHarmonic = 0;
+            for (i = 2; i <= highestHarmonic; i++)
+            {
+                approxFreqIndex = (int)Math.Round(detectedFundamentalFreq / df * i - 2);
+                if (approxFreqIndex < 0) approxFreqIndex = 0;
+
+                powerInBand = 0;
+                for (startIndex = 1; startIndex < 5; startIndex++)
+                {
+                    if (approxFreqIndex + startIndex < spectrum.Length)
+                    {
+                        powerInBand += spectrum[approxFreqIndex + startIndex];
+                        //扣除谐波功率
+                        spectrum[approxFreqIndex + startIndex] = 0;
+                    }
+                }
+                componentsLevel[i] = powerInBand / ENBW;
+                powerTotalHarmonic += componentsLevel[i];
+            }
+
+            //查找噪声功率
+            double powerNoise = 0;
+            for (int j = 0; j < spectrum.Length; j++)
+            {
+                powerNoise += spectrum[j];
+            }
+            noisePower = powerNoise / ENBW;//除不除ENBW呢？？？
+
+            //double THD = powerTotalHarmonic / componentsLevel[1];
+            //THD = Math.Sqrt(THD);
+            //Power calculation ends
+
+            //****************************************
+            // transfer components level from V^2 to V peak amplitude;
+            for (i = 1; i < highestHarmonic + 1; i++)
+            {
+                componentsLevel[i] = Math.Sqrt(componentsLevel[i] * 2); //AC has conjugate  part so to *2 for the energy
+            }
+            componentsLevel[0] = Math.Sqrt(componentsLevel[0]); //DC has no conjugate part
+            //transfer ends
+            //****************************************
+        }
+
         /// <summary>
         /// 计算数组所有元素之和
         /// </summary>
