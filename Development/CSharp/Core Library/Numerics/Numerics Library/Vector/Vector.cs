@@ -169,6 +169,44 @@ namespace SeeSharpTools.JXI.Numerics
     /// </summary>
     public partial class Vector
     {
+        /// <summary>
+        /// 返回数组操作的最小长度
+        /// </summary>
+        /// <param name="aLength"> 数组 a 的长度, 必须大于等于 0 </param>
+        /// <param name="bLength"> 数组 b 的长度, 必须大于等于 0 </param>
+        /// <param name="expectedLength"> 期望操作的长度, 小于等于 0 表示该参数无效  </param>
+        /// <returns></returns>
+        private static int GetMinArrayLenth(int aLength, int bLength, int expectedLength)
+        {
+            // expectedLength 和 aLength 取小
+            expectedLength = (expectedLength <= 0) ? aLength : Math.Min(expectedLength, aLength);
+            // 和 bLength 取小
+            expectedLength = Math.Min(expectedLength, bLength);
+
+            // 返回值大于等于0
+            // yym_Debug
+            // expectedLength >= 0，所以Max操作可以不执行
+            // return Math.Max(0, expectedLength);
+            return expectedLength;
+        }
+
+        /// <summary>
+        /// 返回数组操作的最小长度
+        /// </summary>
+        /// <param name="aLength"> 数组 a 的长度, 必须大于等于 0 </param>
+        /// <param name="expectedLength"> 期望操作的长度, 小于等于 0 表示该参数无效 </param>
+        /// <returns></returns>
+        private static int GetMinArrayLenth(int aLength, int expectedLength)
+        {
+            // expectedLength 和 aLength 取小
+            expectedLength = (expectedLength <= 0) ? aLength : Math.Min(expectedLength, aLength);
+
+            // 返回值大于等于0
+            // yym_Debug
+            // expectedLength >= 0，所以Max操作可以不执行
+            // return Math.Max(0, expectedLength);
+            return expectedLength;
+        }
 
         #region---- MKL DLL Caller ----
 

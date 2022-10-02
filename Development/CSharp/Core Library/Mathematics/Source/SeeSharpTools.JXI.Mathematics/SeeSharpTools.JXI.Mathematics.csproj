@@ -70,6 +70,8 @@
     <Compile Include="Curvefitting\CurveFitting.cs" />
     <Compile Include="Geometry\Geometry.cs" />
     <Compile Include="Interpolation\Interpolation.cs" />
+    <Compile Include="Linear Algebra\Matrix\Compare.cs" />
+    <Compile Include="Linear Algebra\Matrix\Determinant.cs" />
     <Compile Include="Linear Algebra\Matrix\Eigenvalue.cs" />
     <Compile Include="Linear Algebra\Matrix\Inverse.cs" />
     <Compile Include="Linear Algebra\Matrix\LinearEquation.cs" />

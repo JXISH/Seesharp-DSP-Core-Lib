@@ -43,7 +43,6 @@ namespace SeeSharpTools.JXI.Numerics
             }
             else { throw new Exception("Data type not supported"); }
         }
-
         #endregion
 
         #region ---- Compare ----
@@ -57,7 +56,7 @@ namespace SeeSharpTools.JXI.Numerics
 
             for (int i = 0; i < a.Length; i++)
             {
-                if (a[i]!=b[i])
+                if (a[i] != b[i])
                 {
                     return false;
                 }
@@ -146,5 +145,90 @@ namespace SeeSharpTools.JXI.Numerics
             return true;
         }
         #endregion
+
+        /// <summary>
+        /// double Array 比固定值小
+        /// </summary>
+        public static bool ArrayLess(double[] a, double b)
+        {
+            bool result = true;
+            for (int i = 0; i < a.Length; i++)
+            {
+                result &= a[i] < b;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// float Array 比固定值小
+        /// </summary>
+        public static bool ArrayLess(float[] a, float b)
+        {
+            bool result = true;
+            for (int i = 0; i < a.Length; i++)
+            {
+                result &= a[i] < b;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// double Array 的模比固定值小
+        /// </summary>
+        public static bool ArrayAbsLess(double[] a, double b)
+        {
+            bool result = true;
+            for (int i = 0; i < a.Length; i++)
+            {
+                result &= Math.Abs(a[i]) < b;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// float Array 的模比固定值小
+        /// </summary>
+        public static bool ArrayAbsLess(float[] a, float b)
+        {
+            bool result = true;
+            for (int i = 0; i < a.Length; i++)
+            {
+                result &= Math.Abs(a[i]) < b;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// float Array 比固定值大
+        /// </summary>
+        public static bool ArrayGreater(float[] a, float b)
+        {
+            bool result = true;
+            for (int i = 0; i < a.Length; i++)
+            {
+                result &= a[i] < b;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// double Array 比固定值大
+        /// </summary>
+        public static bool ArrayGreater(double[] a, double b)
+        {
+            bool result = true;
+            for (int i = 0; i < a.Length; i++)
+            {
+                result &= Math.Abs(a[i]) < b;
+            }
+
+            return result;
+        }
+
     }
 }

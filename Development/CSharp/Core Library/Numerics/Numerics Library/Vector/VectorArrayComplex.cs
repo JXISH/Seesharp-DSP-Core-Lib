@@ -12,6 +12,25 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 由实部虚部生成 Complex 数组
         /// </summary>
+        public static void RealImageToComplex<T>(IntPtr real, IntPtr image, IntPtr complexData, int length)
+        {
+            T[] datatype = new T[1];
+
+            if (datatype is Complex32[])
+            {
+                ippsRealToCplx_32f(real, image, complexData, length);
+            }
+            else if (datatype is Complex[])
+            {
+                ippsRealToCplx_64f(real, image, complexData, length);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+
+        /// <summary>
+        /// 由实部虚部生成 Complex 数组
+        /// </summary>
         public static void RealImageToComplex(double[] real, double[] image, Complex[] complexData)
         {
             GCHandle complex_GC = GCHandle.Alloc(complexData, GCHandleType.Pinned);
@@ -71,7 +90,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 由幅度相位生成 Complex 数组
         /// </summary>
-        public static void PolarToComplex( double[] phase, Complex[] complexData)
+        public static void PolarToComplex(double[] phase, Complex[] complexData)
         {
             GCHandle complex_GC = GCHandle.Alloc(complexData, GCHandleType.Pinned);
             IntPtr complex_address = complex_GC.AddrOfPinnedObject();
@@ -94,7 +113,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 由幅度相位生成 Complex 数组
         /// </summary>
-        public static Complex[] PolarToComplex( double[] phase)
+        public static Complex[] PolarToComplex(double[] phase)
         {
             Complex[] complexData = new Complex[phase.Length];
             PolarToComplex(phase, complexData);
@@ -240,7 +259,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 获取 Complex 数组实部
         /// </summary>
-        public static void GetComplexReal(Complex[] a,double []real)
+        public static void GetComplexReal(Complex[] a, double[] real)
         {
             GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
             IntPtr a_address = a_GC.AddrOfPinnedObject();
@@ -517,7 +536,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 获取 Complex 数组相位
         /// </summary>
-        public static void GetComplexPhase(double[] real, double[] image , double[] phase)
+        public static void GetComplexPhase(double[] real, double[] image, double[] phase)
         {
             ippsPhase_64f(real, image, phase, real.Length);
         }
@@ -528,7 +547,7 @@ namespace SeeSharpTools.JXI.Numerics
         public static double[] GetComplexPhase(double[] real, double[] image)
         {
             double[] phase = new double[real.Length];
-            GetComplexPhase(real,image, phase);
+            GetComplexPhase(real, image, phase);
             return phase;
         }
 
@@ -619,7 +638,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// power = a.Re * a.Re + a.Im * a.Im
         /// </summary>
         public static double[] GetComplexPower(Complex[] a)
-        { 
+        {
             double[] power = new double[a.Length];
             GetComplexPower(a, power);
             return power;
@@ -699,7 +718,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         public static double GetComplexAvgPower(Complex[] a)
         {
-           return Vector.ArrayMean(GetComplexPower(a));
+            return Vector.ArrayMean(GetComplexPower(a));
         }
 
         /// <summary>
@@ -718,9 +737,15 @@ namespace SeeSharpTools.JXI.Numerics
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsRealToCplx_32f(float[] pSrcRe, float[] pSrcIm, IntPtr pDst, int len);
 
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsRealToCplx_32f(IntPtr pSrcRe, IntPtr pSrcIm, IntPtr pDst, int len);
+
         // double
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsRealToCplx_64f(double[] pSrcRe, double[] pSrcIm, IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsRealToCplx_64f(IntPtr pSrcRe, IntPtr pSrcIm, IntPtr pDst, int len);
 
         #endregion
 

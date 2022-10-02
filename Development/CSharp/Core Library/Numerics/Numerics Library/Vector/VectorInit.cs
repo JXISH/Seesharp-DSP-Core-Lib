@@ -10,6 +10,66 @@ namespace SeeSharpTools.JXI.Numerics
         #region ---- Const ----
 
         /// <summary>
+        /// 生成常数 byte 数组
+        /// </summary>
+        public static byte[] ConstInit(int N, byte constData)
+        {
+            byte[] byteData = new byte[N];
+
+            ConstInit(N, byteData, constData);
+
+            return byteData;
+        }
+
+        /// <summary>
+        /// 生成常数 byte 数组
+        /// </summary>
+        public static void ConstInit(int N, byte[] output, byte constData)
+        {
+            ippsSet_8u(constData, output, N);
+        }
+
+        /// <summary>
+        /// 生成常数 short 数组
+        /// </summary>
+        public static short[] ConstInit(int N, short constData)
+        {
+            short[] shortData = new short[N];
+
+            ConstInit(N, shortData, constData);
+
+            return shortData;
+        }
+
+        /// <summary>
+        /// 生成常数 short 数组
+        /// </summary>
+        public static void ConstInit(int N, short[] output, short constData)
+        {
+            ippsSet_16s(constData, output, N);
+        }
+
+        /// <summary>
+        /// 生成常数 int 数组
+        /// </summary>
+        public static int[] ConstInit(int N, int constData)
+        {
+            int[] intData = new int[N];
+
+            ConstInit(N, intData, constData);
+
+            return intData;
+        }
+
+        /// <summary>
+        /// 生成常数 int 数组
+        /// </summary>
+        public static void ConstInit(int N, int[] output, int constData)
+        {
+            ippsSet_32s(constData, output, N);
+        }
+
+        /// <summary>
         /// 生成常数 double 数组
         /// </summary>
         public static double[] ConstInit(int N, double constData)
@@ -66,12 +126,10 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         public static void ConstInit(int N, Complex[] output, Complex constData)
         {
-            double[] real = ConstInit(N, constData.Real);
-            double[] image = ConstInit(N, constData.Imaginary);
             GCHandle output_GC = GCHandle.Alloc(output, GCHandleType.Pinned);
             IntPtr output_address = output_GC.AddrOfPinnedObject();
 
-            ippsRealToCplx_64f(real, image, output_address, N);
+            ippsSet_64fc(constData, output_address, N);
 
             output_GC.Free();
         }
@@ -93,12 +151,10 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         public static void ConstInit(int N, Complex32[] output, Complex32 constData)
         {
-            float[] real = ConstInit(N, constData.Real);
-            float[] image = ConstInit(N, constData.Imaginary);
             GCHandle output_GC = GCHandle.Alloc(output, GCHandleType.Pinned);
             IntPtr output_address = output_GC.AddrOfPinnedObject();
 
-            ippsRealToCplx_32f(real, image, output_address, N);
+            ippsSet_32fc(constData, output_address, N);
 
             output_GC.Free();
         }
@@ -110,7 +166,19 @@ namespace SeeSharpTools.JXI.Numerics
         {
             T[] result = new T[N];
 
-            if (constData is float constData_f32 && result is float[] result_f32)
+            if (constData is byte constData_u8 && result is byte[] result_u8)
+            {
+                ConstInit(N, result_u8, constData_u8);
+            }
+            else if (constData is short constData_s16 && result is short[] result_s16)
+            {
+                ConstInit(N, result_s16, constData_s16);
+            }
+            else if (constData is int constData_s32 && result is int[] result_s32)
+            {
+                ConstInit(N, result_s32, constData_s32);
+            }
+            else if (constData is float constData_f32 && result is float[] result_f32)
             {
                 ConstInit(N, result_f32, constData_f32);
             }
@@ -129,6 +197,168 @@ namespace SeeSharpTools.JXI.Numerics
             else { throw new Exception("Data type not supported"); }
 
             return result;
+        }
+
+        /// <summary>
+        /// 生成常数数组
+        /// </summary>
+        public static void ConstInit<T>(int N, T constData, IntPtr outputArray)
+        {
+            if (constData is byte constData_u8)
+            {
+                ippsSet_32f(constData_u8, outputArray, N);
+            }
+            else if (constData is short constData_s16)
+            {
+                ippsSet_32f(constData_s16, outputArray, N);
+            }
+            else if (constData is int constData_s32)
+            {
+                ippsSet_32f(constData_s32, outputArray, N);
+            }
+            else if (constData is float constData_f32)
+            {
+                ippsSet_32f(constData_f32, outputArray, N);
+            }
+            else if (constData is double constData_f64)
+            {
+                ippsSet_64f(constData_f64, outputArray, N);
+            }
+            else if (constData is Complex32 constData_fc32)
+            {
+                ippsSet_32fc(constData_fc32, outputArray, N);
+            }
+            else if (constData is Complex constData_fc64)
+            {
+                ippsSet_64fc(constData_fc64, outputArray, N);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+        /// <summary>
+        /// 生成全零数组
+        /// </summary>
+        public static T[] ZeroInit<T>(int N)
+        {
+            T[] result = new T[N];
+
+            if (result is byte[] zeroData_u8)
+            {
+                ippsZero_8u(zeroData_u8, N);
+            }
+            else if (result is short[] zeroData_s16)
+            {
+                ippsZero_16s(zeroData_s16, N);
+            }
+            else if (result is int[] zeroData_s32)
+            {
+                ippsZero_32s(zeroData_s32, N);
+            }
+            else if (result is float[] zeroData_f32)
+            {
+                ippsZero_32f(zeroData_f32, N);
+            }
+            else if (result is double[] zeroData_f64)
+            {
+                ippsZero_64f(zeroData_f64, N);
+            }
+            else if (result is Complex32[] zeroData_fc32)
+            {
+                GCHandle output_GC = GCHandle.Alloc(zeroData_fc32, GCHandleType.Pinned);
+                IntPtr output_address = output_GC.AddrOfPinnedObject();
+                ippsZero_32fc(output_address, N);
+                output_GC.Free();
+            }
+            else if (result is Complex[] zeroData_fc64)
+            {
+                GCHandle output_GC = GCHandle.Alloc(zeroData_fc64, GCHandleType.Pinned);
+                IntPtr output_address = output_GC.AddrOfPinnedObject();
+                ippsZero_64fc(output_address, N);
+                output_GC.Free();
+            }
+            else { throw new Exception("Data type not supported"); }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 生成全零数组
+        /// </summary>
+        public static void ZeroInit<T>(int N, T[] outputArray)
+        {
+            if (outputArray is byte[] zeroData_u8)
+            {
+                ippsZero_8u(zeroData_u8, N);
+            }
+            else if (outputArray is short[] zeroData_s16)
+            {
+                ippsZero_16s(zeroData_s16, N);
+            }
+            else if (outputArray is int[] zeroData_s32)
+            {
+                ippsZero_32s(zeroData_s32, N);
+            }
+            else if (outputArray is float[] zeroData_f32)
+            {
+                ippsZero_32f(zeroData_f32, N);
+            }
+            else if (outputArray is double[] zeroData_f64)
+            {
+                ippsZero_64f(zeroData_f64, N);
+            }
+            else if (outputArray is Complex32[] zeroData_fc32)
+            {
+                GCHandle output_GC = GCHandle.Alloc(zeroData_fc32, GCHandleType.Pinned);
+                IntPtr output_address = output_GC.AddrOfPinnedObject();
+                ippsZero_32fc(output_address, N);
+                output_GC.Free();
+            }
+            else if (outputArray is Complex[] zeroData_fc64)
+            {
+                GCHandle output_GC = GCHandle.Alloc(zeroData_fc64, GCHandleType.Pinned);
+                IntPtr output_address = output_GC.AddrOfPinnedObject();
+                ippsZero_64fc(output_address, N);
+                output_GC.Free();
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+        /// <summary>
+        /// 生成全零数组
+        /// </summary>
+        public static void ZeroInit<T>(int N, IntPtr outputArray)
+        {
+            T[] datatype = new T[1];
+
+            if (datatype is byte[])
+            {
+                ippsZero_8u(outputArray, N);
+            }
+            else if (datatype is short[])
+            {
+                ippsZero_16s(outputArray, N);
+            }
+            else if (datatype is int[])
+            {
+                ippsZero_32s(outputArray, N);
+            }
+            else if (datatype is float[])
+            {
+                ippsZero_32f(outputArray, N);
+            }
+            else if (datatype is double[])
+            {
+                ippsZero_64f(outputArray, N);
+            }
+            else if (datatype is Complex32[])
+            {
+                ippsZero_32fc(outputArray, N);
+            }
+            else if (datatype is Complex[])
+            {
+                ippsZero_64fc(outputArray, N);
+            }
+            else { throw new Exception("Data type not supported"); }
         }
 
         #endregion
@@ -218,7 +448,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 生成 Complex32 单频数组
         /// </summary>
-        public static void ToneInit(int N, Complex32[] output,float frequency, ref float theta, float amplitude = 1.0f)
+        public static void ToneInit(int N, Complex32[] output, float frequency, ref float theta, float amplitude = 1.0f)
         {
             GCHandle output_GC = GCHandle.Alloc(output, GCHandleType.Pinned);
             IntPtr output_address = output_GC.AddrOfPinnedObject();
@@ -634,11 +864,11 @@ namespace SeeSharpTools.JXI.Numerics
 
         // I16Complex
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsTriangle_16sc(IntPtr pDst, int len, short magn, float rFreq, float  asym, ref float pPhase);
+        private static extern int ippsTriangle_16sc(IntPtr pDst, int len, short magn, float rFreq, float asym, ref float pPhase);
 
         // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsTriangle_32f(float[] pDst, int len, float magn, float rFreq, float   asym, ref float pPhase);
+        private static extern int ippsTriangle_32f(float[] pDst, int len, float magn, float rFreq, float asym, ref float pPhase);
 
         // complex32
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
@@ -656,19 +886,70 @@ namespace SeeSharpTools.JXI.Numerics
 
         #region---- Const ----
 
+        // byte
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsSet_8u(byte val, byte[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsSet_8u(byte val, IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsZero_8u(byte[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsZero_8u(IntPtr pDst, int len);
+
+        // short
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsSet_16s(short val, short[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsSet_16s(short val, IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsZero_16s(short[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsZero_16s(IntPtr pDst, int len);
+
+        // int
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsSet_32s(int val, int[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsSet_32s(int val, IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsZero_32s(int[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsZero_32s(IntPtr pDst, int len);
+
         // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsSet_32f(float val, float[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsSet_32f(float val, IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsZero_32f(float[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsZero_32f(IntPtr pDst, int len);
 
         // double
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsSet_64f(double val, double[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsSet_64f(double val, IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsZero_64f(double[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsZero_64f(IntPtr pDst, int len);
 
         // Complex32
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
@@ -696,7 +977,7 @@ namespace SeeSharpTools.JXI.Numerics
         private static extern int ippsRandUniformInit_32f(IntPtr pRandUniState, float low, float high, uint seed);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsRandUniform_32f([Out]float[] pDst, int len, IntPtr pRandUniState);
+        private static extern int ippsRandUniform_32f([Out] float[] pDst, int len, IntPtr pRandUniState);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsRandUniform_32f(IntPtr pDst, int len, IntPtr pRandUniState);
@@ -709,7 +990,7 @@ namespace SeeSharpTools.JXI.Numerics
         private static extern int ippsRandUniformInit_64f(IntPtr pRandUniState, double low, double high, uint seed);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsRandUniform_64f([Out]double[] pDst, int len, IntPtr pRandUniState);
+        private static extern int ippsRandUniform_64f([Out] double[] pDst, int len, IntPtr pRandUniState);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsRandUniform_64f(IntPtr pDst, int len, IntPtr pRandUniState);

@@ -13,7 +13,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// 数组取模
         /// inout = Abs (inout)
         /// </summary>
-        public static void ArrayAbs<T>(T [] inout)
+        public static void ArrayAbs<T>(T[] inout)
         {
             if (inout is short[] inout_i16)
             {
@@ -31,6 +31,14 @@ namespace SeeSharpTools.JXI.Numerics
             {
                 ArrayAbs(inout_f64);
             }
+            else if (inout is Complex32[] inout_fc32)
+            {
+                ArrayAbs(inout_fc32);
+            }
+            else if (inout is Complex[] inout_fc64)
+            {
+                ArrayAbs(inout_fc64);
+            }
             else { throw new Exception("Data type not supported"); }
         }
 
@@ -42,7 +50,7 @@ namespace SeeSharpTools.JXI.Numerics
         {
             if (a is short[] a_i16 && output is short[] output_i16)
             {
-               ArrayAbs(a_i16, output_i16);
+                ArrayAbs(a_i16, output_i16);
             }
             else if (a is int[] a_i32 && output is int[] output_i32)
             {
@@ -55,6 +63,14 @@ namespace SeeSharpTools.JXI.Numerics
             else if (a is double[] a_f64 && output is double[] output_f64)
             {
                 ArrayAbs(a_f64, output_f64);
+            }
+            else if (a is Complex32[] a_fc32 && output is Complex32[] output_fc32)
+            {
+                ArrayAbs(a_fc32, output_fc32);
+            }
+            else if (a is Complex[] a_fc64 && output is Complex[] output_fc64)
+            {
+                ArrayAbs(a_fc64, output_fc64);
             }
             else { throw new Exception("Data type not supported"); }
         }
@@ -146,6 +162,56 @@ namespace SeeSharpTools.JXI.Numerics
             ippsAbs_64f(a, output, a.Length);
         }
 
+        /// <summary>
+        /// Complex32数组取模
+        /// inout = Abs (inout)
+        /// </summary>
+        internal static void ArrayAbs(Complex32[] inout)
+        {
+            ArrayAbs(inout, inout);
+        }
+
+        /// <summary>
+        /// Complex32数组取模
+        /// output = Abs (a)
+        /// </summary>
+        internal static void ArrayAbs(Complex32[] a, Complex32[] output)
+        {
+            float[] real = GetComplexReal(a);
+            float[] image = GetComplexImage(a);
+            ArraySquare(real);
+            ArraySquare(image);
+            ArrayAdd(real, image);
+            ArrayRoot(real);
+            ZeroInit(image.Length, image);
+            RealImageToComplex(real, image, output);
+        }
+
+        /// <summary>
+        /// Complex数组取模
+        /// inout = Abs (inout)
+        /// </summary>
+        internal static void ArrayAbs(Complex[] inout)
+        {
+            ArrayAbs(inout, inout);
+        }
+
+        /// <summary>
+        /// Complex数组取模
+        /// output = Abs (a)
+        /// </summary>
+        internal static void ArrayAbs(Complex[] a, Complex[] output)
+        {
+            double[] real = GetComplexReal(a);
+            double[] image = GetComplexImage(a);
+            ArraySquare(real);
+            ArraySquare(image);
+            ArrayAdd(real, image);
+            ArrayRoot(real);
+            ZeroInit(image.Length, image);
+            RealImageToComplex(real, image, output);
+        }
+
         #endregion
 
         #region---- Abs: pSrcDst = abs(pSrcDst) ----
@@ -173,7 +239,7 @@ namespace SeeSharpTools.JXI.Numerics
         // short
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsAbs_16s(short[] pSrc, short[] pDst, int len);
-        
+
         // I32
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsAbs_32s(int[] pSrc, int[] pDst, int len);

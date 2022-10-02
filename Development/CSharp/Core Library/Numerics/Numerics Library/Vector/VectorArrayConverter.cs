@@ -146,7 +146,7 @@ namespace SeeSharpTools.JXI.Numerics
             GCHandle input_GC = GCHandle.Alloc(input, GCHandleType.Pinned);
             IntPtr input_address = input_GC.AddrOfPinnedObject();
 
-            ippsConvert_32f16s_Sfs(input_address, output, input.Length *2, IppRoundMode.ippRndNear, 0);
+            ippsConvert_32f16s_Sfs(input_address, output, input.Length * 2, IppRoundMode.ippRndNear, 0);
 
             input_GC.Free();
         }
@@ -387,6 +387,24 @@ namespace SeeSharpTools.JXI.Numerics
             ArrayConvert(input, output);
         }
 
+        /// <summary>
+        /// 将 double 数组转换为 Complex 数组
+        /// </summary>
+        public static Complex[] ConvertToComplex(double[] input)
+        {
+            Complex[] output = new Complex[input.Length];
+            ConvertToComplex(input, output);
+            return output;
+        }
+
+        /// <summary>
+        /// 将 double 数组转换为 Complex 数组
+        /// </summary>
+        public static void ConvertToComplex(double[] input, Complex[] output)
+        {
+            Vector.RealImageToComplex(input, Vector.ConstInit(input.Length, 0.0), output);
+        }
+
         #endregion
 
         #region---- Convert to Complex32 ----
@@ -394,10 +412,10 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 将 Complex 数组转换为 Complex32 数组
         /// </summary>
-        public static Complex32[] ConvertToComplex32 (Complex[] input)
+        public static Complex32[] ConvertToComplex32(Complex[] input)
         {
             Complex32[] output = new Complex32[input.Length];
-            ConvertToComplex32 (input, output);
+            ConvertToComplex32(input, output);
             return output;
         }
 
@@ -412,7 +430,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 将 short 数组转换为 Complex32 数组
         /// </summary>
-        public static Complex32[] ConvertToComplex32 (short[] input)
+        public static Complex32[] ConvertToComplex32(short[] input)
         {
             Complex32[] output = new Complex32[input.Length / 2];
             ConvertToComplex32(input, output);
@@ -427,6 +445,24 @@ namespace SeeSharpTools.JXI.Numerics
             ArrayConvert(input, output);
         }
 
+        /// <summary>
+        /// 将 float 数组转换为 Complex32 数组
+        /// </summary>
+        public static Complex32[] ConvertToComplex32(float[] input)
+        {
+            Complex32[] output = new Complex32[input.Length];
+            ConvertToComplex32(input, output);
+            return output;
+        }
+
+        /// <summary>
+        /// 将 float 数组转换为 Complex32 数组
+        /// </summary>
+        public static void ConvertToComplex32(float[] input, Complex32[] output)
+        {
+            Vector.RealImageToComplex(input, Vector.ConstInit(input.Length, 0.0f), output);
+        }
+
         #endregion
 
 
@@ -436,10 +472,10 @@ namespace SeeSharpTools.JXI.Numerics
         private static extern int ippsConvert_16s64f_Sfs([In] short[] pSrc, [Out] double[] pDst, int len, int scaleFactor);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_32s64f([In]int[] pSrc, [Out]double[] pDst, int len);
+        private static extern int ippsConvert_32s64f([In] int[] pSrc, [Out] double[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_32f64f([In]float[] pSrc, [Out]double[] pDst, int len);
+        private static extern int ippsConvert_32f64f([In] float[] pSrc, [Out] double[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsConvert_32f64f(IntPtr pSrc, IntPtr pDst, int len);
@@ -447,42 +483,42 @@ namespace SeeSharpTools.JXI.Numerics
 
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_16s32f([In]short[] pSrc, [Out]float[] pDst, int len);
+        private static extern int ippsConvert_16s32f([In] short[] pSrc, [Out] float[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_16s32f([In]short[] pSrc, IntPtr pDst, int len);
+        private static extern int ippsConvert_16s32f([In] short[] pSrc, IntPtr pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_32s32f([In]int[] pSrc, [Out]float[] pDst, int len);
+        private static extern int ippsConvert_32s32f([In] int[] pSrc, [Out] float[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_64f32f([In]double[] pSrc, [Out]float[] pDst, int len);
+        private static extern int ippsConvert_64f32f([In] double[] pSrc, [Out] float[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsConvert_64f32f(IntPtr pSrc, IntPtr pDst, int len);
 
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_16s32s([In]short[] pSrc, [Out]int[] pDst, int len);
+        private static extern int ippsConvert_16s32s([In] short[] pSrc, [Out] int[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_32f32s_Sfs([In] float[] pSrc, [Out]int[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
+        private static extern int ippsConvert_32f32s_Sfs([In] float[] pSrc, [Out] int[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_64f32s_Sfs([In] double[] pSrc, [Out]int[] pDst, int len,IppRoundMode rndMode, int scaleFactor);
+        private static extern int ippsConvert_64f32s_Sfs([In] double[] pSrc, [Out] int[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
 
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_32s16s([In] int[] pSrc, [Out]short[] pDst, int len);
+        private static extern int ippsConvert_32s16s([In] int[] pSrc, [Out] short[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_32f16s_Sfs([In]float[] pSrc, [Out]short[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
+        private static extern int ippsConvert_32f16s_Sfs([In] float[] pSrc, [Out] short[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_32f16s_Sfs(IntPtr pSrc, [Out]short[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
+        private static extern int ippsConvert_32f16s_Sfs(IntPtr pSrc, [Out] short[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsConvert_64f16s_Sfs([In] double[] pSrc, [Out]short[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
+        private static extern int ippsConvert_64f16s_Sfs([In] double[] pSrc, [Out] short[] pDst, int len, IppRoundMode rndMode, int scaleFactor);
 
         #endregion
     }

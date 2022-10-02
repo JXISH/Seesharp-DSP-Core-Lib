@@ -69,7 +69,6 @@
     <Compile Include="Vector\VectorArraySquareRoot.cs" />
     <Compile Include="Vector\VectorArraySub.cs" />
     <Compile Include="Vector\VectorArraySum.cs" />
-    <Compile Include="Vector\VectorArrayTranspose.cs" />
     <Compile Include="Vector\VectorInit.cs" />
   </ItemGroup>
   <ItemGroup>

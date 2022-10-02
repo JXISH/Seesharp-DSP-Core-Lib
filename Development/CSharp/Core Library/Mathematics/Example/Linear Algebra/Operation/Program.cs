@@ -19,20 +19,18 @@ namespace Eigenvalue_Example
             Console.WriteLine("*** Inverse ***");
 
             //define data
-            Complex32[,] A = new Complex32[4, 3] { { 3, 2, 4 }, { 2, 0, 2 }, { 4, 2, 3 }, { 4, 2, 3 } };
-            Matrix<Complex32> matA = new Matrix<Complex32>(A);
-            Matrix<Complex32> invA;
+            double[,] A = new double[3, 3] { { 3, 2, 4 }, { 2, 0, 2 }, { 4, 2, 3 } };
+            Matrix<double> matA = new Matrix<double>(A);
+            Matrix<double> invA;
             Console.WriteLine();
             Console.WriteLine("* Original Matrix *");
-            Console.WriteLine("3   2   4");
-            Console.WriteLine("2   0   2");
-            Console.WriteLine("4   2   3");
+            PrintMatrix(matA);
 
             //求逆
-            //invA = Matrix<Complex32>.Inverse(matA);
+            invA = Matrix<double>.Inverse(matA);
             Console.WriteLine();
-            Console.WriteLine("* Inverse Matrix *");
-            //PrintMatrix(invA);
+            Console.WriteLine("* Inversed Matrix *");
+            PrintMatrix(invA);
             Console.WriteLine();
             #endregion
 
@@ -42,68 +40,64 @@ namespace Eigenvalue_Example
             Console.WriteLine("*** Transpose ***");
 
             //define data
-            Complex32[,] B = new Complex32[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            Matrix<Complex32> matB = new Matrix<Complex32>(B);
-            Matrix<Complex32> tranB;
+            double[,] B = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            Matrix<double> matB = new Matrix<double>(B);
+            Matrix<double> tranB;
             Console.WriteLine();
             Console.WriteLine("* Original Matrix *");
-            Console.WriteLine("1   2   3");
-            Console.WriteLine("4   5   6");
-            Console.WriteLine("7   8   9");
+            PrintMatrix(matB);
 
             //求转置
-            tranB = Matrix<Complex32>.GetTranspose(matB);
+            tranB = Matrix<double>.GetTranspose(matB);
             Console.WriteLine();
-            Console.WriteLine("* Transpose Matrix *");
-            //PrintMatrix(invA);
+            Console.WriteLine("* Transposed Matrix *");
+            PrintMatrix(tranB);
             Console.WriteLine();
             #endregion
 
             #region ---Multiply Example---
 
             Console.WriteLine();
-            Console.WriteLine("*** Transpose ***");
+            Console.WriteLine("*** Multiply ***");
 
             //define data
-            Complex32[,] Left = new Complex32[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            Matrix<Complex32> matLeft = new Matrix<Complex32>(Left);
-            Complex32[,] Right = new Complex32[3, 3] { { 1, 1, 1 }, { 2, 2, 2 }, { 3, 3, 3 } };
-            Matrix<Complex32> matRight = new Matrix<Complex32>(Right);
-            Complex32[,] Result = new Complex32[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-            Matrix<Complex32> matResult = new Matrix<Complex32>(Result);
+            double[,] Left = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            Matrix<double> matLeft = new Matrix<double>(Left);
+            double[,] Right = new double[3, 3] { { 1, 1, 1 }, { 2, 2, 2 }, { 3, 3, 3 } };
+            Matrix<double> matRight = new Matrix<double>(Right);
+            double[,] Result = new double[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+            Matrix<double> matResult = new Matrix<double>(Result);
             Console.WriteLine();
             Console.WriteLine("* Original Left Matrix *");
-            Console.WriteLine("1   2   3");
-            Console.WriteLine("4   5   6");
-            Console.WriteLine("7   8   9");
+            PrintMatrix(matLeft);
+
             Console.WriteLine();
             Console.WriteLine("* Original Right Matrix *");
-            Console.WriteLine("1   1   1");
-            Console.WriteLine("2   2   2");
-            Console.WriteLine("3   3   3");
-
+            PrintMatrix(matRight);
 
             //求矩阵相乘
-            //Matrix<Complex32>.Multiply(matLeft, matRight, matResult);
+            Matrix<double>.Multiply(matLeft, matRight, matResult);
             Console.WriteLine();
-            Console.WriteLine("* Transpose Matrix *");
-            //PrintMatrix(invA);
+            Console.WriteLine("* Multiplied Matrix *");
+            PrintMatrix(matResult);
             Console.WriteLine();
             #endregion
 
+            //Exit after key pressed
+            Console.ReadKey();
         }
-        static void PrintMatrix(Matrix<Complex32> matrix)
+        static void PrintMatrix(Matrix<double> matrix)
         {
             int i;
             int j;
-            //for (i = 0; i < matrix.MatrixArray; i++)
-            //{
-            //    for (j = 0; j < matrix[0].Length; j++)
-            //    {
-            //        Console.Write("{0} ", matrix[i][j]);
-            //    }
-            //    Console.WriteLine();
-            //}
+            for (i = 0; i < matrix.MatrixArray.GetLength(0); i++)
+            {
+                for (j = 0; j < matrix.MatrixArray.GetLength(1); j++)
+                {
+                    Console.Write("{0} ", matrix.MatrixArray[i,j]);
+                }
+                Console.WriteLine();
+            }
         }
     }
 }

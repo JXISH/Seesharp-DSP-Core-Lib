@@ -373,6 +373,9 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             #endregion
 
             #region Dot Product
+            //we use 'ArrayProductSum' for double data type dot product
+            //we use ArrayDotProduct for complex[], and the complex dot product applies conjugation
+            //if you want to calculate complex[] without conjugating, you use ArrayProductSum()
             Console.WriteLine();
             Console.WriteLine("*** Vector.DotProduct ***");
             
@@ -381,7 +384,7 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             double[] dataBDoubleDotP = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
 
             //A,B入C出
-            double doubleDotP = Vector.ArrayDotProduct(dataADoubleDotP, dataBDoubleDotP);
+            double doubleDotP = Vector.ArrayProductSum(dataADoubleDotP, dataBDoubleDotP);
             Console.Write("Argument output: ");
             Console.WriteLine(String.Join(", ", doubleDotP));
 
@@ -483,24 +486,25 @@ namespace SeeSharpTools.JXI.Numerics.NumericOperationsExample
             #endregion
 
             #region Transpose
-            Console.WriteLine();
-            Console.WriteLine("*** Vector.Transpose ***");
+            //*** Transpose is moved to Matrix, so no example needed here
+            //Console.WriteLine();
+            //Console.WriteLine("*** Vector.Transpose ***");
 
-            // define data
-            double[][] dataADoubleTranspose = new double[][] { new double[] { -2.12, -1.12, -0.12 },
-                                                                new double[] { 1.12, 2.12, 0.12 } };
-            double[][] dataBDoubleTranspose = new double[3][];
-            dataBDoubleTranspose[0] = new double[2];
-            dataBDoubleTranspose[1] = new double[2];
-            dataBDoubleTranspose[2] = new double[2];
+            //// define data
+            //double[][] dataADoubleTranspose = new double[][] { new double[] { -2.12, -1.12, -0.12 },
+            //                                                    new double[] { 1.12, 2.12, 0.12 } };
+            //double[][] dataBDoubleTranspose = new double[3][];
+            //dataBDoubleTranspose[0] = new double[2];
+            //dataBDoubleTranspose[1] = new double[2];
+            //dataBDoubleTranspose[2] = new double[2];
 
-            // A进 output出
-            Vector.ArrayTranspose(dataADoubleTranspose, dataBDoubleTranspose);
-            Console.WriteLine("Transposed Argument Output: ");
-            for (int i = 0; i < dataBDoubleTranspose.Length; i++)
-            {
-                Console.WriteLine(String.Join(", ", dataBDoubleTranspose[i]));
-            }
+            //// A进 output出
+            //matrix(dataADoubleTranspose, dataBDoubleTranspose);
+            //Console.WriteLine("Transposed Argument Output: ");
+            //for (int i = 0; i < dataBDoubleTranspose.Length; i++)
+            //{
+            //    Console.WriteLine(String.Join(", ", dataBDoubleTranspose[i]));
+            //}
 
             /* output:
             *** Vector.Transpose ***

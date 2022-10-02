@@ -17,6 +17,19 @@ namespace Matrix_Example
             ///</summary>
             #region
 
+
+            // 调用生成单位矩阵的静态方法
+            Matrix<double> matIdent = Matrix<double>.Identity(3);
+            Console.WriteLine("Identity Matrix Generated:");
+            PrintMatrix(matIdent);
+
+            //对角线生成
+            double[] diag = new double[3] { 1, 2, 3 };
+            Matrix<double> matDiag = new Matrix<double>(diag);
+            Console.WriteLine("Diagnal Matrix Generated:");
+            PrintMatrix(matDiag);
+
+
             //创建二维数组，并利用构造函数对Matrix类的mat进行初始化
             double[,] data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
             //double[][] data2 = new double[3][] { new double[3], new double[3],                                                            new double[3]};
@@ -43,17 +56,17 @@ namespace Matrix_Example
             ///</summary>
             #region
 
-            ////创建二维数组，并利用构造函数对Matrix类的mat进行初始化
-            //double[,] data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            //Matrix<double> mat = new Matrix<double>(data);
+            //创建二维数组，并利用构造函数对Matrix类的mat进行初始化
+            data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            mat = new Matrix<double>(data);
 
-            ////打印对象mat的相关属性值
-            ////行列信息
-            //Console.WriteLine("size of mat: row:{0}, colum:{1}", mat.Row, mat.Colum);
-            ////是否为方阵
-            //Console.WriteLine("mat is square: {0}", mat.IsSquare);
-            ////是否非空
-            //Console.WriteLine("mat is valid: {0}", mat.IsValid);
+            //打印对象mat的相关属性值
+            //行列信息
+            Console.WriteLine("size of mat: row:{0}, colum:{1}", mat.Row, mat.Colum);
+            //是否为方阵
+            Console.WriteLine("mat is square: {0}", mat.IsSquare);
+            //是否非空
+            Console.WriteLine("mat is valid: {0}", mat.IsValid);
 
             #endregion
 
@@ -64,26 +77,27 @@ namespace Matrix_Example
             ///</summary>
             #region
 
-            ////创建二维数组和矩阵类对象mat，并利用构造函数对Matrix类的mat进行初始化
-            //double[,] data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            //Matrix<double> mat = new Matrix<double>(data);
+            //创建二维数组和矩阵类对象mat，并利用构造函数对Matrix类的mat进行初始化
+            data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            mat = new Matrix<double>(data);
 
-            ////打印mat第一行的元素，即mat.GetRow(0)的元素
-            //Console.Write("the elements of the first row: ");
-            //for (int i = 0; i < ，即mat.GetRow(0)的元素.Length; i++)
-            //{
-            //    Console.Write(mat.GetRow(0).GetValue(i));
-            //    Console.Write(" ");
-            //}
+            //打印mat第一行的元素，即mat.GetRow(0)的元素
+            Console.Write("the elements of the first row: ");
+            for (int i = 0; i < mat.Colum; i++)
+            {
+                Console.Write(mat.GetRow(0).GetValue(i));
+                Console.Write(" ");
+            }
 
-            //Console.WriteLine();
+            Console.WriteLine();
 
-            //Console.Write("the elements of the first colum: ");
-            ////打印第一列元素，即mat.GetColum(1)的元素
-            //foreach (var item in mat.GetColum(1))
-            //{
-            //    Console.Write("{0} ", item);
-            //}
+            Console.Write("the elements of the first colum: ");
+            //打印第一列元素，即mat.GetColum(1)的元素
+            for (int i = 0; i < mat.Row; i++)
+            {
+                Console.Write(mat.GetColum(0).GetValue(i));
+                Console.Write(" ");
+            }
 
             #endregion
 
@@ -94,32 +108,32 @@ namespace Matrix_Example
             ///</summary>
             #region
 
-            ////创建二维数组和矩阵类对象mat，并利用构造函数对Matrix类的mat进行初始化
-            //double[,] data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            //Matrix<double> mat = new Matrix<double>(data);
-            ////利用矩阵mat的行列属性，构造一个与之等大的空矩阵mat2
-            //Matrix<double> mat2 = new Matrix<double>(mat.Row, mat.Colum);
+            //创建二维数组和矩阵类对象mat，并利用构造函数对Matrix类的mat进行初始化
+            data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            mat = new Matrix<double>(data);
+            //利用矩阵mat的行列属性，构造一个与之等大的空矩阵mat2
+            mat2 = new Matrix<double>(mat.Row, mat.Colum);
 
-            ////打印两个矩阵数据
-            //Console.WriteLine("before assignment:");
-            //Console.WriteLine("mat:");
-            //PrintMatrix(mat);
-            //Console.WriteLine("mat2:");
-            //PrintMatrix(mat2);
+            //打印两个矩阵数据
+            Console.WriteLine("before assignment:");
+            Console.WriteLine("mat:");
+            PrintMatrix(mat);
+            Console.WriteLine("mat2:");
+            PrintMatrix(mat2);
 
-            ////使用GetRow和SetRow方法为mat2赋值
-            //for (int i = 0; i < mat.Row; i++)
-            //{
-            //    mat2.SetRow(i, mat.GetRow(i));
-            //}
+            //使用GetRow和SetRow方法为mat2赋值
+            for (int i = 0; i < mat.Row; i++)
+            {
+                mat2.SetRow(i, mat.GetRow(i));
+            }
 
-            //Console.WriteLine();
-            ////再次打印两个矩阵数据
-            //Console.WriteLine("after assignment:");
-            //Console.WriteLine("mat:");
-            //PrintMatrix(mat);
-            //Console.WriteLine("mat2:");
-            //PrintMatrix(mat2);
+            Console.WriteLine();
+            //再次打印两个矩阵数据
+            Console.WriteLine("after assignment:");
+            Console.WriteLine("mat:");
+            PrintMatrix(mat);
+            Console.WriteLine("mat2:");
+            PrintMatrix(mat2);
 
             #endregion
 
@@ -129,31 +143,31 @@ namespace Matrix_Example
             ///</summary>
             #region
 
-            ////创建二维数组data和data2作为矩阵的初始化数据    		
-            //double[,] data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            //double[][] data2 = new double[3][] { new double[3], new double[3], new double[3] };
-            ////利用构造函数并输入data和data2对Matrix类的mat和mat2进行初始化
-            //Matrix<double> mat = new Matrix<double>(data);
-            //Matrix<double> mat2 = new Matrix<double>(data2);
+            //创建二维数组data和data2作为矩阵的初始化数据    		
+            data = new double[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            double[][] data2 = new double[3][] { new double[3], new double[3], new double[3] };
+            //利用构造函数并输入data和data2对Matrix类的mat和mat2进行初始化
+            mat = new Matrix<double>(data);
+            mat2 = new Matrix<double>(data2);
 
-            ////打印复制前两矩阵元素
-            //Console.WriteLine("before copy:");
-            //Console.WriteLine("mat:");
-            //PrintMatrix(mat);
-            //Console.WriteLine("mat2:");
-            //PrintMatrix(mat2);
+            //打印复制前两矩阵元素
+            Console.WriteLine("before copy:");
+            Console.WriteLine("mat:");
+            PrintMatrix(mat);
+            Console.WriteLine("mat2:");
+            PrintMatrix(mat2);
 
-            ////调用拷贝方法将mat拷贝到mat2
-            //mat2.CopyFrom(mat);
-            //Console.WriteLine();
+            //调用拷贝方法将mat拷贝到mat2
+            mat2.CopyFrom(mat);
+            Console.WriteLine();
 
-            ////打印复制后两矩阵的元素
-            //Console.WriteLine("after copy:");
-            //Console.WriteLine("mat:");
-            //PrintMatrix(mat);
-            //Console.WriteLine("mat2:");
-            //PrintMatrix(mat2);
-            //Console.WriteLine();
+            //打印复制后两矩阵的元素
+            Console.WriteLine("after copy:");
+            Console.WriteLine("mat:");
+            PrintMatrix(mat);
+            Console.WriteLine("mat2:");
+            PrintMatrix(mat2);
+            Console.WriteLine();
 
             #endregion
 

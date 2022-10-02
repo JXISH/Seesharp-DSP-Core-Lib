@@ -7,12 +7,48 @@ namespace SeeSharpTools.JXI.Numerics
 {
     public partial class Vector
     {
+        #region ---- Sum Templete ----
+
+        /// <summary>
+        /// 数组求和
+        /// </summary>
+        public static T ArraySum<T>(T[] a)
+        {
+            T[] output = new T[1];
+
+            if (a is float[] a_f32)
+            {
+                float[] output_f32 = output as float[];
+                output_f32[0] = ArraySum(a_f32);
+            }
+            else if (a is double[] a_f64)
+            {
+                double[] output_f64 = output as double[];
+                output_f64[0] = ArraySum(a_f64);
+            }
+            else if (a is Complex32[] a_fc32)
+            {
+                Complex32[] output_fc32 = output as Complex32[];
+                output_fc32[0] = ArraySum(a_fc32);
+            }
+            else if (a is Complex[] a_fc64)
+            {
+                Complex[] output_fc64 = output as Complex[];
+                output_fc64[0] = ArraySum(a_fc64);
+            }
+            else { throw new Exception("Data type not supported"); }
+
+            return output[0];
+        }
+
+        #endregion
+
         #region ---- Sum ----
 
         /// <summary>
         /// 对 double 数组求和
         /// </summary>
-        public static double ArraySum(double[] a)
+        internal static double ArraySum(double[] a)
         {
             double sum;
             ippsSum_64f(a, a.Length, out sum);
@@ -22,7 +58,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 对 float 数组求和
         /// </summary>
-        public static float ArraySum(float[] a)
+        internal static float ArraySum(float[] a)
         {
             float sum;
             ippsSum_32f(a, a.Length, out sum);
@@ -32,7 +68,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 对 Complex 数组求和
         /// </summary>
-        public static Complex ArraySum(Complex[] a)
+        internal static Complex ArraySum(Complex[] a)
         {
             Complex sum;
 
@@ -48,7 +84,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 对 Complex32 数组求和
         /// </summary>
-        public static Complex32 ArraySum(Complex32[] a)
+        internal static Complex32 ArraySum(Complex32[] a)
         {
             Complex32 sum;
 

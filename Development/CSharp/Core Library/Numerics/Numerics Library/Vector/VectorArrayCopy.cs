@@ -7,7 +7,7 @@ namespace SeeSharpTools.JXI.Numerics
 {
     public partial class Vector
     {
-        #region ---- Copy Template ----
+        #region ---- Rotate Template ----
 
         /// <summary>
         /// 数组旋转模板
@@ -41,7 +41,11 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         public static void ArrayCopy<T>(T[] source, T[] destination)
         {
-            if (source is short[] source_i16 && destination is short[] destination_i16)
+            if (source is byte[] source_u8 && destination is byte[] destination_u8)
+            {
+                ArrayCopy(source_u8, destination_u8);
+            }
+            else if (source is short[] source_i16 && destination is short[] destination_i16)
             {
                 ArrayCopy(source_i16, destination_i16);
             }
@@ -73,7 +77,11 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         public static void ArrayCopy<T>(T[] source, int sourceStart, T[] destination, int destinationStat, int length)
         {
-            if (source is short[] source_i16 && destination is short[] destination_i16)
+            if (source is byte[] source_u8 && destination is byte[] destination_u8)
+            {
+                ArrayCopy(source_u8, sourceStart, destination_u8, destinationStat, length);
+            }
+            else if (source is short[] source_i16 && destination is short[] destination_i16)
             {
                 ArrayCopy(source_i16, sourceStart, destination_i16, destinationStat, length);
             }
@@ -105,7 +113,11 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         public static void ArrayCopy<T>(T[,] source, T[,] destination)
         {
-            if (source is short[,] source_i16 && destination is short[,] destination_i16)
+            if (source is byte[,] source_u8 && destination is byte[,] destination_u8)
+            {
+                ArrayCopy(source_u8, destination_u8);
+            }
+            else if (source is short[,] source_i16 && destination is short[,] destination_i16)
             {
                 ArrayCopy(source_i16, destination_i16);
             }
@@ -135,31 +147,35 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 数组拷贝模板
         /// </summary>
-        public static void ArrayCopy<T>(T[] source, IntPtr destination, int length = 0)
+        public static void ArrayCopy<T>(T[] source, IntPtr destination)
         {
-            if (source is short[] source_i16)
+            if (source is byte[] source_u8)
             {
-                ArrayCopy(source_i16, destination, length);
+                ArrayCopy(source_u8, destination);
+            }
+            else if (source is short[] source_i16)
+            {
+                ArrayCopy(source_i16, destination);
             }
             else if (source is int[] source_i32)
             {
-                ArrayCopy(source_i32, destination, length);
+                ArrayCopy(source_i32, destination);
             }
             else if (source is float[] source_f32)
             {
-                ArrayCopy(source_f32, destination, length);
+                ArrayCopy(source_f32, destination);
             }
             else if (source is double[] source_f64)
             {
-                ArrayCopy(source_f64, destination, length);
+                ArrayCopy(source_f64, destination);
             }
             else if (source is Complex32[] source_fc32)
             {
-                ArrayCopy(source_fc32, destination, length);
+                ArrayCopy(source_fc32, destination, 0, -1);
             }
             else if (source is Complex[] source_fc64)
             {
-                ArrayCopy(source_fc64, destination, length);
+                ArrayCopy(source_fc64, destination, 0, -1);
             }
             else { throw new Exception("Data type not supported"); }
         }
@@ -167,12 +183,192 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 数组拷贝模板
         /// </summary>
-        public static void ArrayCopy<T>(T[] source, byte[] destination, int length = 0)
+        public static void ArrayCopy<T>(T[] source, IntPtr destination, int sourceStart, int length)
+        {
+            if (source is byte[] source_u8)
+            {
+                ArrayCopy(source_u8, destination, sourceStart, length);
+            }
+            else if (source is short[] source_i16)
+            {
+                ArrayCopy(source_i16, destination, sourceStart, length);
+            }
+            else if (source is int[] source_i32)
+            {
+                ArrayCopy(source_i32, destination, sourceStart, length);
+            }
+            else if (source is float[] source_f32)
+            {
+                ArrayCopy(source_f32, destination, sourceStart, length);
+            }
+            else if (source is double[] source_f64)
+            {
+                ArrayCopy(source_f64, destination, sourceStart, length);
+            }
+            else if (source is Complex32[] source_fc32)
+            {
+                ArrayCopy(source_fc32, destination, sourceStart, length);
+            }
+            else if (source is Complex[] source_fc64)
+            {
+                ArrayCopy(source_fc64, destination, sourceStart, length);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+        /// <summary>
+        /// 数组拷贝模板
+        /// </summary>
+        public static void ArrayCopy<T>(IntPtr source, T[] destination)
+        {
+            if (destination is byte[] destination_u8)
+            {
+                ArrayCopy(source, destination_u8);
+            }
+            else if (destination is short[] destination_i16)
+            {
+                ArrayCopy(source, destination_i16);
+            }
+            else if (destination is int[] destination_i32)
+            {
+                ArrayCopy(source, destination_i32);
+            }
+            else if (destination is float[] destination_f32)
+            {
+                ArrayCopy(source, destination_f32);
+            }
+            else if (destination is double[] destination_f64)
+            {
+                ArrayCopy(source, destination_f64);
+            }
+            else if (destination is Complex32[] destination_fc32)
+            {
+                ArrayCopy(source, destination_fc32, 0, -1);
+            }
+            else if (destination is Complex[] destination_fc64)
+            {
+                ArrayCopy(source, destination_fc64, 0, -1);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+        /// <summary>
+        /// 数组拷贝模板
+        /// </summary>
+        public static void ArrayCopy<T>(IntPtr source, T[] destination, int destinationStat, int length)
+        {
+            if (destination is byte[] destination_u8)
+            {
+                ArrayCopy(source, destination_u8, destinationStat, length);
+            }
+            else if (destination is short[] destination_i16)
+            {
+                ArrayCopy(source, destination_i16, destinationStat, length);
+            }
+            else if (destination is int[] destination_i32)
+            {
+                ArrayCopy(source, destination_i32, destinationStat, length);
+            }
+            else if (destination is float[] destination_f32)
+            {
+                ArrayCopy(source, destination_f32, destinationStat, length);
+            }
+            else if (destination is double[] destination_f64)
+            {
+                ArrayCopy(source, destination_f64, destinationStat, length);
+            }
+            else if (destination is Complex32[] destination_fc32)
+            {
+                ArrayCopy(source, destination_fc32, destinationStat, length);
+            }
+            else if (destination is Complex[] destination_fc64)
+            {
+                ArrayCopy(source, destination_fc64, destinationStat, length);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+        /// <summary>
+        /// 数组拷贝模板
+        /// </summary>
+        public static void ArrayCopy<T>(T[,] source, IntPtr destination)
+        {
+            if (source is byte[,] source_u8)
+            {
+                ArrayCopy(source_u8, destination);
+            }
+            else if (source is short[,] source_i16)
+            {
+                ArrayCopy(source_i16, destination);
+            }
+            else if (source is int[,] source_i32)
+            {
+                ArrayCopy(source_i32, destination);
+            }
+            else if (source is float[,] source_f32)
+            {
+                ArrayCopy(source_f32, destination);
+            }
+            else if (source is double[,] source_f64)
+            {
+                ArrayCopy(source_f64, destination);
+            }
+            else if (source is Complex32[,] source_fc32)
+            {
+                ArrayCopy(source_fc32, destination);
+            }
+            else if (source is Complex[,] source_fc64)
+            {
+                ArrayCopy(source_fc64, destination);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+        /// <summary>
+        /// 数组拷贝模板
+        /// </summary>
+        public static void ArrayCopy<T>(IntPtr source, T[,] destination)
+        {
+            if (destination is byte[,] destination_u8)
+            {
+                ArrayCopy(source, destination_u8);
+            }
+            else if (destination is short[,] destination_i16)
+            {
+                ArrayCopy(source, destination_i16);
+            }
+            else if (destination is int[,] destination_i32)
+            {
+                ArrayCopy(source, destination_i32);
+            }
+            else if (destination is float[,] destination_f32)
+            {
+                ArrayCopy(source, destination_f32);
+            }
+            else if (destination is double[,] destination_f64)
+            {
+                ArrayCopy(source, destination_f64);
+            }
+            else if (destination is Complex32[,] destination_fc32)
+            {
+                ArrayCopy(source, destination_fc32);
+            }
+            else if (destination is Complex[,] destination_fc64)
+            {
+                ArrayCopy(source, destination_fc64);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+        /// <summary>
+        /// 数组拷贝模板
+        /// </summary>
+        public static void ArrayCopy<T>(T[] source, byte[] destination)
         {
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject();
 
-            ArrayCopy(source, destination_address,length);
+            ArrayCopy(source, destination_address);
 
             destination_GC.Free();
         }
@@ -180,46 +376,158 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 数组拷贝模板
         /// </summary>
-        public static void ArrayCopy<T>(IntPtr source, T[] destination, int length = 0)
+        public static void ArrayCopy<T>(byte[] source, T[] destination)
         {
-            if (destination is short[] destination_i16)
-            {
-                ArrayCopy(source, destination_i16, length);
-            }
-            else if (destination is int[] destination_i32)
-            {
-                ArrayCopy(source, destination_i32, length);
-            }
-            else if (destination is float[] destination_f32)
-            {
-                ArrayCopy(source, destination_f32, length);
-            }
-            else if (destination is double[] destination_f64)
-            {
-                ArrayCopy(source, destination_f64, length);
-            }
-            else if (destination is Complex32[] destination_fc32)
-            {
-                ArrayCopy(source, destination_fc32, length);
-            }
-            else if (destination is Complex[] destination_fc64)
-            {
-                ArrayCopy(source, destination_fc64, length);
-            }
-            else { throw new Exception("Data type not supported"); }
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject();
+
+            ArrayCopy(source_address, destination);
+
+            source_GC.Free();
         }
 
         /// <summary>
         /// 数组拷贝模板
         /// </summary>
-        public static void ArrayCopy<T>(byte[] source, T[] destination, int length = 0)
+        public static void ArrayCopy<T>(IntPtr source, IntPtr destination, int length)
+        {
+            T[] dataType = new T[1];
+            if (dataType is byte[])
+            {
+                ippsCopy_8u(source, destination, length);
+            }
+            else if (dataType is short[])
+            {
+                ippsCopy_16s(source, destination, length);
+            }
+            else if (dataType is int[])
+            {
+                ippsCopy_32s(source, destination, length);
+            }
+            else if (dataType is float[])
+            {
+                ippsCopy_32f(source, destination, length);
+            }
+            else if (dataType is double[])
+            {
+                ippsCopy_64f(source, destination, length);
+            }
+            else if (dataType is Complex32[])
+            {
+                ippsCopy_32fc(source, destination, length);
+            }
+            else if (dataType is Complex[])
+            {
+                ippsCopy_64fc(source, destination, length);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
+        #endregion
+
+        #region ---- Copy Byte ----
+
+        /// <summary>
+        /// byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(byte[] source, byte[] destination)
+        {
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
+            ippsCopy_8u(source, destination, length);
+        }
+
+        /// <summary>
+        /// byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(byte[] source, int soureStart, byte[] destination, int destinationStart, int length = -1)
         {
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
-            IntPtr source_address = source_GC.AddrOfPinnedObject();
+            IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(byte);
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(byte);
 
-            ArrayCopy(source_address, destination, length);
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, destination.Length - destinationStart, length);
+
+            ippsCopy_8u(source_address, destination_address, length);
 
             source_GC.Free();
+            destination_GC.Free();
+        }
+
+        /// <summary>
+        /// 二维 byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(byte[,] source, byte[,] destination)
+        {
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
+            ippsCopy_8u(source, destination, length);
+        }
+
+        /// <summary>
+        /// byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, byte[] destination)
+        {
+            ippsCopy_8u(source, destination, destination.Length);
+        }
+
+        /// <summary>
+        /// byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, byte[] destination, int destinationStart, int length = -1)
+        {
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(byte);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(destination.Length - destinationStart, length);
+
+            ippsCopy_8u(source, destination_address, length);
+
+            destination_GC.Free();
+        }
+
+        /// <summary>
+        /// byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, byte[,] destination)
+        {
+            ippsCopy_8u(source, destination, destination.Length);
+        }
+
+        /// <summary>
+        /// byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(byte[] source, IntPtr destination)
+        {
+            ippsCopy_8u(source, destination, source.Length);
+        }
+
+        /// <summary>
+        /// byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(byte[] source, IntPtr destination, int soureStart, int length = -1)
+        {
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(byte);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, length);
+
+            ippsCopy_8u(source_address, destination, length);
+
+            source_GC.Free();
+        }
+
+        /// <summary>
+        /// byte 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(byte[,] source, IntPtr destination)
+        {
+            ippsCopy_8u(source, destination, source.Length);
         }
 
         #endregion
@@ -231,22 +539,23 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         internal static void ArrayCopy(short[] source, short[] destination)
         {
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
             ippsCopy_16s(source, destination, length);
         }
 
         /// <summary>
         /// short 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(short[] source, int soureStart, short[] destination, int destinationStart, int length = 0)
+        internal static void ArrayCopy(short[] source, int soureStart, short[] destination, int destinationStart, int length = -1)
         {
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
             IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(short);
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(short);
 
-            if (length <= 0) { length = Math.Min(source.Length - soureStart, destination.Length - destinationStart); }
-            else { length = Math.Min(length, Math.Min(source.Length - soureStart, destination.Length - destinationStart)); }
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, destination.Length - destinationStart, length);
 
             ippsCopy_16s(source_address, destination_address, length);
 
@@ -259,28 +568,73 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         internal static void ArrayCopy(short[,] source, short[,] destination)
         {
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
             ippsCopy_16s(source, destination, length);
         }
 
         /// <summary>
         /// short 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(IntPtr source, short[] destination, int length = 0)
+        internal static void ArrayCopy(IntPtr source, short[] destination)
         {
-            if (length <= 0) { length = destination.Length; }
-            else { length = Math.Min(length, destination.Length); }
-            ippsCopy_16s(source, destination, length);
+            ippsCopy_16s(source, destination, destination.Length);
         }
 
         /// <summary>
         /// short 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(short[] source, IntPtr destination, int length = 0)
+        internal static void ArrayCopy(IntPtr source, short[] destination, int destinationStart, int length = -1)
         {
-            if (length <= 0) { length = source.Length; }
-            else { length = Math.Min(length, source.Length); }
-            ippsCopy_16s(source, destination, length);
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(short);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(destination.Length - destinationStart, length);
+
+            ippsCopy_16s(source, destination_address, length);
+
+            destination_GC.Free();
+        }
+
+        /// <summary>
+        /// short 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, short[,] destination)
+        {
+            ippsCopy_16s(source, destination, destination.Length);
+        }
+
+        /// <summary>
+        /// short 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(short[] source, IntPtr destination)
+        {
+            ippsCopy_16s(source, destination, source.Length);
+        }
+
+        /// <summary>
+        /// short 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(short[] source, IntPtr destination, int soureStart, int length = -1)
+        {
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(short);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, length);
+
+            ippsCopy_16s(source_address, destination, length);
+
+            source_GC.Free();
+        }
+
+        /// <summary>
+        /// short 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(short[,] source, IntPtr destination)
+        {
+            ippsCopy_16s(source, destination, source.Length);
         }
 
         #endregion
@@ -292,22 +646,23 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         internal static void ArrayCopy(int[] source, int[] destination)
         {
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
             ippsCopy_32s(source, destination, length);
         }
 
         /// <summary>
         /// I32 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(int[] source, int soureStart, int[] destination, int destinationStart, int length = 0)
+        internal static void ArrayCopy(int[] source, int soureStart, int[] destination, int destinationStart, int length = -1)
         {
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
             IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(int);
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(int);
 
-            if (length <= 0) { length = Math.Min(source.Length - soureStart, destination.Length - destinationStart); }
-            else { length = Math.Min(length, Math.Min(source.Length - soureStart, destination.Length - destinationStart)); }
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, destination.Length - destinationStart, length);
 
             ippsCopy_32s(source_address, destination_address, length);
 
@@ -320,28 +675,73 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         internal static void ArrayCopy(int[,] source, int[,] destination)
         {
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
             ippsCopy_32s(source, destination, length);
         }
 
         /// <summary>
         /// I32 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(IntPtr source, int[] destination, int length = 0)
+        internal static void ArrayCopy(IntPtr source, int[] destination)
         {
-            if (length <= 0) { length = destination.Length; }
-            else { length = Math.Min(length, destination.Length); }
-            ippsCopy_32s(source, destination, length);
+            ippsCopy_32s(source, destination, destination.Length);
         }
 
         /// <summary>
         /// I32 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(int[] source, IntPtr destination, int length = 0)
+        internal static void ArrayCopy(IntPtr source, int[] destination, int destinationStart, int length = -1)
         {
-            if (length <= 0) { length = source.Length; }
-            else { length = Math.Min(length, source.Length); }
-            ippsCopy_32s(source, destination, length);
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(int);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(destination.Length - destinationStart, length);
+
+            ippsCopy_32s(source, destination_address, length);
+
+            destination_GC.Free();
+        }
+
+        /// <summary>
+        /// I32 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, int[,] destination)
+        {
+            ippsCopy_32s(source, destination, destination.Length);
+        }
+
+        /// <summary>
+        /// I32 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(int[] source, IntPtr destination)
+        {
+            ippsCopy_32s(source, destination, source.Length);
+        }
+
+        /// <summary>
+        /// I32 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(int[] source, IntPtr destination, int soureStart, int length = -1)
+        {
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(int);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, length);
+
+            ippsCopy_32s(source_address, destination, length);
+
+            source_GC.Free();
+        }
+
+        /// <summary>
+        /// I32 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(int[,] source, IntPtr destination)
+        {
+            ippsCopy_32s(source, destination, source.Length);
         }
 
         #endregion
@@ -353,22 +753,23 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         internal static void ArrayCopy(double[] source, double[] destination)
         {
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
             ippsCopy_64f(source, destination, length);
         }
 
         /// <summary>
         /// double 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(double[] source, int soureStart, double[] destination, int destinationStart, int length = 0)
+        internal static void ArrayCopy(double[] source, int soureStart, double[] destination, int destinationStart, int length = -1)
         {
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
             IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(double);
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(double);
 
-            if (length <= 0) { length = Math.Min(source.Length - soureStart, destination.Length - destinationStart); }
-            else { length = Math.Min(length, Math.Min(source.Length - soureStart, destination.Length - destinationStart)); }
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, destination.Length - destinationStart, length);
 
             ippsCopy_64f(source_address, destination_address, length);
 
@@ -381,28 +782,73 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         internal static void ArrayCopy(double[,] source, double[,] destination)
         {
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
             ippsCopy_64f(source, destination, length);
         }
 
         /// <summary>
         /// double 数组拷贝
         /// </summary>
-        public static void ArrayCopy(double[] source, IntPtr destination, int length = 0)
+        public static void ArrayCopy(double[] source, IntPtr destination)
         {
-            if (length <= 0) { length = source.Length; }
-            else { length = Math.Min(length, source.Length); }
-            ippsCopy_64f(source, destination, length);
+            ippsCopy_64f(source, destination, source.Length);
         }
 
         /// <summary>
         /// double 数组拷贝
         /// </summary>
-        public static void ArrayCopy(IntPtr source, double[] destination, int length = 0)
+        internal static void ArrayCopy(double[] source, IntPtr destination, int soureStart, int length = -1)
         {
-            if (length <= 0) { length = destination.Length; }
-            else { length = Math.Min(length, destination.Length); }
-            ippsCopy_64f(source, destination, length);
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(double);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, length);
+
+            ippsCopy_64f(source_address, destination, length);
+
+            source_GC.Free();
+        }
+
+        /// <summary>
+        /// double 数组拷贝
+        /// </summary>
+        public static void ArrayCopy(double[,] source, IntPtr destination)
+        {
+            ippsCopy_64f(source, destination, source.Length);
+        }
+
+        /// <summary>
+        /// double 数组拷贝
+        /// </summary>
+        public static void ArrayCopy(IntPtr source, double[] destination)
+        {
+            ippsCopy_64f(source, destination, destination.Length);
+        }
+
+        /// <summary>
+        /// double 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, double[] destination, int destinationStart, int length = -1)
+        {
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(double);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(destination.Length - destinationStart, length);
+
+            ippsCopy_64f(source, destination_address, length);
+
+            destination_GC.Free();
+        }
+
+        /// <summary>
+        /// double 数组拷贝
+        /// </summary>
+        public static void ArrayCopy(IntPtr source, double[,] destination)
+        {
+            ippsCopy_64f(source, destination, destination.Length);
         }
 
         #endregion
@@ -414,23 +860,23 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         internal static void ArrayCopy(float[] source, float[] destination)
         {
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
             ippsCopy_32f(source, destination, length);
         }
 
         /// <summary>
         /// float 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(float[] source, int soureStart, float[] destination, int destinationStart, int length = 0)
+        internal static void ArrayCopy(float[] source, int soureStart, float[] destination, int destinationStart, int length = -1)
         {
-
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
             IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(float);
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(float);
 
-            if (length <= 0) { length = Math.Min(source.Length - soureStart, destination.Length - destinationStart); }
-            else { length = Math.Min(length, Math.Min(source.Length - soureStart, destination.Length - destinationStart)); }
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, destination.Length - destinationStart, length);
 
             ippsCopy_32f(source_address, destination_address, length);
 
@@ -443,28 +889,73 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         internal static void ArrayCopy(float[,] source, float[,] destination)
         {
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
             ippsCopy_32f(source, destination, length);
         }
 
         /// <summary>
         /// float 数组拷贝
         /// </summary>
-        public static void ArrayCopy(float[] source, IntPtr destination, int length = 0)
+        public static void ArrayCopy(float[] source, IntPtr destination)
         {
-            if (length <= 0) { length = source.Length; }
-            else { length = Math.Min(length, source.Length); }
-            ippsCopy_32f(source, destination, length);
+            ippsCopy_32f(source, destination, source.Length);
         }
 
         /// <summary>
         /// float 数组拷贝
         /// </summary>
-        public static void ArrayCopy(IntPtr source, float[] destination, int length = 0)
+        internal static void ArrayCopy(float[] source, IntPtr destination, int soureStart, int length = -1)
         {
-            if (length <= 0) { length = destination.Length; }
-            else { length = Math.Min(length, destination.Length); }
-            ippsCopy_32f(source, destination, length);
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(float);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, length);
+
+            ippsCopy_32f(source_address, destination, length);
+
+            source_GC.Free();
+        }
+
+        /// <summary>
+        /// float 数组拷贝
+        /// </summary>
+        public static void ArrayCopy(float[,] source, IntPtr destination)
+        {
+            ippsCopy_32f(source, destination, source.Length);
+        }
+
+        /// <summary>
+        /// float 数组拷贝
+        /// </summary>
+        public static void ArrayCopy(IntPtr source, float[] destination)
+        {
+            ippsCopy_32f(source, destination, destination.Length);
+        }
+
+        /// <summary>
+        /// float 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, float[] destination, int destinationStart, int length = -1)
+        {
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(float);
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(destination.Length - destinationStart, length);
+
+            ippsCopy_32f(source, destination_address, length);
+
+            destination_GC.Free();
+        }
+
+        /// <summary>
+        /// float 数组拷贝
+        /// </summary>
+        public static void ArrayCopy(IntPtr source, float[,] destination)
+        {
+            ippsCopy_32f(source, destination, destination.Length);
         }
 
         #endregion
@@ -482,15 +973,15 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// Complex 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(Complex[] source, int soureStart, Complex[] destination, int destinationStart, int length = 0)
+        internal static void ArrayCopy(Complex[] source, int soureStart, Complex[] destination, int destinationStart, int length = -1)
         {
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
             IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(double) * 2;
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(double) * 2;
 
-            if (length <= 0) { length = Math.Min(source.Length - soureStart, destination.Length - destinationStart); }
-            else { length = Math.Min(length, Math.Min(source.Length - soureStart, destination.Length - destinationStart)); }
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, destination.Length - destinationStart, length);
 
             ippsCopy_64fc(source_address, destination_address, length);
 
@@ -508,7 +999,8 @@ namespace SeeSharpTools.JXI.Numerics
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject();
 
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
 
             ippsCopy_64fc(source_address, destination_address, length);
 
@@ -519,13 +1011,13 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// Complex 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(Complex[] source, IntPtr destination, int length = 0)
+        internal static void ArrayCopy(Complex[] source, IntPtr destination, int soureStart = 0, int length = -1)
         {
-            if (length <= 0) { length = source.Length; }
-            else { length = Math.Min(length, source.Length); }
-
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
-            IntPtr source_address = source_GC.AddrOfPinnedObject();
+            IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(double) * 2;
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, length);
 
             ippsCopy_64fc(source_address, destination, length);
 
@@ -535,15 +1027,41 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// Complex 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(IntPtr source, Complex[] destination, int length = 0)
+        internal static void ArrayCopy(Complex[,] source, IntPtr destination)
         {
-            if (length <= 0) { length = destination.Length; }
-            else { length = Math.Min(length, destination.Length); }
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject();
 
+            ippsCopy_64fc(source_address, destination, source.Length);
+
+            source_GC.Free();
+        }
+
+        /// <summary>
+        /// Complex 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, Complex[] destination, int destinationStart = 0, int length = -1)
+        {
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(double) * 2;
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(destination.Length - destinationStart, length);
+
+            ippsCopy_64fc(source, destination_address, length);
+
+            destination_GC.Free();
+        }
+
+        /// <summary>
+        /// Complex 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, Complex[,] destination)
+        {
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject();
 
-            ippsCopy_64fc(source, destination_address, length);
+            ippsCopy_64fc(source, destination_address, destination.Length);
 
             destination_GC.Free();
         }
@@ -563,15 +1081,15 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// Complex32 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(Complex32[] source, int soureStart, Complex32[] destination, int destinationStart, int length = 0)
+        internal static void ArrayCopy(Complex32[] source, int soureStart, Complex32[] destination, int destinationStart, int length = -1)
         {
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
             IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(float) * 2;
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(float) * 2;
 
-            if (length <= 0) { length = Math.Min(source.Length - soureStart, destination.Length - destinationStart); }
-            else { length = Math.Min(length, Math.Min(source.Length - soureStart, destination.Length - destinationStart)); }
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, destination.Length - destinationStart, length);
 
             ippsCopy_32fc(source_address, destination_address, length);
 
@@ -589,7 +1107,8 @@ namespace SeeSharpTools.JXI.Numerics
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject();
 
-            int length = Math.Min(source.Length, destination.Length);
+            // 确定拷贝长度
+            int length = GetMinArrayLenth(source.Length, destination.Length, -1);
 
             ippsCopy_32fc(source_address, destination_address, length);
 
@@ -600,13 +1119,13 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// Complex32 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(Complex32[] source, IntPtr destination, int length = 0)
+        internal static void ArrayCopy(Complex32[] source, IntPtr destination, int soureStart = 0, int length = -1)
         {
-            if (length <= 0) { length = source.Length; }
-            else { length = Math.Min(length, source.Length); }
-
             GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
-            IntPtr source_address = source_GC.AddrOfPinnedObject();
+            IntPtr source_address = source_GC.AddrOfPinnedObject() + soureStart * sizeof(float) * 2;
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(source.Length - soureStart, length);
 
             ippsCopy_32fc(source_address, destination, length);
 
@@ -616,15 +1135,41 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// Complex32 数组拷贝
         /// </summary>
-        internal static void ArrayCopy(IntPtr source, Complex32[] destination, int length = 0)
+        internal static void ArrayCopy(Complex32[,] source, IntPtr destination)
         {
-            if (length <= 0) { length = destination.Length; }
-            else { length = Math.Min(length, destination.Length); }
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject();
 
+            ippsCopy_32fc(source_address, destination, source.Length);
+
+            source_GC.Free();
+        }
+
+        /// <summary>
+        /// Complex32 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, Complex32[] destination, int destinationStart = 0, int length = -1)
+        {
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject() + destinationStart * sizeof(float) * 2;
+
+            // 确定拷贝长度
+            length = GetMinArrayLenth(destination.Length - destinationStart, length);
+
+            ippsCopy_32fc(source, destination_address, length);
+
+            destination_GC.Free();
+        }
+
+        /// <summary>
+        /// Complex32 数组拷贝
+        /// </summary>
+        internal static void ArrayCopy(IntPtr source, Complex32[,] destination)
+        {
             GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
             IntPtr destination_address = destination_GC.AddrOfPinnedObject();
 
-            ippsCopy_32fc(source, destination_address, length);
+            ippsCopy_32fc(source, destination_address, destination.Length);
 
             destination_GC.Free();
         }
@@ -633,6 +1178,28 @@ namespace SeeSharpTools.JXI.Numerics
 
 
         #region---- Copy : pDst = pSrc ----
+
+        // Byte
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_8u([In] byte[] pSrc, [Out] byte[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_8u([In] byte[,] pSrc, [Out] byte[,] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_8u([In] byte[] pSrc, [Out] IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_8u([In] byte[,] pSrc, [Out] IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_8u([In] IntPtr pSrc, [Out] byte[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_8u([In] IntPtr pSrc, [Out] byte[,] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_8u([In] IntPtr pSrc, [Out] IntPtr pDst, int len);
 
         // Short
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
@@ -645,7 +1212,13 @@ namespace SeeSharpTools.JXI.Numerics
         private static extern int ippsCopy_16s([In] short[] pSrc, [Out] IntPtr pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_16s([In] short[,] pSrc, [Out] IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsCopy_16s([In] IntPtr pSrc, [Out] short[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_16s([In] IntPtr pSrc, [Out] short[,] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsCopy_16s([In] IntPtr pSrc, [Out] IntPtr pDst, int len);
@@ -662,7 +1235,13 @@ namespace SeeSharpTools.JXI.Numerics
         private static extern int ippsCopy_32s([In] int[] pSrc, [Out] IntPtr pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_32s([In] int[,] pSrc, [Out] IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsCopy_32s([In] IntPtr pSrc, [Out] int[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_32s([In] IntPtr pSrc, [Out] int[,] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsCopy_32s([In] IntPtr pSrc, [Out] IntPtr pDst, int len);
@@ -679,7 +1258,13 @@ namespace SeeSharpTools.JXI.Numerics
         private static extern int ippsCopy_32f([In] float[] pSrc, IntPtr pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_32f([In] float[,] pSrc, IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsCopy_32f(IntPtr pSrc, [Out] float[] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_32f(IntPtr pSrc, [Out] float[,] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsCopy_32f(IntPtr pSrc, IntPtr pDst, int len);
@@ -696,7 +1281,13 @@ namespace SeeSharpTools.JXI.Numerics
         private static extern int ippsCopy_64f(IntPtr pSrc, [Out] double[] pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_64f(IntPtr pSrc, [Out] double[,] pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsCopy_64f([In] double[] pSrc, IntPtr pDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsCopy_64f([In] double[,] pSrc, IntPtr pDst, int len);
 
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsCopy_64f(IntPtr pSrc, IntPtr pDst, int len);
@@ -713,6 +1304,18 @@ namespace SeeSharpTools.JXI.Numerics
         #endregion
 
         #region---- Move : pDst = pSrc ----
+
+        // byte
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMove_8u([In] byte[] pSrc, [Out] byte[] pDst, int len);
+
+        // short
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMove_16s([In] short[] pSrc, [Out] short[] pDst, int len);
+
+        // int
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMove_32s([In] int[] pSrc, [Out] int[] pDst, int len);
 
         // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]

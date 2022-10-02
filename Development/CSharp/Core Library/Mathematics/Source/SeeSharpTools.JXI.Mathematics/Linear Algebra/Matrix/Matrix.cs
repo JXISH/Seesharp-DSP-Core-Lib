@@ -9,68 +9,92 @@ using SeeSharpTools.JXI.Numerics;
 
 namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
 {
-    public partial class Matrix<T>
+    public partial class Matrix<T> : IDisposable
     {
-        private T[] _dataRef;        
+        private const int ALIGNMENT = 64;
+
+        /// <summary>
+        /// 矩阵占用内存
+        /// </summary>
+        private T[,] _dataRef = null;
+        private IntPtr _dataAddress = IntPtr.Zero;
+        private GCHandle _dataGC;
+        /// <summary>
+        /// 矩阵占用内存大小 (元素个数)
+        /// </summary>
+        protected int RefSize { get { return _dataRef.Length; } }
+
         /// <summary>
         /// 矩阵数据
         /// </summary>
-        public T[,] MatrixArray 
-        { 
-            get 
+        public T[,] MatrixArray
+        {
+            get
             {
-                T[,] result = new T[_rowSize, _columSize];
-                GCHandle result_GC = GCHandle.Alloc(result, GCHandleType.Pinned);
-                IntPtr result_address = result_GC.AddrOfPinnedObject();
-
-                Vector.ArrayCopy(_dataRef, result_address);
-
-                result_GC.Free();
-
+                T[,] result = new T[Row, Colum];
+                Vector.ArrayCopy(_dataAddress, result);
                 return result;
-            } 
+            }
         }
 
-        private int _rowSize;
         /// <summary>
         /// 行数
         /// </summary>
-        public int Row { get { return _rowSize; } }
+        public int Row { get { return _dataRef.GetLength(0); } }
 
-        private int _columSize;
         /// <summary>
         /// 列数
         /// </summary>
-        public int Colum { get { return _columSize; } }
+        public int Colum { get { return _dataRef.GetLength(1); } }
 
         private bool _isSymmetric;
         /// <summary>
         /// 是否是(共轭)对称阵
         /// </summary>
-        public bool IsSymmetric 
-        {
-            get { return (_isSymmetric && (_rowSize == _columSize)); }
-            set { _isSymmetric = value; }
-        }
+        public bool IsSymmetric { get { return _isSymmetric; } }
 
         /// <summary>
         /// 是否是方阵
         /// </summary>
-        public bool IsSquare { get { return (_rowSize == _columSize); } }
+        public bool IsSquare { get { return (Row == Colum); } }
 
         /// <summary>
         /// 是否非空
         /// </summary>
-        public bool IsValid { get { return (_dataRef != null && _dataRef.Length > 0 && _rowSize > 0 && _columSize > 0); } }
+        public bool IsValid { get { return (_dataRef != null); } }
+
+        /// <summary>
+        /// 析构函数
+        /// </summary>
+        ~Matrix()
+        {
+            Dispose();
+        }
+
+        /// <summary>
+        /// 释放内存
+        /// </summary>
+        public void Dispose()
+        {
+            // 释放内存
+            if (_dataRef != null)
+            {
+                _dataGC.Free();
+                _dataAddress = IntPtr.Zero;
+
+                _dataRef = null;
+            }
+        }
 
         /// <summary>
         /// 构造
         /// </summary>
         public Matrix(int row, int colum)
         {
-            _dataRef = new T[row * colum];
-            _rowSize = row;
-            _columSize = colum;
+            #region 判断输入参数合法
+            if (row <= 0 || colum <= 0) { throw (new System.Exception("Matrix size is not valid.")); }
+            #endregion
+            CreateMatrixBuffer(row, colum);
             _isSymmetric = false;
         }
 
@@ -79,57 +103,133 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         /// </summary>
         public Matrix(T[,] data, bool symmetric = false)
         {
-            _dataRef = new T[data.GetLength(0) * data.GetLength(1)];
+            #region 判断输入参数合法
+            if (data.GetLength(0) <= 0 || data.GetLength(1) <= 0) { throw (new System.Exception("Matrix size is not valid.")); }
+            #endregion
 
-            GCHandle data_GC = GCHandle.Alloc(data, GCHandleType.Pinned);
-            IntPtr data_address = data_GC.AddrOfPinnedObject();
+            // 初始化内存
+            CreateMatrixBuffer(data.GetLength(0), data.GetLength(1));
+            // 复制数组
+            Vector.ArrayCopy(data, _dataRef);
 
-            Vector.ArrayCopy(data_address, _dataRef);
-
-            data_GC.Free();
-
-            _rowSize = data.GetLength(0);
-            _columSize = data.GetLength(1);
-            _isSymmetric = symmetric;
+            _isSymmetric = symmetric ? symmetric : CheckSymmetric(_dataRef);
             return;
         }
 
+        private static bool CheckSymmetric(T[,] data)
+        {
+            int N = data.GetLength(0);
+            if (N != data.GetLength(1)) { return false; }
+
+            if (data is float[,] data_f32)
+            {
+                return CheckSymmetricReal(data_f32);
+            }
+            else if (data is double[,] data_f64)
+            {
+                return CheckSymmetricReal(data_f64);
+            }
+            else if (data is Complex32[,] data_fc32)
+            {
+                return CheckHermitianComplex(data_fc32);
+            }
+            else if (data is Complex[,] data_fc64)
+            {
+                return CheckHermitianComplex(data_fc64);
+            }
+            else
+            { throw new System.Exception("Data type not supported"); }
+        }
+
+        private static bool CheckSymmetricReal(double[,] data)
+        {
+            int N = data.GetLength(0);
+            if (N != data.GetLength(1)) { return false; }
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (data[i, j] != data[j, i]) { return false; }
+                }
+            }
+            return true;
+        }
+
+        private static bool CheckSymmetricReal(float[,] data)
+        {
+            int N = data.GetLength(0);
+            if (N != data.GetLength(1)) { return false; }
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (data[i, j] != data[j, i]) { return false; }
+                }
+            }
+            return true;
+        }
+
+        private static bool CheckHermitianComplex(Complex[,] data)
+        {
+            int N = data.GetLength(0);
+            if (N != data.GetLength(1)) { return false; }
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (data[i, j] != Complex.Conjugate(data[j, i])) { return false; }
+                }
+            }
+            return true;
+        }
+
+        private static bool CheckHermitianComplex(Complex32[,] data)
+        {
+            int N = data.GetLength(0);
+            if (N != data.GetLength(1)) { return false; }
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (data[i, j] != Complex32.Conjugate(data[j, i])) { return false; }
+                }
+            }
+            return true;
+        }
+
+
         /// <summary>
-        /// 构造
+        /// 构造, 一组列向量
         /// </summary>
         public Matrix(T[][] data, bool symmetric = false)
         {
-            int tempColum = data[0].Length;
+            #region 判断输入参数合法
+            int colum = data.Length;
+            int row = data[0].Length;
+
+            if (row <= 0 || colum <= 0) { throw (new System.Exception("Matrix size is not valid.")); }
+
             for (int i = 0; i < data.Length; i++)
             {
-                if (data[i].Length != tempColum) { throw (new ArgumentException("Invalid data size.")); }
+                if (data[i].Length != row) { throw (new System.Exception("Invalid data size.")); }
             }
 
-            int elementSize = 0;
-            if (data is short[][]) { elementSize = sizeof(short); }
-            else if (data is int[][]) { elementSize = sizeof(int); }
-            else if (data is float[][]) { elementSize = sizeof(float); }
-            else if (data is double[][]) { elementSize = sizeof(double); }
-            else if (data is Complex32[][]) { elementSize = sizeof(float) *2; }
-            else if (data is Complex[][]) { elementSize = sizeof(double)*2; }
-            else { throw new ArgumentException("Data type not supported"); }
+            #endregion
 
-            _dataRef = new T[data.Length * tempColum];
+            // 初始化内存
+            CreateMatrixBuffer(row, colum);
 
-            GCHandle dataRef_GC = GCHandle.Alloc(_dataRef, GCHandleType.Pinned);
-            IntPtr dataRef_address = dataRef_GC.AddrOfPinnedObject();
+            // 复制数组
+            int size = ElementSize<T>();
+            IntPtr tempAddress = _dataAddress;
 
             for (int i = 0; i < data.Length; i++)
-            {                
-                Vector.ArrayCopy(data[i], dataRef_address);
-                dataRef_address += elementSize * tempColum;
+            {
+                MatrixCaller.ArrayCopy(data[i], tempAddress, colum);
+                tempAddress += size;
             }
 
-            dataRef_GC.Free();
-
-            _rowSize = data.Length;
-            _columSize = tempColum;
-            _isSymmetric = symmetric;
+            _isSymmetric = symmetric ? symmetric : CheckSymmetric(_dataRef);
             return;
         }
 
@@ -146,36 +246,30 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         /// </summary>
         public Matrix(T[] diagonal)
         {
-            if (!VectorVaild(diagonal)) { throw (new ArgumentException("Input data is not valid.")); }
+            if (!VectorVaild(diagonal)) { throw (new System.Exception("Input data is not valid.")); }
 
+            // 初始化内存
             int N = diagonal.Length;
-            _dataRef = new T[N * N];
+            CreateMatrixBuffer(N, N);
 
-            GCHandle data_GC = GCHandle.Alloc(_dataRef, GCHandleType.Pinned);
-            IntPtr data_address = data_GC.AddrOfPinnedObject();
-
-            GCHandle diagonal_GC = GCHandle.Alloc(diagonal, GCHandleType.Pinned);
-            IntPtr diagonal_address = diagonal_GC.AddrOfPinnedObject();
-
-            MatrixCaller.cblas_scopy(N, diagonal_address, 1, data_address, N + 1);
-
-            _rowSize = N;
-            _columSize = N;
+            // 复制数组
+            MatrixCaller.ArrayCopy(diagonal, _dataAddress, N + 1);
             _isSymmetric = true;
-
-            data_GC.Free();
-            diagonal_GC.Free();
 
             return;
         }
 
+        /// <summary>
+        /// 复制矩阵
+        /// </summary>
         public void CopyFrom(Matrix<T> source)
         {
-            _dataRef = new T[source._dataRef.Length];
-            Vector.ArrayCopy(source._dataRef, _dataRef);
+            // 初始化内存
+            CreateMatrixBuffer(source.Row, source.Colum);
 
-            _rowSize = source._rowSize;
-            _columSize = source._columSize;
+            // 复制数组
+            Vector.ArrayCopy<T>(source._dataRef, _dataRef);
+
             _isSymmetric = source._isSymmetric;
         }
 
@@ -185,46 +279,15 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         public T[] GetRow(int row)
         {
             #region 判断输入参数合法
-            if (row < 0 || row >= _rowSize) { throw (new ArgumentException("Row size is not valid.")); }
+            if (row < 0 || row >= Row) { throw (new System.Exception("Row size is not valid.")); }
             #endregion
 
-            #region 准备
-            T[] result = new T[_columSize];            
-            GCHandle resultData_GC = GCHandle.Alloc(result, GCHandleType.Pinned);
-            IntPtr resultData_address = resultData_GC.AddrOfPinnedObject();            
-
-            GCHandle data_GC = GCHandle.Alloc(_dataRef, GCHandleType.Pinned);
-            IntPtr data_address = data_GC.AddrOfPinnedObject();
-            #endregion
-
-            #region 调用API
-            if (_dataRef is float[])
-            {
-                data_address += row * _columSize * sizeof(float);
-                MatrixCaller.cblas_scopy(_columSize, data_address, 1, resultData_address, 1);
-            }
-            else if (_dataRef is double[])
-            {
-                data_address += row * _columSize * sizeof(double);
-                MatrixCaller.cblas_dcopy(_columSize, data_address, 1, resultData_address, 1);
-            }
-            else if (_dataRef is Complex32[] )
-            {
-                data_address += row * _columSize * sizeof(float) * 2;
-                MatrixCaller.cblas_ccopy(_columSize, data_address, 1, resultData_address, 1);
-            }
-            else if (_dataRef is Complex[])
-            {
-                data_address += row * _columSize * sizeof(double) * 2;
-                MatrixCaller.cblas_zcopy(_columSize, data_address, 1, resultData_address, 1);
-            }
-            else { throw new ArgumentException("Data type not supported"); }
-            #endregion
-
-            #region 收尾
-            resultData_GC.Free();
-            data_GC.Free();
-            #endregion
+            // 创建返回数组
+            T[] result = new T[Colum];
+            // 返回数据起始位置
+            IntPtr tempAddress = _dataAddress + row * Colum;
+            // 复制数据
+            Vector.ArrayCopy(tempAddress, result);
 
             return result;
         }
@@ -235,46 +298,15 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         public T[] GetColum(int colum)
         {
             #region 判断输入参数合法
-            if (colum < 0 || colum >= _columSize) { throw (new ArgumentException("Row size is not valid.")); }
+            if (colum < 0 || colum >= Colum) { throw (new System.Exception("Row size is not valid.")); }
             #endregion
 
-            #region 准备
-            T[] result = new T[_rowSize];
-            GCHandle resultData_GC = GCHandle.Alloc(result, GCHandleType.Pinned);
-            IntPtr resultData_address = resultData_GC.AddrOfPinnedObject();
-
-            GCHandle data_GC = GCHandle.Alloc(_dataRef, GCHandleType.Pinned);
-            IntPtr data_address = data_GC.AddrOfPinnedObject();
-            #endregion
-
-            #region 调用API
-            if (_dataRef is float[])
-            {
-                data_address += colum * sizeof(float);
-                MatrixCaller.cblas_scopy(_rowSize, data_address, _columSize, resultData_address, 1);
-            }
-            else if (_dataRef is double[])
-            {
-                data_address += colum * sizeof(double);
-                MatrixCaller.cblas_dcopy(_rowSize, data_address, _columSize, resultData_address, 1);
-            }
-            else if (_dataRef is Complex32[])
-            {
-                data_address += colum * sizeof(float) * 2;
-                MatrixCaller.cblas_ccopy(_rowSize, data_address, _columSize, resultData_address, 1);
-            }
-            else if (_dataRef is Complex[])
-            {
-                data_address += colum * sizeof(double) * 2;
-                MatrixCaller.cblas_zcopy(_rowSize, data_address, _columSize, resultData_address, 1);
-            }
-            else { throw new ArgumentException("Data type not supported"); }
-            #endregion
-
-            #region 收尾
-            resultData_GC.Free();
-            data_GC.Free();
-            #endregion
+            // 创建返回数组
+            T[] result = new T[Row];
+            // 返回数据起始位置
+            IntPtr tempAddress = _dataAddress + colum;
+            // 复制数据
+            MatrixCaller.ArrayCopy(tempAddress, result, Colum);
 
             return result;
         }
@@ -282,49 +314,15 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         /// <summary>
         /// 设置矩阵特定阵行
         /// </summary>
-        public void SetRow(int row,T[] rowdata)
+        public void SetRow(int row, T[] rowdata)
         {
             #region 判断输入参数合法
-            if (row < 0 || row >= _rowSize) { throw (new ArgumentException("Row size is not valid.")); }
-            if (rowdata.Length != _columSize) { throw (new ArgumentException("Row data size is not valid.")); }
+            if (row < 0 || row >= Row) { throw (new System.Exception("Row size is not valid.")); }
+            if (rowdata.Length != Colum) { throw (new System.Exception("Row data size is not valid.")); }
             #endregion
 
-            #region 准备
-            GCHandle input_GC = GCHandle.Alloc(rowdata, GCHandleType.Pinned);
-            IntPtr input_address = input_GC.AddrOfPinnedObject();
-
-            GCHandle data_GC = GCHandle.Alloc(_dataRef, GCHandleType.Pinned);
-            IntPtr data_address = data_GC.AddrOfPinnedObject();
-            #endregion
-
-            #region 调用API
-            if (_dataRef is float[])
-            {
-                data_address += row * _columSize * sizeof(float);
-                MatrixCaller.cblas_scopy(_columSize, input_address, 1, data_address, 1);
-            }
-            else if (_dataRef is double[])
-            {
-                data_address += row * _columSize * sizeof(double);
-                MatrixCaller.cblas_dcopy(_columSize, input_address, 1, data_address, 1);
-            }
-            else if (_dataRef is Complex32[])
-            {
-                data_address += row * _columSize * sizeof(float) * 2;
-                MatrixCaller.cblas_ccopy(_columSize, input_address, 1, data_address, 1);
-            }
-            else if (_dataRef is Complex[])
-            {
-                data_address += row * _columSize * sizeof(double) * 2;
-                MatrixCaller.cblas_zcopy(_columSize, input_address, 1, data_address, 1);
-            }
-            else { throw new ArgumentException("Data type not supported"); }
-            #endregion
-
-            #region 收尾
-            input_GC.Free();
-            data_GC.Free();
-            #endregion
+            IntPtr tempAddress = _dataAddress + row * Colum;
+            Vector.ArrayCopy(rowdata, tempAddress);
         }
 
         /// <summary>
@@ -333,51 +331,12 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         public void SetColum(int colum, T[] columdata)
         {
             #region 判断输入参数合法
-            if (colum < 0 || colum >= _columSize) { throw (new ArgumentException("Row size is not valid.")); }
-            if (columdata.Length != _rowSize) { throw (new ArgumentException("Row data size is not valid.")); }
+            if (colum < 0 || colum >= Colum) { throw (new System.Exception("Row size is not valid.")); }
+            if (columdata.Length != Row) { throw (new System.Exception("Row data size is not valid.")); }
             #endregion
 
-            #region 准备
-            GCHandle input_GC = GCHandle.Alloc(columdata, GCHandleType.Pinned);
-            IntPtr input_address = input_GC.AddrOfPinnedObject();
-
-            GCHandle data_GC = GCHandle.Alloc(_dataRef, GCHandleType.Pinned);
-            IntPtr data_address = data_GC.AddrOfPinnedObject();
-            #endregion
-
-            #region 调用API
-            if (_dataRef is float[])
-            {
-                data_address += colum * sizeof(float);
-                MatrixCaller.cblas_scopy(_rowSize, input_address, _columSize, data_address, 1);
-            }
-            else if (_dataRef is double[])
-            {
-                data_address += colum * sizeof(double);
-                MatrixCaller.cblas_dcopy(_rowSize, input_address, _columSize, data_address, 1);
-            }
-            else if (_dataRef is Complex32[])
-            {
-                data_address += colum * sizeof(float) * 2;
-                MatrixCaller.cblas_ccopy(_rowSize, input_address, _columSize, data_address, 1);
-            }
-            else if (_dataRef is Complex[])
-            {
-                data_address += colum * sizeof(double) * 2;
-                MatrixCaller.cblas_zcopy(_rowSize, input_address, _columSize, data_address, 1);
-            }
-            else { throw new ArgumentException("Data type not supported"); }
-            #endregion
-
-            #region 收尾
-            input_GC.Free();
-            data_GC.Free();
-            #endregion
-        }
-
-        private static bool VectorVaild(T[] vector)
-        {
-            return (vector.Length > 0 && vector != null);
+            IntPtr tempAddress = _dataAddress + colum;
+            MatrixCaller.ArrayCopy(columdata, tempAddress, Colum);
         }
 
         /// <summary>
@@ -385,7 +344,7 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
         /// </summary>
         public static Matrix<T> Identity(int N)
         {
-            if (N <= 0) { throw (new ArgumentException("N is not valid.")); }
+            if (N <= 0) { throw (new System.Exception("N is not valid.")); }
 
             T[] diagonal = new T[N];
             if (diagonal is float[] diagonal_f32)
@@ -404,14 +363,138 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
             {
                 Vector.ConstInit(N, diagonal_fc64, Complex.One);
             }
-            else { throw new ArgumentException("Data type not supported"); }
+            else { throw new System.Exception("Data type not supported"); }
 
             return new Matrix<T>(diagonal);
+        }
+
+        private void CreateMatrixBuffer(int row, int colum)
+        {
+            // 创建临时变量用于初始化内存
+            _dataRef = new T[row, colum];
+
+            _dataGC = GCHandle.Alloc(_dataRef, GCHandleType.Pinned);
+            _dataAddress = _dataGC.AddrOfPinnedObject();
+        }
+
+        private void CreateMatrixBuffer(T[,] data)
+        {
+            _dataRef = data;
+            _dataGC = GCHandle.Alloc(data, GCHandleType.Pinned);
+            _dataAddress = _dataGC.AddrOfPinnedObject();
+        }
+
+        private static bool VectorVaild(T[] vector)
+        {
+            return (vector.Length > 0 && vector != null);
+        }
+
+        private static int ElementSize<T>()
+        {
+            T[] dataType = new T[1];
+            if (dataType is float[]) { return sizeof(float); }
+            else if (dataType is double[]) { return sizeof(double); }
+            else if (dataType is Complex32[]) { return sizeof(float) * 2; }
+            else if (dataType is Complex[]) { return sizeof(double) * 2; }
+            else { throw new System.Exception("Invalid data type."); }
         }
     }
 
     internal partial class MatrixCaller
     {
+        #region---- Array Copy ----
+
+        public static void ArrayCopy<T>(T[] source, int sourceInterval, T[] destination, int destinationInterval, int length)
+        {
+            //if (length <= 0) { length = Math.Min(source.Length / sourceInterval, destination.Length / destinationInterval); }
+            //else { length = Math.Min(length, Math.Min(source.Length / sourceInterval, destination.Length / destinationInterval)); }
+
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject();
+
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject();
+
+            if (destination is float[])
+            {
+                cblas_scopy(length, source_address, sourceInterval, destination_address, destinationInterval);
+            }
+            else if (destination is double[])
+            {
+                cblas_dcopy(length, source_address, sourceInterval, destination_address, destinationInterval);
+            }
+            else if (destination is Complex32[])
+            {
+                cblas_ccopy(length, source_address, sourceInterval, destination_address, destinationInterval);
+            }
+            else if (destination is Complex[])
+            {
+                cblas_zcopy(length, source_address, sourceInterval, destination_address, destinationInterval);
+            }
+            else { throw new System.Exception("Data type not supported"); }
+
+            source_GC.Free();
+            destination_GC.Free();
+        }
+
+        public static void ArrayCopy<T>(IntPtr source, T[] destination, int sourceInterval)
+        {
+            GCHandle destination_GC = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            IntPtr destination_address = destination_GC.AddrOfPinnedObject();
+
+            int size = destination.Length;
+
+            if (destination is float[])
+            {
+                cblas_scopy(size, source, sourceInterval, destination_address, 1);
+            }
+            else if (destination is double[])
+            {
+                cblas_dcopy(size, source, sourceInterval, destination_address, 1);
+            }
+            else if (destination is Complex32[])
+            {
+                cblas_ccopy(size, source, sourceInterval, destination_address, 1);
+            }
+            else if (destination is Complex[])
+            {
+                cblas_zcopy(size, source, sourceInterval, destination_address, 1);
+            }
+            else { throw new System.Exception("Data type not supported"); }
+
+            destination_GC.Free();
+        }
+
+        public static void ArrayCopy<T>(T[] source, IntPtr destination, int destinationInterval)
+        {
+            GCHandle source_GC = GCHandle.Alloc(source, GCHandleType.Pinned);
+            IntPtr source_address = source_GC.AddrOfPinnedObject();
+
+            int size = source.Length;
+
+            if (source is float[])
+            {
+                cblas_scopy(size, source_address, 1, destination, destinationInterval);
+            }
+            else if (source is double[])
+            {
+                cblas_dcopy(size, source_address, 1, destination, destinationInterval);
+            }
+            else if (source is Complex32[])
+            {
+                cblas_ccopy(size, source_address, 1, destination, destinationInterval);
+            }
+            else if (source is Complex[])
+            {
+                cblas_zcopy(size, source_address, 1, destination, destinationInterval);
+            }
+            else { throw new System.Exception("Data type not supported"); }
+
+            source_GC.Free();
+        }
+
+        #endregion
+
         #region---- MKL DLL Caller ----
 
 #if dspLinux
@@ -441,6 +524,25 @@ namespace SeeSharpTools.JXI.Mathematics.LinearAlgebra.Matrix
 
         [DllImport(mklDllName, CallingConvention = MKLCallingConvertion, ExactSpelling = true, SetLastError = false)]
         internal static extern int cblas_zcopy(int n, IntPtr x, int incx, IntPtr y, int incy);
+        #endregion
+
+        #region ---- Memory Management  (Support Functions -> Memory Management) ---- 
+
+        [DllImport(mklDllName, CallingConvention = MKLCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        internal static extern void MKL_free(IntPtr a_ptr);
+
+        [DllImport(mklDllName, CallingConvention = MKLCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        internal static extern IntPtr MKL_malloc(int alloc_size, int alignment);
+
+        [DllImport(mklDllName, CallingConvention = MKLCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        internal static extern IntPtr MKL_calloc(int num, int size, int alignment);
+
+        [DllImport(mklDllName, CallingConvention = MKLCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        internal static extern IntPtr MKL_realloc(IntPtr ptr, int size);
+
+        [DllImport(mklDllName, CallingConvention = MKLCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        internal static extern void MKL_Free_Buffers();
+
         #endregion
     }
 

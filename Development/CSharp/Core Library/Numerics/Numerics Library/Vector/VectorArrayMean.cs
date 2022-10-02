@@ -10,6 +10,38 @@ namespace SeeSharpTools.JXI.Numerics
         #region ---- Mean ----
 
         /// <summary>
+        /// 对 float 数组求平均
+        /// </summary>
+        public static float ArrayMean(float[] a)
+        {
+            float mean;
+            ippsMean_32f(a, a.Length, out mean);
+            return mean;
+        }
+
+        /// <summary>
+        /// 对 float 数组求平均
+        /// </summary>
+        public static float ArrayMean(float[] a, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            float mean;
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(float) * start;
+
+            ippsMean_32f(offset, length, out mean);
+
+            a_GC.Free();
+
+            return mean;
+        }
+
+        /// <summary>
         /// 对 double 数组求平均
         /// </summary>
         public static double ArrayMean(double[] a)
@@ -20,12 +52,62 @@ namespace SeeSharpTools.JXI.Numerics
         }
 
         /// <summary>
-        /// 对 float 数组求平均
+        /// 对 double 数组求平均
         /// </summary>
-        public static float ArrayMean(float[] a)
+        public static double ArrayMean(double[] a, int start, int length = 0)
         {
-            float mean;
-            ippsMean_32f(a, a.Length, out mean);
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            double mean;
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(double) * start;
+
+            ippsMean_64f(offset, length, out mean);
+
+            a_GC.Free();
+
+            return mean;
+        }
+
+        /// <summary>
+        /// 对 Complex32 数组求平均
+        /// </summary>
+        public static Complex32 ArrayMean(Complex32[] a)
+        {
+            Complex32 mean;
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+
+            ippsMean_32fc(a_address, a.Length, out mean);
+
+            a_GC.Free();
+            return mean;
+        }
+
+        /// <summary>
+        /// 对 Complex32 数组求平均
+        /// </summary>
+        public static Complex32 ArrayMean(Complex32[] a, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            Complex32 mean;
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(float) * start * 2;
+
+            ippsMean_32fc(offset, length, out mean);
+
+            a_GC.Free();
+
             return mean;
         }
 
@@ -46,18 +128,24 @@ namespace SeeSharpTools.JXI.Numerics
         }
 
         /// <summary>
-        /// 对 Complex32 数组求平均
+        /// 对 Complex 数组求平均
         /// </summary>
-        public static Complex32 ArrayMean(Complex32[] a)
+        public static Complex ArrayMean(Complex[] a, int start, int length = 0)
         {
-            Complex32 mean;
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            Complex mean;
 
             GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
             IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(double) * start * 2;
 
-            ippsMean_32fc(a_address, a.Length, out mean);
+            ippsMean_64fc(offset, length, out mean);
 
             a_GC.Free();
+
             return mean;
         }
 
@@ -86,7 +174,7 @@ namespace SeeSharpTools.JXI.Numerics
 
             Complex32 vectorSum = ArraySum(PolarToComplex(ConstInit(length, 1.0f), phase));
             weight = (float)(vectorSum.Magnitude / length);
-            float phaseOffset = (float) vectorSum.Phase;
+            float phaseOffset = (float)vectorSum.Phase;
 
             float[] tempPhaseArray = GetArrayAdd(phase, -phaseOffset);
             GetPhaseInRange(tempPhaseArray);
@@ -110,7 +198,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// <summary>
         /// 对 double 相位数组求平均, 向量和
         /// </summary>
-        public static void ArrayPhaseMeanWeight(double[] phase,out double mean,out double weight)
+        public static void ArrayPhaseMeanWeight(double[] phase, out double mean, out double weight)
         {
             int length = phase.Length;
 
@@ -134,7 +222,7 @@ namespace SeeSharpTools.JXI.Numerics
             }
         }
 
-        private static float GetPhaseInRange  (float phase)
+        private static float GetPhaseInRange(float phase)
         {
             GetPhaseInRange(ref phase);
             return phase;
@@ -181,13 +269,21 @@ namespace SeeSharpTools.JXI.Numerics
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMean_32f(float[] pSrc, int len, out float pMean, IppHintAlgorithm hint = IppHintAlgorithm.ippAlgHintNone);
 
-        // complex32
+        // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsMean_32fc(IntPtr pSrc, int len, out Complex32 pMean, IppHintAlgorithm hint = IppHintAlgorithm.ippAlgHintNone);
+        private static extern int ippsMean_32f(IntPtr pSrc, int len, out float pMean, IppHintAlgorithm hint = IppHintAlgorithm.ippAlgHintNone);
 
         // double
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMean_64f(double[] pSrc, int len, out double pMean);
+
+        // double
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMean_64f(IntPtr pSrc, int len, out double pMean);
+
+        // complex32
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMean_32fc(IntPtr pSrc, int len, out Complex32 pMean, IppHintAlgorithm hint = IppHintAlgorithm.ippAlgHintNone);
 
         // complex
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]

@@ -245,3 +245,6 @@ Development/CSharp/Core Library/Mathematics/Source/SeeSharpTools.JXI.Mathematics
 Document/Notes/JXI DSP-Core Note 00101_C# DSP-Core Library 文件获取.md
 Document/Notes/JXI DSP-Core Note 00010_C# DSP-Core 笔记规划.md
 Document/Notes/JXI DSP-Core Note 00010_C# DSP-Core 笔记规划.md
+
+# Dont ignore Dependency
+!**/Dependency/**

@@ -152,7 +152,7 @@ namespace SeeSharpTools.JXI.Numerics
         /// </summary>
         public static void ArrayMax(double[] a, double[] b, double[] output)
         {
-            ippsMaxEvery_64f(a,b, output, a.Length);
+            ippsMaxEvery_64f(a, b, output, a.Length);
         }
 
         /// <summary>
@@ -343,9 +343,9 @@ namespace SeeSharpTools.JXI.Numerics
         ///  获取两个 double 数组对应 index 上较小的那个数据 
         ///  output = min (a, b)
         /// </summary>
-        public static void ArrayMin(double[] a, double[] b,double[] output)
+        public static void ArrayMin(double[] a, double[] b, double[] output)
         {
-            ippsMinEvery_64f(a, b,output, a.Length);
+            ippsMinEvery_64f(a, b, output, a.Length);
         }
 
         /// <summary>
@@ -395,43 +395,61 @@ namespace SeeSharpTools.JXI.Numerics
 
         #region ---- Find Max ----
 
+        #region short
+
         /// <summary>
-        ///  获取double 数组最大值 
+        ///  获取short 数组最大值 
         /// </summary>
-        public static void ArrayFindMax(double[] a, out double max, out int maxIndex)
+        public static void ArrayFindMax(short[] a, out short max, out int maxIndex)
         {
-            ippsMaxIndx_64f(a, a.Length, out max, out maxIndex);
+            ippsMaxIndx_16s(a, a.Length, out max, out maxIndex);
         }
 
         /// <summary>
-        ///  获取 double 数组最大值 
+        ///  获取 short 数组最大值 
         /// </summary>
-        public static double ArrayFindMax(double[] a)
+        public static short ArrayFindMax(short[] a)
         {
-            double max;
+            short max;
             int maxIndex;
             ArrayFindMax(a, out max, out maxIndex);
             return max;
         }
 
         /// <summary>
-        ///  获取float 数组最大值 
+        ///  short 数组最大值 
         /// </summary>
-        public static void ArrayFindMax(float[] a, out float max, out int maxIndex)
+        public static void ArrayFindMax(short[] a, out short max, out int maxIndex, int start, int length = 0)
         {
-            ippsMaxIndx_32f(a, a.Length, out max, out maxIndex);
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(short) * start;
+
+            ippsMaxIndx_16s(offset, length, out max, out maxIndex);
+
+            a_GC.Free();
+
+            maxIndex += start;
         }
 
         /// <summary>
-        ///  获取 float 数组最大值 
+        ///  获取 short 数组最大值 
         /// </summary>
-        public static float ArrayFindMax(float[] a)
+        public static short ArrayFindMax(short[] a, int start, int length = 0)
         {
-            float max;
+            short max;
             int maxIndex;
-            ArrayFindMax(a, out max, out maxIndex);
+            ArrayFindMax(a, out max, out maxIndex, start, length);
             return max;
         }
+
+        #endregion
+
+        #region int
 
         /// <summary>
         ///  获取int 数组最大值 
@@ -453,65 +471,151 @@ namespace SeeSharpTools.JXI.Numerics
         }
 
         /// <summary>
-        ///  获取short 数组最大值 
+        ///  int 数组最大值 
         /// </summary>
-        public static void ArrayFindMax(short[] a, out short max, out int maxIndex)
+        public static void ArrayFindMax(int[] a, out int max, out int maxIndex, int start, int length = 0)
         {
-            ippsMaxIndx_16s(a, a.Length, out max, out maxIndex);
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(int) * start;
+
+            ippsMaxIndx_32s(offset, length, out max, out maxIndex);
+
+            a_GC.Free();
+
+            maxIndex += start;
         }
 
         /// <summary>
-        ///  获取 short 数组最大值 
+        ///  获取 int 数组最大值 
         /// </summary>
-        public static short ArrayFindMax(short[] a)
+        public static int ArrayFindMax(int[] a, int start, int length = 0)
         {
-            short max;
+            int max;
             int maxIndex;
-            ArrayFindMax(a, out max, out maxIndex);
+            ArrayFindMax(a, out max, out maxIndex, start, length);
             return max;
         }
 
         #endregion
 
+        #region float
+
+        /// <summary>
+        ///  获取float 数组最大值 
+        /// </summary>
+        public static void ArrayFindMax(float[] a, out float max, out int maxIndex)
+        {
+            ippsMaxIndx_32f(a, a.Length, out max, out maxIndex);
+        }
+
+        /// <summary>
+        ///  获取 float 数组最大值 
+        /// </summary>
+        public static float ArrayFindMax(float[] a)
+        {
+            float max;
+            int maxIndex;
+            ArrayFindMax(a, out max, out maxIndex);
+            return max;
+        }
+
+        /// <summary>
+        ///  float 数组最大值 
+        /// </summary>
+        public static void ArrayFindMax(float[] a, out float max, out int maxIndex, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(float) * start;
+
+            ippsMaxIndx_32f(offset, length, out max, out maxIndex);
+
+            a_GC.Free();
+
+            maxIndex += start;
+        }
+
+        /// <summary>
+        ///  获取 float 数组最大值 
+        /// </summary>
+        public static float ArrayFindMax(float[] a, int start, int length = 0)
+        {
+            float max;
+            int maxIndex;
+            ArrayFindMax(a, out max, out maxIndex, start, length);
+            return max;
+        }
+
+        #endregion
+
+        #region double
+
+        /// <summary>
+        ///  获取double 数组最大值 
+        /// </summary>
+        public static void ArrayFindMax(double[] a, out double max, out int maxIndex)
+        {
+            ippsMaxIndx_64f(a, a.Length, out max, out maxIndex);
+        }
+
+        /// <summary>
+        ///  获取 double 数组最大值 
+        /// </summary>
+        public static double ArrayFindMax(double[] a)
+        {
+            double max;
+            int maxIndex;
+            ArrayFindMax(a, out max, out maxIndex);
+            return max;
+        }
+
+        /// <summary>
+        ///  获取double 数组最大值 
+        /// </summary>
+        public static void ArrayFindMax(double[] a, out double max, out int maxIndex, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(double) * start;
+
+            ippsMaxIndx_64f(offset, length, out max, out maxIndex);
+
+            a_GC.Free();
+
+            maxIndex += start;
+        }
+
+        /// <summary>
+        ///  获取 double 数组最大值 
+        /// </summary>
+        public static double ArrayFindMax(double[] a, int start, int length = 0)
+        {
+            double max;
+            int maxIndex;
+            ArrayFindMax(a, out max, out maxIndex, start, length);
+            return max;
+        }
+
+        #endregion
+
+        #endregion
+
         #region ---- Find Min ----
 
-        /// <summary>
-        ///  获取double 数组最小值 
-        /// </summary>
-        public static void ArrayFindMin(double[] a, out double min, out int minIndex)
-        {
-            ippsMinIndx_64f(a, a.Length, out min, out minIndex);
-        }
-
-        /// <summary>
-        ///  获取 double 数组最小值 
-        /// </summary>
-        public static double ArrayFindMin(double[] a)
-        {
-            double min;
-            int minIndex;
-            ArrayFindMin(a, out min, out minIndex);
-            return min;
-        }
-
-        /// <summary>
-        ///  获取float 数组最小值 
-        /// </summary>
-        public static void ArrayFindMin(float[] a, out float min, out int minIndex)
-        {
-            ippsMinIndx_32f(a, a.Length, out min, out minIndex);
-        }
-
-        /// <summary>
-        ///  获取 float 数组最小值 
-        /// </summary>
-        public static float ArrayFindMin(float[] a)
-        {
-            float min;
-            int minIndex;
-            ArrayFindMin(a, out min, out minIndex);
-            return min;
-        }
+        #region short
 
         /// <summary>
         ///  获取short 数组最小值 
@@ -533,7 +637,42 @@ namespace SeeSharpTools.JXI.Numerics
         }
 
         /// <summary>
-        ///  获取int 数组最小值 
+        ///  获取 short 数组最小值 
+        /// </summary>
+        public static void ArrayFindMin(short[] a, out short min, out int minIndex, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(short) * start;
+
+            ippsMinIndx_16s(offset, length, out min, out minIndex);
+
+            a_GC.Free();
+
+            minIndex += start;
+        }
+
+        /// <summary>
+        ///  获取 short 数组最小值  
+        /// </summary>
+        public static short ArrayFindMin(short[] a, int start, int length = 0)
+        {
+            short min;
+            int minIndex;
+            ArrayFindMin(a, out min, out minIndex, start, length);
+            return min;
+        }
+
+        #endregion
+
+        #region int
+
+        /// <summary>
+        ///  获取 int 数组最小值 
         /// </summary>
         public static void ArrayFindMin(int[] a, out int min, out int minIndex)
         {
@@ -551,28 +690,185 @@ namespace SeeSharpTools.JXI.Numerics
             return min;
         }
 
+        /// <summary>
+        ///  获取 int 数组最小值 
+        /// </summary>
+        public static void ArrayFindMin(int[] a, out int min, out int minIndex, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(int) * start;
+
+            ippsMinIndx_32s(offset, length, out min, out minIndex);
+
+            a_GC.Free();
+
+            minIndex += start;
+        }
+
+        /// <summary>
+        ///  获取 int 数组最小值  
+        /// </summary>
+        public static int ArrayFindMin(int[] a, int start, int length = 0)
+        {
+            int min;
+            int minIndex;
+            ArrayFindMin(a, out min, out minIndex, start, length);
+            return min;
+        }
+
+        #endregion
+
+        #region float
+
+        /// <summary>
+        ///  获取float 数组最小值 
+        /// </summary>
+        public static void ArrayFindMin(float[] a, out float min, out int minIndex)
+        {
+            ippsMinIndx_32f(a, a.Length, out min, out minIndex);
+        }
+
+        /// <summary>
+        ///  获取 float 数组最小值 
+        /// </summary>
+        public static float ArrayFindMin(float[] a)
+        {
+            float min;
+            int minIndex;
+            ArrayFindMin(a, out min, out minIndex);
+            return min;
+        }
+
+        /// <summary>
+        ///  获取 float 数组最小值 
+        /// </summary>
+        public static void ArrayFindMin(float[] a, out float min, out int minIndex, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(float) * start;
+
+            ippsMinIndx_32f(offset, length, out min, out minIndex);
+
+            a_GC.Free();
+
+            minIndex += start;
+        }
+
+        /// <summary>
+        ///  获取 float 数组最小值  
+        /// </summary>
+        public static float ArrayFindMin(float[] a, int start, int length = 0)
+        {
+            float min;
+            int minIndex;
+            ArrayFindMin(a, out min, out minIndex, start, length);
+            return min;
+        }
+
+        #endregion
+
+        #region double
+
+        /// <summary>
+        ///  获取double 数组最小值 
+        /// </summary>
+        public static void ArrayFindMin(double[] a, out double min, out int minIndex)
+        {
+            ippsMinIndx_64f(a, a.Length, out min, out minIndex);
+        }
+
+        /// <summary>
+        ///  获取 double 数组最小值 
+        /// </summary>
+        public static double ArrayFindMin(double[] a)
+        {
+            double min;
+            int minIndex;
+            ArrayFindMin(a, out min, out minIndex);
+            return min;
+        }
+
+        /// <summary>
+        ///  获取 double 数组最小值 
+        /// </summary>
+        public static void ArrayFindMin(double[] a, out double min, out int minIndex, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(double) * start;
+
+            ippsMinIndx_64f(offset, length, out min, out minIndex);
+
+            a_GC.Free();
+
+            minIndex += start;
+        }
+
+        /// <summary>
+        ///  获取 double 数组最小值  
+        /// </summary>
+        public static double ArrayFindMin(double[] a, int start, int length = 0)
+        {
+            double min;
+            int minIndex;
+            ArrayFindMin(a, out min, out minIndex, start, length);
+            return min;
+        }
+
+        #endregion
+
         #endregion
 
         #region ---- Find MaxMin ----
 
+        #region short
         /// <summary>
-        ///  获取double 数组最大最小值 
+        ///  获取 short 数组最大最小值 
         /// </summary>
-        public static void ArrayFindMaxMin(double[] a, out double max, out int maxIndex, out double min, out int minIndex)
+        public static void ArrayFindMaxMin(short[] a, out short max, out int maxIndex, out short min, out int minIndex)
         {
-            ippsMinMaxIndx_64f(a, a.Length, out min, out minIndex, out max, out maxIndex);
+            ippsMinMaxIndx_16s(a, a.Length, out min, out minIndex, out max, out maxIndex);
         }
 
         /// <summary>
-        ///  获取float 数组最大最小值 
+        ///  获取 short 数组最大最小值 
         /// </summary>
-        public static void ArrayFindMaxMin(float[] a, out float max, out int maxIndex, out float min, out int minIndex)
+        public static void ArrayFindMaxMin(short[] a, out short max, out int maxIndex, out short min, out int minIndex, int start, int length = 0)
         {
-            ippsMinMaxIndx_32f(a, a.Length, out min, out minIndex, out max, out maxIndex);
-        }
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
 
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(short) * start;
+
+            ippsMinMaxIndx_16s(offset, length, out min, out minIndex, out max, out maxIndex);
+
+            a_GC.Free();
+
+            maxIndex += start;
+            minIndex += start;
+        }
+        #endregion
+
+        #region int
         /// <summary>
-        ///  获取int 数组最大最小值 
+        ///  获取 int 数组最大最小值 
         /// </summary>
         public static void ArrayFindMaxMin(int[] a, out int max, out int maxIndex, out int min, out int minIndex)
         {
@@ -580,12 +876,89 @@ namespace SeeSharpTools.JXI.Numerics
         }
 
         /// <summary>
-        ///  获取short 数组最大最小值 
+        ///  获取 int 数组最大最小值 
         /// </summary>
-        public static void ArrayFindMaxMin(short[] a, out short max, out int maxIndex, out short min, out int minIndex)
+        public static void ArrayFindMaxMin(int[] a, out int max, out int maxIndex, out int min, out int minIndex, int start, int length = 0)
         {
-            ippsMinMaxIndx_16s(a, a.Length, out min, out minIndex, out max, out maxIndex);
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(int) * start;
+
+            ippsMinMaxIndx_32s(offset, length, out min, out minIndex, out max, out maxIndex);
+
+            a_GC.Free();
+
+            maxIndex += start;
+            minIndex += start;
         }
+        #endregion
+
+        #region float
+        /// <summary>
+        ///  获取 float 数组最大最小值 
+        /// </summary>
+        public static void ArrayFindMaxMin(float[] a, out float max, out int maxIndex, out float min, out int minIndex)
+        {
+            ippsMinMaxIndx_32f(a, a.Length, out min, out minIndex, out max, out maxIndex);
+        }
+
+        /// <summary>
+        ///  获取 float 数组最大最小值 
+        /// </summary>
+        public static void ArrayFindMaxMin(float[] a, out float max, out int maxIndex, out float min, out int minIndex, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(float) * start;
+
+            ippsMinMaxIndx_32f(offset, length, out min, out minIndex, out max, out maxIndex);
+
+            a_GC.Free();
+
+            maxIndex += start;
+            minIndex += start;
+        }
+        #endregion
+
+        #region double
+        /// <summary>
+        ///  获取 double 数组最大最小值 
+        /// </summary>
+        public static void ArrayFindMaxMin(double[] a, out double max, out int maxIndex, out double min, out int minIndex)
+        {
+            ippsMinMaxIndx_64f(a, a.Length, out min, out minIndex, out max, out maxIndex);
+        }
+
+        /// <summary>
+        ///  获取 double 数组最大最小值 
+        /// </summary>
+        public static void ArrayFindMaxMin(double[] a, out double max, out int maxIndex, out double min, out int minIndex, int start, int length = 0)
+        {
+            if (length <= 0) { length = a.Length; }
+            if (start < 0) { start = 0; }
+            if (a.Length < (start + length)) { length = a.Length - start; }
+
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            IntPtr offset = a_address + sizeof(double) * start;
+
+            ippsMinMaxIndx_64f(offset, length, out min, out minIndex, out max, out maxIndex);
+
+            a_GC.Free();
+
+            maxIndex += start;
+            minIndex += start;
+        }
+        #endregion
+
         #endregion
 
 
@@ -597,7 +970,7 @@ namespace SeeSharpTools.JXI.Numerics
 
         // I32
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
-        private static extern int ippsMaxEvery_32s_I(int[]  pSrc, int[] pSrcDst, int len);
+        private static extern int ippsMaxEvery_32s_I(int[] pSrc, int[] pSrcDst, int len);
 
         // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
@@ -626,7 +999,7 @@ namespace SeeSharpTools.JXI.Numerics
         // I16
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinEvery_16s_I(short[] pSrc, short[] pSrcDst, int len);
-        
+
         // I32
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinEvery_32s_I(int[] pSrc, int[] pSrcDst, int len);
@@ -658,17 +1031,29 @@ namespace SeeSharpTools.JXI.Numerics
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMaxIndx_16s(short[] pSrc, int len, out short pMax, out int pIndx);
 
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMaxIndx_16s(IntPtr pSrc, int len, out short pMax, out int pIndx);
+
         // int
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMaxIndx_32s(int[] pSrc, int len, out int pMax, out int pIndx);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMaxIndx_32s(IntPtr pSrc, int len, out int pMax, out int pIndx);
 
         // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMaxIndx_32f(float[] pSrc, int len, out float pMax, out int pIndx);
 
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMaxIndx_32f(IntPtr pSrc, int len, out float pMax, out int pIndx);
+
         // double
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMaxIndx_64f(double[] pSrc, int len, out double pMax, out int pIndx);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMaxIndx_64f(IntPtr pSrc, int len, out double pMax, out int pIndx);
 
         #endregion
 
@@ -678,17 +1063,29 @@ namespace SeeSharpTools.JXI.Numerics
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinIndx_16s(short[] pSrc, int len, out short pMin, out int pIndx);
 
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMinIndx_16s(IntPtr pSrc, int len, out short pMin, out int pIndx);
+
         // int
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinIndx_32s(int[] pSrc, int len, out int pMin, out int pIndx);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMinIndx_32s(IntPtr pSrc, int len, out int pMin, out int pIndx);
 
         // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinIndx_32f(float[] pSrc, int len, out float pMin, out int pIndx);
 
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMinIndx_32f(IntPtr pSrc, int len, out float pMin, out int pIndx);
+
         // double
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinIndx_64f(double[] pSrc, int len, out double pMin, out int pIndx);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMinIndx_64f(IntPtr pSrc, int len, out double pMin, out int pIndx);
 
         #endregion
 
@@ -697,17 +1094,29 @@ namespace SeeSharpTools.JXI.Numerics
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinMaxIndx_16s(short[] pSrc, int len, out short pMin, out int pMinIndx, out short pMax, out int pMaxIndx);
 
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMinMaxIndx_16s(IntPtr pSrc, int len, out short pMin, out int pMinIndx, out short pMax, out int pMaxIndx);
+
         // int
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinMaxIndx_32s(int[] pSrc, int len, out int pMin, out int pMinIndx, out int pMax, out int pMaxIndx);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMinMaxIndx_32s(IntPtr pSrc, int len, out int pMin, out int pMinIndx, out int pMax, out int pMaxIndx);
 
         // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinMaxIndx_32f(float[] pSrc, int len, out float pMin, out int pMinIndx, out float pMax, out int pMaxIndx);
 
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMinMaxIndx_32f(IntPtr pSrc, int len, out float pMin, out int pMinIndx, out float pMax, out int pMaxIndx);
+
         // double
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMinMaxIndx_64f(double[] pSrc, int len, out double pMin, out int pMinIndx, out double pMax, out int pMaxIndx);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMinMaxIndx_64f(IntPtr pSrc, int len, out double pMin, out int pMinIndx, out double pMax, out int pMaxIndx);
 
         #endregion
 

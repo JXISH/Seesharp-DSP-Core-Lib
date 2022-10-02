@@ -7,6 +7,28 @@ namespace SeeSharpTools.JXI.Numerics
 {
     public partial class Vector
     {
+        /// <summary>
+        /// 数组平移自减
+        /// </summary>
+        public static T[] SelfDiffer<T>(T[] data, int delta = 1, bool rotate = false)
+        {
+            int length = data.Length;
+            T[] dataDiffer = new T[length];
+
+            Vector.ArrayRotate(data, dataDiffer, delta);
+
+            // 数组减法
+            Vector.ArraySub(dataDiffer, data);
+
+            if (!rotate)
+            {
+                T[] init = new T[delta];
+                Vector.ArrayCopy(init, dataDiffer);
+            }
+
+            return dataDiffer;
+        }
+
         #region ---- sub Templete ----
         /// <summary>
         /// 数组减法

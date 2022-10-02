@@ -78,9 +78,38 @@ namespace SeeSharpTools.JXI.Numerics
             return output;
         }
 
+        /// <summary>
+        /// 数组拷贝模板
+        /// </summary>
+        public static void ArrayScale<T>(IntPtr inout, T b, int length)
+        {
+            if (b is short b_i16)
+            {
+                ippsMulC_16s_I(b_i16, inout, length);
+            }
+            else if (b is float b_f32)
+            {
+                ippsMulC_32f_I(b_f32, inout, length);
+            }
+            else if (b is double b_f64)
+            {
+                ippsMulC_64f_I(b_f64, inout, length);
+            }
+            else if (b is Complex32 b_fc32)
+            {
+                ippsMulC_32fc_I(b_fc32, inout, length);
+            }
+            else if (b is Complex b_fc64)
+            {
+                ippsMulC_64fc_I(b_fc64, inout, length);
+            }
+            else { throw new Exception("Data type not supported"); }
+        }
+
         #endregion
 
         #region ---- scale Templete ----
+
         /// <summary>
         /// 数组乘以常数
         /// inout = inout * b
@@ -146,6 +175,8 @@ namespace SeeSharpTools.JXI.Numerics
 
         #region ---- scale ----
 
+        #region ---- scale short ----
+
         /// <summary>
         /// I16 数组乘以常数
         /// inout = inout * b
@@ -166,22 +197,17 @@ namespace SeeSharpTools.JXI.Numerics
         }
 
         /// <summary>
-        /// double数组乘以常数
+        /// I16 数组乘以常数
         /// inout = inout * b
         /// </summary>
-        internal static void ArrayScale(double[] inout, double b)
+        internal static void ArrayScale(IntPtr inout, short b, int length)
         {
-            ippsMulC_64f_I(b, inout, inout.Length);
+            ippsMulC_16s_I(b, inout, length);
         }
 
-        /// <summary>
-        /// double数组乘以常数
-        /// output = a * b
-        /// </summary>
-        internal static void ArrayScale(double[] a, double b, double[] output)
-        {
-            ippsMulC_64f(a, b, output, a.Length);
-        }
+        #endregion
+
+        #region ---- scale float ----
 
         /// <summary>
         /// float数组乘以常数
@@ -200,6 +226,94 @@ namespace SeeSharpTools.JXI.Numerics
         {
             ippsMulC_32f(a, b, output, a.Length);
         }
+
+        /// <summary>
+        /// float数组乘以常数
+        /// inout = inout * b
+        /// </summary>
+        internal static void ArrayScale(IntPtr inout, float b, int length)
+        {
+            ippsMulC_32f_I(b, inout, length);
+        }
+
+        #endregion
+
+        #region ---- scale double ----
+
+        /// <summary>
+        /// double数组乘以常数
+        /// inout = inout * b
+        /// </summary>
+        internal static void ArrayScale(double[] inout, double b)
+        {
+            ippsMulC_64f_I(b, inout, inout.Length);
+        }
+
+        /// <summary>
+        /// double数组乘以常数
+        /// output = a * b
+        /// </summary>
+        internal static void ArrayScale(double[] a, double b, double[] output)
+        {
+            ippsMulC_64f(a, b, output, a.Length);
+        }
+
+        /// <summary>
+        /// double数组乘以常数
+        /// inout = inout * b
+        /// </summary>
+        internal static void ArrayScale(IntPtr inout, double b, int length)
+        {
+            ippsMulC_64f_I(b, inout, length);
+        }
+
+        #endregion
+
+        #region ---- scale Complex32 ----
+
+        /// <summary>
+        /// Comple32数组乘以常数
+        /// inout = inout * b
+        /// </summary>
+        internal static void ArrayScale(Complex32[] inout, Complex32 b)
+        {
+            GCHandle inout_GC = GCHandle.Alloc(inout, GCHandleType.Pinned);
+            IntPtr inout_address = inout_GC.AddrOfPinnedObject();
+
+            ippsMulC_32fc_I(b, inout_address, inout.Length);
+
+            inout_GC.Free();
+        }
+
+        /// <summary>
+        /// Comple32数组乘以常数
+        /// output = a * b
+        /// </summary>
+        internal static void ArrayScale(Complex32[] a, Complex32 b, Complex32[] output)
+        {
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            GCHandle output_GC = GCHandle.Alloc(output, GCHandleType.Pinned);
+            IntPtr output_address = output_GC.AddrOfPinnedObject();
+
+            ippsMulC_32fc(a_address, b, output_address, a.Length);
+
+            a_GC.Free();
+            output_GC.Free();
+        }
+
+        /// <summary>
+        /// Comple32数组乘以常数
+        /// inout = inout * b
+        /// </summary>
+        internal static void ArrayScale(IntPtr inout, Complex32 b, int length)
+        {
+            ippsMulC_32fc_I(b, inout, length);
+        }
+
+        #endregion
+
+        #region ---- scale Complex ----
 
         /// <summary>
         /// Complex数组乘以常数
@@ -233,34 +347,12 @@ namespace SeeSharpTools.JXI.Numerics
         }
 
         /// <summary>
-        /// Comple32数组乘以常数
+        /// Complex数组乘以常数
         /// inout = inout * b
         /// </summary>
-        internal static void ArrayScale(Complex32[] inout, Complex32 b)
+        internal static void ArrayScale(IntPtr inout, Complex b, int length)
         {
-            GCHandle inout_GC = GCHandle.Alloc(inout, GCHandleType.Pinned);
-            IntPtr inout_address = inout_GC.AddrOfPinnedObject();
-
-            ippsMulC_32fc_I(b, inout_address, inout.Length);
-
-            inout_GC.Free();
-        }
-
-        /// <summary>
-        /// Comple32数组乘以常数
-        /// output = a * b
-        /// </summary>
-        internal static void ArrayScale(Complex32[] a, Complex32 b, Complex32[] output)
-        {
-            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
-            IntPtr a_address = a_GC.AddrOfPinnedObject();
-            GCHandle output_GC = GCHandle.Alloc(output, GCHandleType.Pinned);
-            IntPtr output_address = output_GC.AddrOfPinnedObject();
-
-            ippsMulC_32fc(a_address, b, output_address, a.Length);
-
-            a_GC.Free();
-            output_GC.Free();
+            ippsMulC_64fc_I(b, inout, length);
         }
 
         #endregion
@@ -294,6 +386,9 @@ namespace SeeSharpTools.JXI.Numerics
             return GetArrayScale(a, (float)b);
         }
 
+        #endregion
+
+        #region ---- scale Complex32[] * double----
 
         /// <summary>
         /// Comple32数组乘以常数
@@ -324,50 +419,7 @@ namespace SeeSharpTools.JXI.Numerics
 
         #endregion
 
-        #region ---- scale Complex * Real ----
-
-        /// <summary>
-        /// Complex数组乘以常数
-        /// inout = inout * b
-        /// </summary>
-        public static void ArrayScale(Complex[] inout, double b)
-        {
-            GCHandle inout_GC = GCHandle.Alloc(inout, GCHandleType.Pinned);
-            IntPtr inout_address = inout_GC.AddrOfPinnedObject();
-
-            ippsMulC_64f_I(b, inout_address, inout.Length * 2);
-
-            inout_GC.Free();
-        }
-
-        /// <summary>
-        /// Complex数组乘以常数
-        /// output = a * b
-        /// </summary>
-        public static void ArrayScale(Complex[] a, double b, Complex[] output)
-        {
-            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
-            IntPtr a_address = a_GC.AddrOfPinnedObject();
-            GCHandle output_GC = GCHandle.Alloc(output, GCHandleType.Pinned);
-            IntPtr output_address = output_GC.AddrOfPinnedObject();
-
-            ippsMulC_64f(a_address, b, output_address, a.Length * 2);
-
-            a_GC.Free();
-            output_GC.Free();
-        }
-
-        /// <summary>
-        /// Complex 数组乘以常数
-        /// output = a * b
-        /// </summary>
-        public static Complex[] GetArrayScale(Complex[] a, double b)
-        {
-            Complex[] output = new Complex[a.Length];
-            ArrayScale(a, b, output);
-            return output;
-        }
-
+        #region ---- scale Complex32[] * float----
 
         /// <summary>
         /// Comple32数组乘以常数
@@ -412,6 +464,55 @@ namespace SeeSharpTools.JXI.Numerics
         }
 
         #endregion
+
+        #region ---- scale Complex * double ----
+
+        /// <summary>
+        /// Complex数组乘以常数
+        /// inout = inout * b
+        /// </summary>
+        public static void ArrayScale(Complex[] inout, double b)
+        {
+            GCHandle inout_GC = GCHandle.Alloc(inout, GCHandleType.Pinned);
+            IntPtr inout_address = inout_GC.AddrOfPinnedObject();
+
+            ippsMulC_64f_I(b, inout_address, inout.Length * 2);
+
+            inout_GC.Free();
+        }
+
+        /// <summary>
+        /// Complex数组乘以常数
+        /// output = a * b
+        /// </summary>
+        public static void ArrayScale(Complex[] a, double b, Complex[] output)
+        {
+            GCHandle a_GC = GCHandle.Alloc(a, GCHandleType.Pinned);
+            IntPtr a_address = a_GC.AddrOfPinnedObject();
+            GCHandle output_GC = GCHandle.Alloc(output, GCHandleType.Pinned);
+            IntPtr output_address = output_GC.AddrOfPinnedObject();
+
+            ippsMulC_64f(a_address, b, output_address, a.Length * 2);
+
+            a_GC.Free();
+            output_GC.Free();
+        }
+
+        /// <summary>
+        /// Complex 数组乘以常数
+        /// output = a * b
+        /// </summary>
+        public static Complex[] GetArrayScale(Complex[] a, double b)
+        {
+            Complex[] output = new Complex[a.Length];
+            ArrayScale(a, b, output);
+            return output;
+        }
+
+        #endregion
+
+        #endregion
+
 
         #region ---- multi Templete ----
 
@@ -753,6 +854,9 @@ namespace SeeSharpTools.JXI.Numerics
         // I16
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
         private static extern int ippsMulC_16s_I(short val, short[] pSrcDst, int len);
+
+        [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
+        private static extern int ippsMulC_16s_I(short val, IntPtr pSrcDst, int len);
 
         // float
         [DllImport(ippDllName, CallingConvention = ippCallingConvertion, ExactSpelling = true, SetLastError = false)]
