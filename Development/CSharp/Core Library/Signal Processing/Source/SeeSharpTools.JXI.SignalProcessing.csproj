@@ -75,6 +75,7 @@
     <Compile Include="Generation\Basic Function Generators.cs" />
     <Compile Include="Generation\Generation.cs" />
     <Compile Include="Generation\NoiseGenerator.cs" />
+    <Compile Include="JTFA\GaborTransformer.cs" />
     <Compile Include="JTFA\GeneralJTFA.cs" />
     <Compile Include="JTFA\Spectrogram.cs" />
     <Compile Include="Measurements\FrequencyResponseFunction.cs" />
@@ -112,7 +113,6 @@
     <Compile Include="Window\Window.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="JTFA\RFSAJTFA\" />
     <Folder Include="Spectrum Analysis\SpectrumMeasurements\" />
   </ItemGroup>
   <ItemGroup>

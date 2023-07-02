@@ -78,6 +78,7 @@
     <Compile Include="Linear Algebra\Matrix\LinearEquationsLMS.cs" />
     <Compile Include="Linear Algebra\Matrix\Matrix.cs" />
     <Compile Include="Linear Algebra\Matrix\Multiply.cs" />
+    <Compile Include="Linear Algebra\Matrix\PseudoInverse.cs" />
     <Compile Include="Linear Algebra\Matrix\Transpose.cs" />
     <Compile Include="ProbabilityStatistics\PointByPointStatistics.cs" />
     <Compile Include="ProbabilityStatistics\ProbabilityStatistics.cs" />

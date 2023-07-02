@@ -225,22 +225,13 @@ namespace SeeSharpTools.JXI.SignalProcessing.JTFA
                 //throw new JXIParamException("spectrum的长度设置不对");
                 spectrum = new double[countOfFFT, FrequencyBins / 2];
             }
-            //生成窗函数的数据
-            var windowData = new double[FrequencyBins];
-            double cg, enbw;
-            SeeSharpTools.JXI.SignalProcessing.Window.Window.GetWindow(WindowType, ref windowData, out cg, out enbw);
-            CBLASNative.cblas_dscal(windowData.Length, 1 / cg, windowData, 1); //窗系数归一化
-            //功率归一化
-            VMLNative.vdSqr(windowData.Length, windowData, windowData);
-            double windowdataSum = CBLASNative.cblas_dasum(windowData.Length, windowData, 1);
-            CBLASNative.cblas_dscal(windowData.Length, 1 / Math.Sqrt(windowdataSum), windowData, 1);
 
             double[] subData = new double[FrequencyBins];//每次FFT计算的数据长度   
             //FFT运算  
             GeneralSpectrumTask _task = new GeneralSpectrumTask();
             _task.SampleRate = SampleRate;
             _task.InputDataType = InputDataType.Real;
-            _task.WindowType = WindowType.None;
+            _task.WindowType = WindowType;
             _task.Average.Mode = SpectrumAverageMode.NoAveraging;
             _task.Average.WeightingType = SpectrumWeightingType.LinearMoving;
             _task.Average.Size = 10;
@@ -251,7 +242,6 @@ namespace SeeSharpTools.JXI.SignalProcessing.JTFA
             {
                 var a = FrequencyBins / 4;
                 Array.Copy(data, a * i , subData, 0, FrequencyBins);
-                VMLNative.vdMul(windowData.Length, windowData, subData, subData);//subData通过窗函数
                 double[] spec = new double[subData.Length / 2];
                 _task.GetSpectrum(subData, ref spec);
                 ReplaceArraySubset(spec, ref spectrum, i);//将spec放到spectrum的指定行
@@ -336,27 +326,13 @@ namespace SeeSharpTools.JXI.SignalProcessing.JTFA
                 //throw new JXIParamException("spectrum的长度设置不对");
                 spectrum = new double[countOfFFT, FrequencyBins];
             }
-            //生成窗函数的数据
-            var windowData = new double[FrequencyBins];
-            double cg, enbw;
-            SeeSharpTools.JXI.SignalProcessing.Window.Window.GetWindow(WindowType, ref windowData, out cg, out enbw);
-            CBLASNative.cblas_dscal(windowData.Length, 1 / cg, windowData, 1); //窗系数归一化
-            //功率归一化
-            VMLNative.vdSqr(windowData.Length, windowData, windowData);
-            double windowdataSum = CBLASNative.cblas_dasum(windowData.Length, windowData, 1);
-            CBLASNative.cblas_dscal(windowData.Length, 1 / Math.Sqrt(windowdataSum), windowData, 1);
-            //生成窗函数的复数数据
-            var windowDataC = new Complex[FrequencyBins];
-            for (int i = 0; i < FrequencyBins; i++)
-            {
-                windowDataC[i] = new Complex(windowData[i], windowData[i]);
-            }
+  
 
             Complex[] subData = new Complex[FrequencyBins];//每次FFT计算的数据长度     
             GeneralSpectrumTask _task = new GeneralSpectrumTask();
             _task.SampleRate = SampleRate;
             _task.InputDataType = InputDataType.Complex;
-            _task.WindowType = WindowType.None;
+            _task.WindowType = WindowType;
             _task.Average.Mode = SpectrumAverageMode.NoAveraging;
             _task.Average.WeightingType = SpectrumWeightingType.LinearMoving;
             _task.Average.Size = 10;
@@ -366,7 +342,6 @@ namespace SeeSharpTools.JXI.SignalProcessing.JTFA
             for (int i = 0; i < countOfFFT; i++)
             {
                 Array.Copy(data, (FrequencyBins / 4* i), subData, 0, FrequencyBins);
-                VMLNative.vzMul(windowDataC.Length, windowDataC, subData, subData);//subData通过窗函数
                 double[] spec = new double[subData.Length];
                 _task.GetSpectrum(subData, ref spec);
                 ReplaceArraySubset(spec, ref spectrum, i);//将spec放到spectrum的指定行

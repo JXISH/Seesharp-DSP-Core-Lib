@@ -91,7 +91,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\SeeSharpTools.JXI.SignalProcessing.csproj">
+    <ProjectReference Include="..\..\..\Source\SeeSharpTools.JXI.SignalProcessing.csproj">
       <Project>{e7208270-5885-4739-9582-a40b3f2a4256}</Project>
       <Name>SeeSharpTools.JXI.SignalProcessing</Name>
     </ProjectReference>

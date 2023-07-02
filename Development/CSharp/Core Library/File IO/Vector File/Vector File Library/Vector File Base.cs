@@ -440,7 +440,7 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
             }
             else
             {
-                _nativeFileStream.Read((byte[])(Array)data, 0, data.Length);
+                int readLength = _nativeFileStream.Read((byte[])(Array)data, 0, data.Length);
             }
         }
 
@@ -464,7 +464,7 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
             {
                 int lengthInBytes = data.Length * sizeof(short);
                 _nativeFileInteropArray.LeastLength = lengthInBytes;
-                _nativeFileStream.Read(_nativeFileInteropArray.FlexArray, 0, lengthInBytes);
+                int readLength = _nativeFileStream.Read(_nativeFileInteropArray.FlexArray, 0, lengthInBytes);
                 Buffer.BlockCopy(_nativeFileInteropArray.FlexArray, 0, data, 0, lengthInBytes);
             }
 
@@ -489,7 +489,7 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
             {
                 int lengthInBytes = data.Length * sizeof(float);
                 _nativeFileInteropArray.LeastLength = lengthInBytes;
-                _nativeFileStream.Read(_nativeFileInteropArray.FlexArray, 0, lengthInBytes);
+                int readLength = _nativeFileStream.Read(_nativeFileInteropArray.FlexArray, 0, lengthInBytes);
                 Buffer.BlockCopy(_nativeFileInteropArray.FlexArray, 0, data, 0, lengthInBytes);
             }
 
@@ -514,7 +514,7 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
             {
                 int lengthInBytes = data.Length * sizeof(double);
                 _nativeFileInteropArray.LeastLength = lengthInBytes;
-                _nativeFileStream.Read(_nativeFileInteropArray.FlexArray, 0, lengthInBytes);
+                int readLength = _nativeFileStream.Read(_nativeFileInteropArray.FlexArray, 0, lengthInBytes);
                 Buffer.BlockCopy(_nativeFileInteropArray.FlexArray, 0, data, 0, lengthInBytes);
             }
 
@@ -535,7 +535,7 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
             else
             {
                 _nativeFileInteropArray.LeastLength = lengthInBytes;
-                _nativeFileStream.Read(_nativeFileInteropArray.FlexArray, 0, lengthInBytes);
+                int readLength = _nativeFileStream.Read(_nativeFileInteropArray.FlexArray, 0, lengthInBytes);
                 Marshal.Copy(_nativeFileInteropArray.FlexArray, 0, data, lengthInBytes);
             }
 

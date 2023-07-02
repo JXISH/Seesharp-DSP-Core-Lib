@@ -173,7 +173,7 @@ namespace SeeSharpTools.JXI.FileIO.WavFile
         public void Write(short[] data)
         {
             _nativeFileInteropArray.Copy(data, 0, data.Length);
-            _fileStream.Write(_nativeFileInteropArray.FlexArray, 0, _nativeFileInteropArray.FlexArray.Length);
+            _fileStream.Write(_nativeFileInteropArray.FlexArray, 0, data.Length * sizeof(short));
             _filePosition += (ulong)(data.Length / _numOfChannels);
             _totalSamples = Math.Max(_totalSamples, _filePosition);
         }

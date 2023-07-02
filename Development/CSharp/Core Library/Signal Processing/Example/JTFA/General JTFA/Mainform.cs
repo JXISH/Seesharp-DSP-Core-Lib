@@ -97,7 +97,7 @@ namespace JTFA
                 labeldf.Text = _task.JTFAInfomation.df.ToString();//Spectral interval
                 labeldt.Text = _task.JTFAInfomation.dt.ToString();//Time interval
                 labelf0.Text = _task.JTFAInfomation.f0.ToString();//Start frequency
-                WaterfallPlot(easyChartXWaterfall, spec, _task.JTFAInfomation.df, (double)0.002);
+                WaterfallPlot(easyChartXWaterfall, spec, _task.JTFAInfomation.df, (double)0.5);
             }
             else//Input signal is plural
             {

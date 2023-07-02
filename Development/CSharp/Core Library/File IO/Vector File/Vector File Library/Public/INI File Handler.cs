@@ -550,13 +550,13 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
         /// </exception> 
         public void DeleteKey(string section, string key)
         {
-            if (section == null)
+            if (section == null || section.Length == 0)
                 throw new ArgumentNullException("sectionName");
 
-            if (key == null)
+            if (key == null || key.Length == 0)
                 throw new ArgumentNullException("keyName");
 
-            WriteValueInternal(section, key, null);
+            _streamHandler.DeleteKey(section, key);
         }
 
         /// <summary> 
@@ -570,13 +570,12 @@ namespace SeeSharpTools.JXI.FileIO.VectorFile
         /// </exception> 
         public void DeleteSection(string section)
         {
-            if (section == null)
+            if (section == null || section.Length == 0)
                 throw new ArgumentNullException("sectionName");
 
-            WriteValueInternal(section, null, null);
+            _streamHandler.DeleteSection(section);
         }
 
         #endregion
     }
-
 }
